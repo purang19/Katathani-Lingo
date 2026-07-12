@@ -1,0 +1,70 @@
+{
+  "$comment": "A role file. This is the F&B unit we already built, restructured. Note two things: (1) it INHERITS the core, so it does not restate the apology standard; (2) it uses {{tokens}} instead of hard-coded outlet names, so the same file serves both hotels.",
+
+  "id": "fb-restaurant-service",
+  "name": { "en": "Restaurant & Room Service", "th": "บริการห้องอาหารและรูมเซอร์วิส" },
+  "guestFacing": true,
+  "source": "FB-SAN English Manual, Rev. Feb 2024",
+
+  "inherits": ["core-service-standard"],
+
+  "$comment2": "The staff member's curriculum = the inherited core units, then these. The engine resolves it. Nothing is copied.",
+
+  "units": [
+    {
+      "id": "fb-welcome",
+      "name": { "en": "Welcome & Seating", "th": "การทักทายและเชิญลูกค้านั่ง" },
+      "questions": [
+        {
+          "type": "choice",
+          "scene": "A couple walks up to the restaurant entrance. You greet them with a wai.",
+          "sceneTh": "ลูกค้าคู่หนึ่งเดินมาที่หน้าห้องอาหาร คุณไหว้ทักทาย",
+          "ask": "What do you say first?",
+          "askTh": "คุณจะพูดอะไรก่อน",
+          "options": [
+            { "t": "Sawasdee kha. Welcome to {{outlet.signature}} Restaurant. Do you have a reservation?",
+              "th": "สวัสดีค่ะ ยินดีต้อนรับสู่ห้องอาหาร {{outlet.signature}} คุณได้จองโต๊ะไว้หรือไม่คะ",
+              "v": "best",
+              "n": "Greeting, restaurant name, then the question.",
+              "nTh": "ทักทาย บอกชื่อห้องอาหาร แล้วค่อยถาม" },
+            { "t": "Hello. Do you have a reservation?", "th": "สวัสดี คุณจองไว้ไหม", "v": "ok",
+              "n": "Correct English, but cold.", "nTh": "ภาษาถูก แต่เย็นชา" },
+            { "t": "You have booking or not?", "th": "คุณจองหรือไม่จอง", "v": "bad",
+              "n": "Sounds like an interrogation.", "nTh": "ฟังดูเหมือนสอบสวน" },
+            { "t": "Yes? What do you want?", "th": "อะไรคะ ต้องการอะไร", "v": "bad",
+              "n": "Never open with this.", "nTh": "ห้ามเปิดด้วยประโยคนี้" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "fb-recommend",
+      "name": { "en": "Recommending", "th": "การแนะนำห้องอาหาร" },
+      "questions": [
+        {
+          "type": "choice",
+          "scene": "The guest likes seafood.",
+          "sceneTh": "ลูกค้าชอบซีฟู้ด",
+          "ask": "Sell the signature restaurant.",
+          "askTh": "ขายห้องอาหารซิกเนเจอร์",
+          "options": [
+            { "t": "I would recommend {{outlet.signature}}, {{outlet.signature.pitch}}. I am sure you will love it.",
+              "th": "ขอแนะนำห้องอาหาร {{outlet.signature}} ค่ะ {{outlet.signature.pitch}} ดิฉันมั่นใจว่าคุณจะต้องชอบค่ะ",
+              "v": "best",
+              "n": "Paint the evening. Don't list the facts.",
+              "nTh": "วาดภาพค่ำคืนให้ลูกค้าเห็น ไม่ใช่แค่บอกข้อมูล" },
+            { "t": "{{outlet.signature}} serves seafood.", "th": "{{outlet.signature}} เสิร์ฟซีฟู้ดค่ะ", "v": "ok",
+              "n": "True. It does not make a booking.", "nTh": "จริง แต่ไม่ทำให้ลูกค้าจอง" },
+            { "t": "It is quite expensive but it is good.", "th": "ค่อนข้างแพงนะคะ แต่ดีค่ะ", "v": "bad",
+              "n": "Never introduce a price objection yourself.", "nTh": "ห้ามเป็นคนหยิบเรื่องราคาแพงขึ้นมาเอง" },
+            { "t": "All our restaurants are good.", "th": "ห้องอาหารเราดีทุกที่ค่ะ", "v": "bad",
+              "n": "Tells them nothing, sells nothing.", "nTh": "ไม่ได้บอกอะไร และขายไม่ได้" }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "$rest": "The other 5 units (Taking the Order, Serving, The Bill, When Things Go Wrong, Room Service by Phone) migrate across unchanged — only the outlet names become tokens."
+}

@@ -1,0 +1,95 @@
+{
+  "$comment": "THE CORE. Every guest-facing role inherits this. A bellboy, a waiter, a gardener and a spa therapist all apologise the same way and all avoid the same phrases. Write it once, edit it once, and it changes for everyone at both hotels. This file is the reason the whole schema is shaped this way.",
+
+  "id": "core-service-standard",
+  "name": { "en": "The Way We Speak", "th": "วิธีที่เราพูดกับลูกค้า" },
+  "kind": "core",
+  "appliesTo": "guest-facing",
+
+  "units": [
+    {
+      "id": "core-magic-words",
+      "name": { "en": "Magic Words", "th": "คำวิเศษ" },
+      "questions": [
+        {
+          "type": "choice",
+          "scene": "A guest asks you for something you can do.",
+          "sceneTh": "ลูกค้าขอบางอย่างที่คุณทำให้ได้",
+          "ask": "What is the first word out of your mouth?",
+          "askTh": "คำแรกที่คุณจะพูดคืออะไร",
+          "options": [
+            { "t": "Certainly, sir.", "th": "ได้ค่ะ", "v": "best",
+              "n": "Certainly is the magic word. The guest hears yes before anything else.",
+              "nTh": "Certainly คือคำวิเศษ ลูกค้าได้ยินคำตอบรับก่อนอย่างอื่น" },
+            { "t": "OK.", "th": "โอเค", "v": "ok",
+              "n": "You agreed, but it sounds like effort. Certainly sounds like pleasure.",
+              "nTh": "คุณตอบตกลง แต่ฟังดูเหมือนฝืน Certainly ฟังดูเหมือนยินดี" },
+            { "t": "Wait.", "th": "รอก่อน", "v": "bad",
+              "n": "Never open by making a guest wait.",
+              "nTh": "ห้ามเปิดด้วยการให้ลูกค้ารอ" },
+            { "t": "Why?", "th": "ทำไม", "v": "bad",
+              "n": "Never ask a guest to justify a request.",
+              "nTh": "ห้ามให้ลูกค้าอธิบายเหตุผลที่ขอ" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "core-sensitive-words",
+      "name": { "en": "Words We Never Say", "th": "คำที่เราไม่พูด" },
+      "$comment": "Populate from the Sensitive Word document. Each of these belongs here rather than in a role file, because a bellboy saying 'it is the rule' is the same failure as a waiter saying it.",
+      "questions": [
+        {
+          "type": "choice",
+          "scene": "A guest asks for something the hotel does not allow.",
+          "sceneTh": "ลูกค้าขอบางอย่างที่โรงแรมไม่อนุญาต",
+          "ask": "You cannot say yes. What do you say?",
+          "askTh": "คุณตอบตกลงไม่ได้ คุณจะพูดอย่างไร",
+          "options": [
+            { "t": "I am sorry, I am afraid I cannot do that myself. May I ask my supervisor if we can arrange something for you?", "th": "ขอโทษค่ะ ดิฉันเกรงว่าจะทำเองไม่ได้ ขออนุญาตไปสอบถามหัวหน้าให้คุณนะคะ", "v": "best",
+              "n": "Never a bare no. Take it upward — the guest sees someone fighting for them.",
+              "nTh": "อย่าปฏิเสธเปล่า ๆ ให้ส่งต่อหัวหน้า ลูกค้าจะเห็นว่ามีคนพยายามช่วยเขา" },
+            { "t": "I am sorry, it is our hotel policy.", "th": "ขอโทษค่ะ เป็นนโยบายของโรงแรม", "v": "ok",
+              "n": "True — but 'policy' is a wall. Offer to ask.",
+              "nTh": "จริง แต่คำว่านโยบายคือกำแพง ให้เสนอไปถาม" },
+            { "t": "No. It is the rule.", "th": "ไม่ได้ค่ะ เป็นกฎ", "v": "bad",
+              "n": "'It is the rule' ends the conversation and starts a review.",
+              "nTh": "คำว่ามันเป็นกฎ จบบทสนทนา และเริ่มต้นรีวิวแย่ ๆ" },
+            { "t": "You must follow the rules.", "th": "คุณต้องทำตามกฎ", "v": "bad",
+              "n": "'You must' is never said to a guest.",
+              "nTh": "ห้ามพูดคำว่า คุณต้อง กับลูกค้า" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "core-apology",
+      "name": { "en": "When We Are Wrong", "th": "เมื่อเราผิด" },
+      "questions": [
+        {
+          "type": "choice",
+          "scene": "Something has gone wrong and it is the hotel's fault.",
+          "sceneTh": "มีบางอย่างผิดพลาด และเป็นความผิดของโรงแรม",
+          "ask": "Three things must be in your answer. Which one has all three?",
+          "askTh": "คำตอบต้องมีสามสิ่ง ข้อไหนมีครบทั้งสาม",
+          "options": [
+            { "t": "I am terribly sorry. This is our mistake. Let me fix it for you right away — I will take care of it myself.", "th": "ดิฉันขอโทษจริง ๆ ค่ะ เป็นความผิดพลาดของเรา ขออนุญาตแก้ไขให้คุณทันที ดิฉันจะจัดการเองค่ะ", "v": "best",
+              "n": "Apologise. Own it. Say what YOU will do. Then go and do it.",
+              "nTh": "ขอโทษ ยอมรับ บอกว่าคุณจะทำอะไร แล้วไปทำจริง ๆ" },
+            { "t": "I am terribly sorry about that.", "th": "ดิฉันขอโทษจริง ๆ ค่ะ", "v": "ok",
+              "n": "The apology is right, but nothing is being fixed. An apology without an action is just noise.",
+              "nTh": "ขอโทษถูกแล้ว แต่ยังไม่มีการแก้ไข การขอโทษที่ไม่มีการกระทำก็ไร้ความหมาย" },
+            { "t": "I am sorry, it was not my department.", "th": "ขอโทษค่ะ ไม่ใช่แผนกของดิฉัน", "v": "bad",
+              "n": "Never blame another department in front of a guest. To the guest, you ARE the hotel.",
+              "nTh": "ห้ามโทษแผนกอื่นต่อหน้าลูกค้า สำหรับลูกค้า คุณคือโรงแรม" },
+            { "t": "I am sorry, but you did not tell us before.", "th": "ขอโทษค่ะ แต่คุณไม่ได้บอกเราก่อน", "v": "bad",
+              "n": "Never turn it into the guest's mistake, even when it is.",
+              "nTh": "ห้ามทำให้กลายเป็นความผิดของลูกค้า แม้ว่ามันจะเป็นเช่นนั้นจริง" }
+          ]
+        }
+      ]
+    }
+  ]
+}

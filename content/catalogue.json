@@ -1,0 +1,73 @@
+{
+  "$comment": "The org chart. This file says WHO learns WHAT. It contains no lesson content — only assignments. Add a property here and it inherits every role's lessons for free.",
+
+  "departments": [
+    { "id": "front-office",       "name": { "en": "Front Office",       "th": "แผนกต้อนรับส่วนหน้า" } },
+    { "id": "food-beverage",      "name": { "en": "Food & Beverage",    "th": "แผนกอาหารและเครื่องดื่ม" } },
+    { "id": "housekeeping",       "name": { "en": "Housekeeping",       "th": "แผนกแม่บ้าน" } },
+    { "id": "kitchen",            "name": { "en": "Kitchen",            "th": "แผนกครัว" } },
+    { "id": "reservations",       "name": { "en": "Reservations",       "th": "แผนกสำรองห้องพัก" } },
+    { "id": "customer-relations", "name": { "en": "Customer Relations", "th": "แผนกลูกค้าสัมพันธ์" } },
+    { "id": "spa",                "name": { "en": "Spa",                "th": "แผนกสปา" } },
+    { "id": "retail",             "name": { "en": "Retail",             "th": "แผนกร้านค้า" } },
+    { "id": "it",                 "name": { "en": "IT",                 "th": "แผนกไอที" } },
+    { "id": "human-resources",    "name": { "en": "Human Resources",    "th": "แผนกทรัพยากรบุคคล" } }
+  ],
+
+  "properties": [
+    {
+      "id": "sands",
+      "assignments": [
+        { "department": "front-office",       "role": "fo-guest-service-agent" },
+        { "department": "front-office",       "role": "fo-airport-representative" },
+        { "department": "front-office",       "role": "fo-service-center" },
+        { "department": "front-office",       "role": "fo-bellboy" },
+        { "department": "front-office",       "role": "fo-operator" },
+        { "department": "front-office",       "role": "fo-tour-counter" },
+
+        { "department": "food-beverage",      "role": "fb-restaurant-service" },
+        { "department": "food-beverage",      "role": "fb-bar-service" },
+        { "department": "food-beverage",      "role": "fb-activity-kids-club" },
+        { "department": "food-beverage",      "role": "fb-pool-attendant" },
+        { "department": "food-beverage",      "role": "fb-cashier" },
+
+        { "department": "housekeeping",       "role": "hk-room-attendant" },
+        { "department": "housekeeping",       "role": "hk-area-cleaner" },
+        { "department": "housekeeping",       "role": "hk-gardener" },
+
+        { "department": "kitchen",            "role": "kt-kitchen" },
+        { "department": "reservations",       "role": "rs-reservations" },
+        { "department": "customer-relations", "role": "cr-customer-relations" },
+        { "department": "spa",                "role": "sp-spa-therapist" },
+        { "department": "retail",             "role": "rt-minimart",
+          "labelOverride": { "en": "Melon Minimart", "th": "เมล่อน มินิมาร์ท" } },
+        { "department": "it",                 "role": "it-support" },
+        { "department": "human-resources",    "role": "hr-officer" }
+      ]
+    },
+
+    {
+      "id": "little-shore",
+      "assignments": [
+        { "department": "front-office",  "role": "fo-guest-service-agent",
+          "labelOverride": { "en": "Resort Host", "th": "รีสอร์ทโฮสต์" },
+          "$comment": "Same job as the Sands GSA — different job title. Confirm this before we lock it." },
+        { "department": "front-office",  "role": "fo-bellboy" },
+
+        { "department": "food-beverage", "role": "fb-restaurant-service" },
+        { "department": "food-beverage", "role": "fb-bar-service" },
+        { "department": "food-beverage", "role": "fb-pool-attendant",
+          "labelOverride": { "en": "Pool Attendant & Activity", "th": "พนักงานดูแลสระและกิจกรรม" } },
+        { "department": "food-beverage", "role": "rt-shop",
+          "labelOverride": { "en": "Shop", "th": "ร้านค้า" },
+          "$comment": "Sits under F&B here but under Retail at the Sands. The role content is the same; only the reporting line differs. That is exactly why department is an assignment, not a property of the role." },
+
+        { "department": "housekeeping",  "role": "hk-room-attendant" },
+        { "department": "housekeeping",  "role": "hk-area-cleaner" },
+        { "department": "housekeeping",  "role": "hk-gardener" },
+
+        { "department": "kitchen",       "role": "kt-kitchen" }
+      ]
+    }
+  ]
+}

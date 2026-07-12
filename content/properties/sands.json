@@ -1,0 +1,29 @@
+{
+  "$comment": "Property variables. NO lesson content lives here — only the facts that differ between hotels. Lesson text refers to these with {{token}} and they are substituted at runtime. Adding a third property means writing one of these files and nothing else.",
+
+  "id": "sands",
+  "name": { "en": "The Sands Khao Lak", "th": "เดอะ แซนด์ส เขาหลัก" },
+  "brand": "Katathani Collection",
+
+  "vars": {
+    "property.name":        "The Sands",
+    "property.rooms":       "439",
+
+    "outlet.signature":     "Talay",
+    "outlet.signature.pitch": "right on the beach, with live music and a fresh seafood display",
+    "outlet.buffet":        "Floating Market",
+    "outlet.poolBar":       "Coconut Pool Bar",
+    "outlet.bars":          "the Pineapple Bar and the Mango Bar",
+    "outlet.shop":          "Melon Minimart",
+
+    "buffet.showNights":    "Tuesday, Thursday and Saturday",
+    "buffet.showTime":      "7:30 p.m.",
+    "bar.happyHour":        "4:30 to 6:00 p.m.",
+    "charge.corkage":       "300 baht",
+
+    "local.market":         "Bang Niang market",
+    "local.marketDays":     "Monday, Wednesday, Thursday and Saturday",
+    "local.marketHours":    "2 to 9 p.m.",
+    "local.museum":         "the Tsunami Museum"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$comment": "TODO — every value marked FILL ME needs your input. This is the entire cost of adding a property: one file of facts. No lessons are rewritten.",
+
+  "id": "little-shore",
+  "name": { "en": "The Little Shore Khao Lak", "th": "เดอะ ลิตเทิล ชอร์ เขาหลัก" },
+  "brand": "Katathani Collection",
+
+  "vars": {
+    "property.name":        "The Little Shore",
+    "property.rooms":       "FILL ME",
+
+    "outlet.signature":     "FILL ME",
+    "outlet.signature.pitch": "FILL ME — one sentence a waiter can say to sell it",
+    "outlet.buffet":        "FILL ME — or remove if there is no buffet",
+    "outlet.poolBar":       "FILL ME",
+    "outlet.bars":          "FILL ME",
+    "outlet.shop":          "FILL ME",
+
+    "buffet.showNights":    "FILL ME",
+    "buffet.showTime":      "FILL ME",
+    "bar.happyHour":        "FILL ME",
+    "charge.corkage":       "FILL ME",
+
+    "local.market":         "Bang Niang market",
+    "local.marketDays":     "Monday, Wednesday, Thursday and Saturday",
+    "local.marketHours":    "2 to 9 p.m.",
+    "local.museum":         "the Tsunami Museum"
+  },
+
+  "$note": "The local.* values are shared because both properties are in Khao Lak — a guest at either one gets the same answer about the market. If a third property opens outside Khao Lak, those values simply differ there. The mechanism already handles it."
+}

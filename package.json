@@ -1,0 +1,14 @@
+{
+  "name": "service-english",
+  "version": "1.0.0",
+  "description": "Service English for F&B staff — The Sands Khao Lak",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "@babel/standalone": "^7.24.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
