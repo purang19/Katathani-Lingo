@@ -4,7 +4,7 @@
    serving the old version from cache. That is the one thing that
    will confuse you later, so it is the first line of the file. */
 
-const CACHE = "katathani-lingo-v3";
+const CACHE = "katathani-lingo-v4";
 
 const SHELL = [
   "./",

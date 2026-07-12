@@ -67,6 +67,96 @@ const CONTENT = {
         "th": "แผนกทรัพยากรบุคคล"
       }
     }],
+    "roles": {
+      "fo-guest-service-agent": {
+        "en": "Guest Service Agent",
+        "th": "พนักงานบริการส่วนหน้า"
+      },
+      "fo-airport-representative": {
+        "en": "Airport Representative",
+        "th": "พนักงานต้อนรับสนามบิน"
+      },
+      "fo-service-center": {
+        "en": "Service Center",
+        "th": "พนักงานศูนย์บริการ"
+      },
+      "fo-bellboy": {
+        "en": "Bellboy",
+        "th": "พนักงานยกกระเป๋า"
+      },
+      "fo-operator": {
+        "en": "Operator",
+        "th": "พนักงานรับโทรศัพท์"
+      },
+      "fo-tour-counter": {
+        "en": "Tour Counter",
+        "th": "เคาน์เตอร์ทัวร์"
+      },
+      "fb-restaurant-service": {
+        "en": "Restaurant & Room Service",
+        "th": "บริการห้องอาหารและรูมเซอร์วิส"
+      },
+      "fb-bar-service": {
+        "en": "Bar",
+        "th": "พนักงานบาร์"
+      },
+      "fb-activity-kids-club": {
+        "en": "Activity & Kids Club",
+        "th": "กิจกรรมและคิดส์คลับ"
+      },
+      "fb-pool-attendant": {
+        "en": "Pool Attendant",
+        "th": "พนักงานดูแลสระว่ายน้ำ"
+      },
+      "fb-cashier": {
+        "en": "Cashier",
+        "th": "แคชเชียร์"
+      },
+      "hk-room-attendant": {
+        "en": "Room Attendant",
+        "th": "พนักงานทำความสะอาดห้องพัก"
+      },
+      "hk-area-cleaner": {
+        "en": "Area Cleaner",
+        "th": "พนักงานทำความสะอาดพื้นที่"
+      },
+      "hk-gardener": {
+        "en": "Gardener",
+        "th": "พนักงานดูแลสวน"
+      },
+      "kt-kitchen": {
+        "en": "Kitchen",
+        "th": "พนักงานครัว"
+      },
+      "rs-reservations": {
+        "en": "Reservations",
+        "th": "พนักงานสำรองห้องพัก"
+      },
+      "cr-customer-relations": {
+        "en": "Customer Relations",
+        "th": "พนักงานลูกค้าสัมพันธ์"
+      },
+      "sp-spa-therapist": {
+        "en": "Spa Therapist",
+        "th": "นักบำบัดสปา"
+      },
+      "rt-minimart": {
+        "en": "Minimart",
+        "th": "มินิมาร์ท"
+      },
+      "rt-shop": {
+        "en": "Shop",
+        "th": "ร้านค้า"
+      },
+      "it-support": {
+        "en": "IT Support",
+        "th": "ฝ่ายสนับสนุนไอที"
+      },
+      "hr-officer": {
+        "en": "HR Officer",
+        "th": "เจ้าหน้าที่ทรัพยากรบุคคล"
+      }
+    },
     "properties": [{
       "id": "sands",
       "assignments": [{
@@ -1981,6 +2071,10 @@ const STYLES = `
 .mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;text-align:left;cursor:pointer;width:100%;display:flex;gap:14px;align-items:center;transition:transform .12s,box-shadow .12s;}
 .mod:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(28,43,44,.07);}
 .mod:focus-visible{outline:2px solid var(--sea);outline-offset:2px;}
+.mod.soon{opacity:.6;cursor:default;}
+.mod.soon:hover{transform:none;box-shadow:none;}
+.badge{font-size:10px;font-weight:600;letter-spacing:.03em;color:var(--gold);background:var(--gold-tint);border:1px solid #EAD6B4;border-radius:999px;padding:4px 10px;white-space:nowrap;flex:0 0 auto;}
+.chev{font-size:22px;color:var(--ink-soft);line-height:1;flex:0 0 auto;padding-right:2px;}
 .num{font-family:'Fraunces',serif;font-weight:700;font-size:15px;width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--sea-tint);color:var(--sea);}
 .num.done{background:var(--sea);color:#fff;}
 .mod .body{flex:1;min-width:0;}
@@ -2201,7 +2295,88 @@ const buildCurriculum = (content, propertyId, roleId, opts) => {
 
 /* build.js injects `const CONTENT = {...}` (compiled from content/) ahead of
    this file. The guard keeps the raw .jsx harmless if it is ever run un-built. */
-const MODULES = buildCurriculum(typeof CONTENT !== "undefined" ? CONTENT : null, "sands", "fb-restaurant-service");
+const C = typeof CONTENT !== "undefined" ? CONTENT : {
+  catalogue: {
+    departments: [],
+    properties: [],
+    roles: {}
+  },
+  properties: {},
+  roles: {}
+};
+
+/* ============================================================
+   SELECTION — hotel, then department, then role.
+   All of it reads the catalogue (the org chart) that ships inside
+   CONTENT. A hotel/department/role is "available" only if it has real
+   lessons behind it; everything else shows but is marked Coming soon,
+   so the whole collection is visible from day one.
+   ============================================================ */
+
+/* A role is playable once its file has at least one unit of questions. */
+const roleAvailable = roleId => !!(C.roles[roleId] && C.roles[roleId].units && C.roles[roleId].units.length);
+
+/* A property whose facts still say "FILL ME" would render placeholders in
+   the lessons, so it is not ready even if it inherits a built role. */
+const propertyReady = propertyId => {
+  const facts = C.properties[propertyId] && C.properties[propertyId].vars || {};
+  return !Object.keys(facts).some(k => {
+    const v = facts[k];
+    const s = typeof v === "object" && v ? [v.en, v.th].join(" ") : String(v);
+    return /FILL ME/i.test(s);
+  });
+};
+const assignmentsOf = propertyId => {
+  const p = (C.catalogue.properties || []).find(x => x.id === propertyId);
+  return p && p.assignments || [];
+};
+const propertyAvailable = propertyId => propertyReady(propertyId) && assignmentsOf(propertyId).some(a => roleAvailable(a.role));
+const listProperties = () => (C.catalogue.properties || []).map(p => ({
+  id: p.id,
+  name: C.properties[p.id] && C.properties[p.id].name || {
+    en: p.id,
+    th: p.id
+  },
+  available: propertyAvailable(p.id)
+}));
+const deptName = deptId => {
+  const d = (C.catalogue.departments || []).find(x => x.id === deptId);
+  return d && d.name || {
+    en: deptId,
+    th: deptId
+  };
+};
+
+/* Departments a property actually has, in catalogue order, deduped.
+   A department is available if any of its roles is. */
+const listDepartments = propertyId => {
+  const rows = [];
+  for (const a of assignmentsOf(propertyId)) {
+    let row = rows.find(x => x.id === a.department);
+    if (!row) {
+      row = {
+        id: a.department,
+        name: deptName(a.department),
+        available: false
+      };
+      rows.push(row);
+    }
+    if (roleAvailable(a.role)) row.available = true;
+  }
+  return rows;
+};
+
+/* Label priority: the per-assignment override (e.g. Melon Minimart, Resort
+   Host), then a built role's own name, then the catalogue name registry. */
+const roleLabel = (roleId, labelOverride) => labelOverride || C.roles[roleId] && C.roles[roleId].name || C.catalogue.roles && C.catalogue.roles[roleId] || {
+  en: roleId,
+  th: roleId
+};
+const listRoles = (propertyId, departmentId) => assignmentsOf(propertyId).filter(a => a.department === departmentId).map(a => ({
+  id: a.role,
+  name: roleLabel(a.role, a.labelOverride),
+  available: roleAvailable(a.role)
+}));
 
 /* ============================================================ */
 
@@ -2286,103 +2461,287 @@ const sentenceOf = q => q.type === "order" ? q.words.join(" ") : q.sentence.join
 /* ============================================================ */
 
 function App() {
-  const [view, setView] = useState("home");
+  /* property -> department -> role -> home (that role's lessons) -> lesson */
+  const [view, setView] = useState("property");
+  const [propertyId, setPropertyId] = useState(null);
+  const [departmentId, setDepartmentId] = useState(null);
+  const [roleId, setRoleId] = useState(null);
   const [activeId, setActiveId] = useState(null);
-  const [progress, setProgress] = useState({});
-  const [xp, setXp] = useState(0);
-  const [thaiOn, setThaiOn] = useState(true);
+
+  /* One store for everyone: { thaiOn, roles: { "property/role": { progress, xp } } } */
+  const [store, setStore] = useState({
+    thaiOn: true,
+    roles: {}
+  });
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     (async () => {
+      let next = null;
       try {
-        const r = await window.storage.get("sands_fb_english_v2");
-        if (r && r.value) {
-          const d = JSON.parse(r.value);
-          setProgress(d.progress || {});
-          setXp(d.xp || 0);
-          if (typeof d.thaiOn === "boolean") setThaiOn(d.thaiOn);
-        }
+        const r = await window.storage.get("katathani_lingo_v3");
+        if (r && r.value) next = JSON.parse(r.value);
       } catch (e) {
-        /* first run */
+        /* no v3 yet */
       }
+      if (!next) {
+        /* migrate the old F&B-only save so no one loses their progress */
+        try {
+          const old = await window.storage.get("sands_fb_english_v2");
+          if (old && old.value) {
+            const d = JSON.parse(old.value);
+            next = {
+              thaiOn: typeof d.thaiOn === "boolean" ? d.thaiOn : true,
+              roles: {
+                "sands/fb-restaurant-service": {
+                  progress: d.progress || {},
+                  xp: d.xp || 0
+                }
+              }
+            };
+          }
+        } catch (e2) {
+          /* first run ever */
+        }
+      }
+      if (!next) next = {
+        thaiOn: true,
+        roles: {}
+      };
+      if (!next.roles) next.roles = {};
+      if (typeof next.thaiOn !== "boolean") next.thaiOn = true;
+      setStore(next);
       setLoaded(true);
     })();
   }, []);
-  const persist = async (p, x, t) => {
+  const persist = async s => {
     try {
-      await window.storage.set("sands_fb_english_v2", JSON.stringify({
-        progress: p,
-        xp: x,
-        thaiOn: t
-      }));
+      await window.storage.set("katathani_lingo_v3", JSON.stringify(s));
     } catch (e) {
       /* in-memory only */
     }
   };
-  const finish = (modId, earned, max) => {
-    const pct = Math.round(earned / max * 100);
-    const p = {
-      ...progress,
+  const curKey = propertyId && roleId ? propertyId + "/" + roleId : null;
+  const roleState = curKey && store.roles[curKey] || {
+    progress: {},
+    xp: 0
+  };
+  const totalXp = Object.keys(store.roles).reduce((n, k) => n + (store.roles[k].xp || 0), 0);
+  const finish = (modId, earned, maxPts) => {
+    if (!curKey) return;
+    const pct = Math.round(earned / maxPts * 100);
+    const prev = store.roles[curKey] || {
+      progress: {},
+      xp: 0
+    };
+    const progress = {
+      ...prev.progress,
       [modId]: {
-        pct: Math.max(pct, progress[modId]?.pct || 0)
+        pct: Math.max(pct, prev.progress[modId]?.pct || 0)
       }
     };
-    const x = xp + earned;
-    setProgress(p);
-    setXp(x);
-    persist(p, x, thaiOn);
+    const s = {
+      ...store,
+      roles: {
+        ...store.roles,
+        [curKey]: {
+          progress,
+          xp: (prev.xp || 0) + earned
+        }
+      }
+    };
+    setStore(s);
+    persist(s);
   };
   const toggleThai = () => {
-    const t = !thaiOn;
-    setThaiOn(t);
-    persist(progress, xp, t);
+    const s = {
+      ...store,
+      thaiOn: !store.thaiOn
+    };
+    setStore(s);
+    persist(s);
   };
-  const active = MODULES.find(m => m.id === activeId);
+  const modules = useMemo(() => propertyId && roleId ? buildCurriculum(C, propertyId, roleId) : [], [propertyId, roleId]);
+  const active = modules.find(m => m.id === activeId);
+  const property = propertyId ? {
+    id: propertyId,
+    name: C.properties[propertyId] && C.properties[propertyId].name || {
+      en: propertyId,
+      th: propertyId
+    }
+  } : null;
+  const selectedRoleName = () => {
+    const a = assignmentsOf(propertyId).find(x => x.role === roleId && x.department === departmentId);
+    return roleLabel(roleId, a && a.labelOverride);
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "se-root"
   }, /*#__PURE__*/React.createElement("style", null, STYLES), /*#__PURE__*/React.createElement("div", {
     className: "se-phone"
-  }, view === "home" && loaded && /*#__PURE__*/React.createElement(Home, {
-    progress: progress,
-    xp: xp,
-    thaiOn: thaiOn,
+  }, loaded && view === "property" && /*#__PURE__*/React.createElement(Picker, {
+    title: "Which hotel?",
+    titleTh: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E42\u0E23\u0E07\u0E41\u0E23\u0E21\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13",
+    thaiOn: store.thaiOn,
+    items: listProperties(),
+    onPick: id => {
+      setPropertyId(id);
+      setDepartmentId(null);
+      setRoleId(null);
+      setView("department");
+    }
+  }), loaded && view === "department" && /*#__PURE__*/React.createElement(Picker, {
+    title: "Which department?",
+    titleTh: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E41\u0E1C\u0E19\u0E01\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13",
+    thaiOn: store.thaiOn,
+    items: listDepartments(propertyId),
+    onBack: () => setView("property"),
+    onPick: id => {
+      setDepartmentId(id);
+      setRoleId(null);
+      setView("role");
+    }
+  }), loaded && view === "role" && /*#__PURE__*/React.createElement(Picker, {
+    title: "Which role?",
+    titleTh: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E15\u0E33\u0E41\u0E2B\u0E19\u0E48\u0E07\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13",
+    thaiOn: store.thaiOn,
+    items: listRoles(propertyId, departmentId),
+    onBack: () => setView("department"),
+    onPick: id => {
+      setRoleId(id);
+      setActiveId(null);
+      setView("home");
+    }
+  }), loaded && view === "home" && /*#__PURE__*/React.createElement(Home, {
+    modules: modules,
+    property: property,
+    roleName: selectedRoleName(),
+    progress: roleState.progress,
+    xp: totalXp,
+    thaiOn: store.thaiOn,
     toggleThai: toggleThai,
+    onBack: () => setView("role"),
     onPick: id => {
       setActiveId(id);
       setView("lesson");
     }
-  }), view === "lesson" && active && /*#__PURE__*/React.createElement(Lesson, {
+  }), loaded && view === "lesson" && active && /*#__PURE__*/React.createElement(Lesson, {
     key: active.id,
     module: active,
-    thaiOn: thaiOn,
+    thaiOn: store.thaiOn,
     onQuit: () => setView("home"),
     onDone: (e, m) => finish(active.id, e, m),
     onHome: () => setView("home")
   })));
 }
 
+/* ---------------- PICKER (hotel / department / role) ---------------- */
+
+function Picker({
+  title,
+  titleTh,
+  items,
+  onPick,
+  onBack,
+  thaiOn
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "top"
+  }, onBack ? /*#__PURE__*/React.createElement("button", {
+    className: "x",
+    onClick: onBack,
+    "aria-label": "Back"
+  }, "\u2039") : /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 22
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "hd",
+    style: {
+      paddingTop: 2
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Katathani Lingo"), /*#__PURE__*/React.createElement("div", {
+    className: "sub"
+  }, "Learn. Practice. Serve."))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "2px 20px 12px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Fraunces, serif",
+      fontSize: 20,
+      fontWeight: 700
+    }
+  }, title), thaiOn && /*#__PURE__*/React.createElement("div", {
+    className: "th",
+    style: {
+      fontSize: 13,
+      color: "var(--ink-soft)",
+      marginTop: 2
+    }
+  }, titleTh)), /*#__PURE__*/React.createElement("div", {
+    className: "list"
+  }, items.map(it => /*#__PURE__*/React.createElement("button", {
+    key: it.id,
+    className: "mod" + (it.available ? "" : " soon"),
+    disabled: !it.available,
+    onClick: () => it.available && onPick(it.id)
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "body"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "en"
+  }, it.name.en), thaiOn && /*#__PURE__*/React.createElement("div", {
+    className: "thai th"
+  }, it.name.th)), it.available ? /*#__PURE__*/React.createElement("span", {
+    className: "chev"
+  }, "\u203A") : /*#__PURE__*/React.createElement("span", {
+    className: "badge"
+  }, thaiOn ? "Coming soon · เร็ว ๆ นี้" : "Coming soon")))));
+}
+
 /* ---------------- HOME ---------------- */
 
 function Home({
+  modules,
+  property,
+  roleName,
   progress,
   xp,
   thaiOn,
   toggleThai,
-  onPick
+  onPick,
+  onBack
 }) {
-  const totalQ = MODULES.reduce((n, m) => n + m.questions.length, 0);
+  const totalQ = modules.reduce((n, m) => n + m.questions.length, 0);
   const [sound, setSound] = useState(null); // null | "ok" | "none"
-
+  const hotelEn = property && property.name.en || "our hotel";
+  const roleEn = roleName && roleName.en || "";
+  const roleTh = roleName && roleName.th || "";
   const testSound = () => {
     if (!speechAvailable()) {
       setSound("none");
       return;
     }
-    const spoke = say("Good evening. Welcome to The Sands.");
+    const spoke = say("Good evening. Welcome to " + hotelEn + ".");
     setSound(spoke ? "ok" : "none");
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "hd"
+    className: "top"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "x",
+    onClick: onBack,
+    "aria-label": "Change hotel or department"
+  }, "\u2039"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "hd",
+    style: {
+      paddingTop: 2
+    }
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Katathani Lingo"), /*#__PURE__*/React.createElement("div", {
     className: "sub"
   }, "Learn. Practice. Serve.")), /*#__PURE__*/React.createElement("div", {
@@ -2399,9 +2758,15 @@ function Home({
       color: "var(--ink)",
       fontWeight: 600
     }
-  }, "The Sands \xB7 Food & Beverage"), /*#__PURE__*/React.createElement("span", {
+  }, hotelEn, roleEn ? " · " + roleEn : ""), thaiOn && roleTh && /*#__PURE__*/React.createElement("span", {
+    className: "th",
     style: {
       display: "block"
+    }
+  }, roleTh), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      marginTop: 3
     }
   }, totalQ, " real situations from the floor."), /*#__PURE__*/React.createElement("span", {
     className: "th",
@@ -2436,7 +2801,7 @@ function Home({
       marginTop: 8,
       lineHeight: 1.5
     }
-  }, "You should have heard \u201CGood evening. Welcome to The Sands.\u201D If not, check the side switch on your phone and turn the volume up \u2014 the silent switch mutes speech.", /*#__PURE__*/React.createElement("span", {
+  }, "You should have heard \u201CGood evening. Welcome to ", hotelEn, ".\u201D If not, check the side switch on your phone and turn the volume up \u2014 the silent switch mutes speech.", /*#__PURE__*/React.createElement("span", {
     className: "th",
     style: {
       display: "block"
@@ -2455,7 +2820,7 @@ function Home({
     }
   }, "\u0E40\u0E1A\u0E23\u0E32\u0E27\u0E4C\u0E40\u0E0B\u0E2D\u0E23\u0E4C\u0E19\u0E35\u0E49\u0E44\u0E21\u0E48\u0E21\u0E35\u0E40\u0E2A\u0E35\u0E22\u0E07\u0E1E\u0E39\u0E14 \u0E25\u0E2D\u0E07\u0E40\u0E1B\u0E34\u0E14\u0E41\u0E2D\u0E1B\u0E43\u0E19 Chrome \u0E2B\u0E23\u0E37\u0E2D Safari \u0E42\u0E14\u0E22\u0E15\u0E23\u0E07"))), /*#__PURE__*/React.createElement("div", {
     className: "list"
-  }, MODULES.map((m, i) => {
+  }, modules.map((m, i) => {
     const pct = progress[m.id]?.pct || 0;
     return /*#__PURE__*/React.createElement("button", {
       key: m.id,
