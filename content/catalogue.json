@@ -14,6 +14,35 @@
     { "id": "human-resources",    "name": { "en": "Human Resources",    "th": "แผนกทรัพยากรบุคคล" } }
   ],
 
+  "$rolesComment": "Display names for every role, so the pickers can label a role even before its lessons exist. A built role also carries its own name in its role file; a per-assignment labelOverride (below) still wins over this registry.",
+  "roles": {
+    "fo-guest-service-agent":   { "en": "Guest Service Agent",       "th": "พนักงานบริการส่วนหน้า" },
+    "fo-airport-representative":{ "en": "Airport Representative",     "th": "พนักงานต้อนรับสนามบิน" },
+    "fo-service-center":        { "en": "Service Center",            "th": "พนักงานศูนย์บริการ" },
+    "fo-bellboy":               { "en": "Bellboy",                   "th": "พนักงานยกกระเป๋า" },
+    "fo-operator":              { "en": "Operator",                  "th": "พนักงานรับโทรศัพท์" },
+    "fo-tour-counter":          { "en": "Tour Counter",              "th": "เคาน์เตอร์ทัวร์" },
+
+    "fb-restaurant-service":    { "en": "Restaurant & Room Service", "th": "บริการห้องอาหารและรูมเซอร์วิส" },
+    "fb-bar-service":           { "en": "Bar",                       "th": "พนักงานบาร์" },
+    "fb-activity-kids-club":    { "en": "Activity & Kids Club",      "th": "กิจกรรมและคิดส์คลับ" },
+    "fb-pool-attendant":        { "en": "Pool Attendant",            "th": "พนักงานดูแลสระว่ายน้ำ" },
+    "fb-cashier":               { "en": "Cashier",                   "th": "แคชเชียร์" },
+
+    "hk-room-attendant":        { "en": "Room Attendant",            "th": "พนักงานทำความสะอาดห้องพัก" },
+    "hk-area-cleaner":          { "en": "Area Cleaner",              "th": "พนักงานทำความสะอาดพื้นที่" },
+    "hk-gardener":              { "en": "Gardener",                  "th": "พนักงานดูแลสวน" },
+
+    "kt-kitchen":               { "en": "Kitchen",                   "th": "พนักงานครัว" },
+    "rs-reservations":          { "en": "Reservations",              "th": "พนักงานสำรองห้องพัก" },
+    "cr-customer-relations":    { "en": "Customer Relations",        "th": "พนักงานลูกค้าสัมพันธ์" },
+    "sp-spa-therapist":         { "en": "Spa Therapist",             "th": "นักบำบัดสปา" },
+    "rt-minimart":              { "en": "Minimart",                  "th": "มินิมาร์ท" },
+    "rt-shop":                  { "en": "Shop",                      "th": "ร้านค้า" },
+    "it-support":               { "en": "IT Support",                "th": "ฝ่ายสนับสนุนไอที" },
+    "hr-officer":               { "en": "HR Officer",                "th": "เจ้าหน้าที่ทรัพยากรบุคคล" }
+  },
+
   "properties": [
     {
       "id": "sands",
