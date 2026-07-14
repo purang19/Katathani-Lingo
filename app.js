@@ -31,6 +31,12 @@ const CONTENT = {
         "th": "แผนกครัว"
       }
     }, {
+      "id": "engineering",
+      "name": {
+        "en": "Engineering",
+        "th": "แผนกช่าง"
+      }
+    }, {
       "id": "reservations",
       "name": {
         "en": "Reservations",
@@ -128,6 +134,10 @@ const CONTENT = {
         "en": "Kitchen",
         "th": "พนักงานครัว"
       },
+      "eng-maintenance": {
+        "en": "Maintenance Technician",
+        "th": "ช่างซ่อมบำรุง"
+      },
       "rs-reservations": {
         "en": "Reservations",
         "th": "พนักงานสำรองห้องพัก"
@@ -205,6 +215,9 @@ const CONTENT = {
         "department": "kitchen",
         "role": "kt-kitchen"
       }, {
+        "department": "engineering",
+        "role": "eng-maintenance"
+      }, {
         "department": "reservations",
         "role": "rs-reservations"
       }, {
@@ -271,6 +284,9 @@ const CONTENT = {
       }, {
         "department": "kitchen",
         "role": "kt-kitchen"
+      }, {
+        "department": "engineering",
+        "role": "eng-maintenance"
       }]
     }]
   },
@@ -467,6 +483,1282 @@ const CONTENT = {
             "v": "bad",
             "n": "Never turn it into the guest's mistake, even when it is.",
             "nTh": "ห้ามทำให้กลายเป็นความผิดของลูกค้า แม้ว่ามันจะเป็นเช่นนั้นจริง"
+          }]
+        }]
+      }]
+    },
+    "eng-maintenance": {
+      "id": "eng-maintenance",
+      "name": {
+        "en": "Maintenance Technician",
+        "th": "ช่างซ่อมบำรุง"
+      },
+      "guestFacing": true,
+      "source": "Authored for Katathani Lingo — pending the Engineering English Manual",
+      "inherits": ["core-service-standard"],
+      "units": [{
+        "id": "door",
+        "name": {
+          "en": "At the Guest's Door",
+          "th": "ที่หน้าห้องพัก"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "Reception sends you to fix the air-conditioning in Room 312. The guest is inside. You reach the door.",
+          "sceneTh": "แผนกต้อนรับส่งคุณไปซ่อมแอร์ที่ห้อง 312 ลูกค้าอยู่ในห้อง คุณมาถึงหน้าประตู",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "Knock three times. \"Good afternoon, maintenance. May I come in to check your air-conditioning?\"",
+            "th": "เคาะประตูสามครั้ง แล้วพูดว่า \"สวัสดีค่ะ ช่างซ่อมบำรุงค่ะ ขออนุญาตเข้าไปตรวจแอร์ให้นะคะ\"",
+            "v": "best",
+            "n": "Knock, say who you are, say why, and ask to come in. Never just walk in.",
+            "nTh": "เคาะประตู บอกว่าคุณเป็นใคร บอกเหตุผล แล้วขออนุญาตเข้า ห้ามเดินเข้าไปเฉย ๆ"
+          }, {
+            "t": "Knock. \"Maintenance.\"",
+            "th": "เคาะประตู แล้วพูดว่า \"ช่างค่ะ\"",
+            "v": "ok",
+            "n": "Right idea, but too bare. Add the greeting and ask permission to enter.",
+            "nTh": "ถูกทาง แต่ห้วนไป เพิ่มคำทักทายและขออนุญาตเข้าห้องด้วย"
+          }, {
+            "t": "Open the door with your key and go in.",
+            "th": "ใช้กุญแจเปิดประตูแล้วเข้าไปเลย",
+            "v": "bad",
+            "n": "The guest is inside. Entering without asking frightens them and breaks their trust.",
+            "nTh": "ลูกค้าอยู่ในห้อง การเข้าไปโดยไม่ขอทำให้ลูกค้าตกใจและเสียความไว้ใจ"
+          }, {
+            "t": "Knock hard and shout \"Room service!\"",
+            "th": "เคาะแรง ๆ แล้วตะโกนว่า \"รูมเซอร์วิส!\"",
+            "v": "bad",
+            "n": "You are not room service, and shouting is not how we knock on a guest's door.",
+            "nTh": "คุณไม่ใช่รูมเซอร์วิส และการตะโกนไม่ใช่วิธีเคาะประตูห้องลูกค้า"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The guest opens the door but does not step back to let you in.",
+          "sceneTh": "ลูกค้าเปิดประตูแต่ยังไม่ถอยให้คุณเข้า",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"May I come in, sir? I will be as quick as I can.\"",
+            "th": "\"ขออนุญาตเข้าไปนะคะ ดิฉันจะรีบทำให้เร็วที่สุดค่ะ\"",
+            "v": "best",
+            "n": "Ask again, gently, and reassure them you will not take long. May I is the magic word.",
+            "nTh": "ขออนุญาตอีกครั้งอย่างสุภาพ และบอกว่าจะรีบทำ May I คือคำวิเศษ"
+          }, {
+            "t": "\"I need to come in now.\"",
+            "th": "\"ผมต้องเข้าไปเดี๋ยวนี้ครับ\"",
+            "v": "bad",
+            "n": "Never tell a guest what you need. Ask, do not demand.",
+            "nTh": "ห้ามสั่งลูกค้าว่าคุณต้องการอะไร ให้ขอ ไม่ใช่บังคับ"
+          }, {
+            "t": "Wait silently until the guest moves.",
+            "th": "ยืนเงียบ ๆ รอจนกว่าลูกค้าจะขยับ",
+            "v": "ok",
+            "n": "Polite, but the guest may not know what you want. Say it kindly.",
+            "nTh": "สุภาพ แต่ลูกค้าอาจไม่รู้ว่าคุณต้องการอะไร พูดออกมาอย่างนุ่มนวล"
+          }, {
+            "t": "\"Excuse me, move please.\"",
+            "th": "\"ขอโทษครับ หลบหน่อยครับ\"",
+            "v": "bad",
+            "n": "'Move' is an order you give a thing, not a guest. It sounds rude in English.",
+            "nTh": "'Move' เป็นคำสั่งที่ใช้กับสิ่งของ ไม่ใช่ลูกค้า ฟังดูหยาบในภาษาอังกฤษ"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "You knock and the guest opens the door in a bathrobe, clearly just out of the shower.",
+          "sceneTh": "คุณเคาะประตู ลูกค้าเปิดออกมาในชุดคลุมอาบน้ำ เพิ่งอาบน้ำเสร็จ",
+          "guest": {
+            "en": "Oh — can you come back later? I've just got out of the shower.",
+            "th": "อ๋อ — กลับมาใหม่ทีหลังได้ไหม ฉันเพิ่งอาบน้ำเสร็จ"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Of course, madam. I am sorry to disturb you. May I come back in twenty minutes?\"",
+            "th": "\"ได้เลยค่ะ ต้องขอโทษที่รบกวนนะคะ ขออนุญาตกลับมาใหม่ในอีกยี่สิบนาทีได้ไหมคะ\"",
+            "v": "best",
+            "n": "Agree at once, apologise for disturbing, and offer a clear time. Never make a guest feel rushed.",
+            "nTh": "ตกลงทันที ขอโทษที่รบกวน และเสนอเวลาที่ชัดเจน อย่าทำให้ลูกค้ารู้สึกถูกเร่ง"
+          }, {
+            "t": "\"Okay. Bye.\"",
+            "th": "\"โอเคค่ะ บายค่ะ\"",
+            "v": "ok",
+            "n": "You agreed, but you left no plan. When will you come back? Tell them.",
+            "nTh": "คุณตกลงแล้ว แต่ไม่ได้นัดเวลา คุณจะกลับมาเมื่อไหร่ บอกลูกค้าด้วย"
+          }, {
+            "t": "\"It is fast, only five minutes.\"",
+            "th": "\"เร็วมากค่ะ แค่ห้านาที\"",
+            "v": "bad",
+            "n": "The guest asked you to come back. Pressing to enter now ignores what they said.",
+            "nTh": "ลูกค้าขอให้กลับมาใหม่ การรบเร้าจะเข้าตอนนี้คือการไม่ฟังลูกค้า"
+          }, {
+            "t": "Say nothing and walk away.",
+            "th": "ไม่พูดอะไรแล้วเดินจากไป",
+            "v": "bad",
+            "n": "Leaving without a word is not service. Acknowledge, apologise, and set a time.",
+            "nTh": "เดินจากไปเงียบ ๆ ไม่ใช่การบริการ ต้องรับคำ ขอโทษ และนัดเวลา"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You enter the room to fix the TV. The guest's laptop and papers are spread across the desk near the socket you need.",
+          "sceneTh": "คุณเข้าไปในห้องเพื่อซ่อมทีวี โน้ตบุ๊กและเอกสารของลูกค้าวางอยู่เต็มโต๊ะใกล้ปลั๊กที่คุณต้องใช้",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Excuse me, may I move your laptop to the side for a moment? I will put it back.\"",
+            "th": "\"ขอโทษนะคะ ขออนุญาตขยับโน้ตบุ๊กของคุณไปด้านข้างสักครู่ได้ไหมคะ เดี๋ยวดิฉันวางคืนให้ค่ะ\"",
+            "v": "best",
+            "n": "Never touch a guest's things without asking. Ask, then promise to put it back.",
+            "nTh": "ห้ามแตะของลูกค้าโดยไม่ขอ ขอก่อน แล้วสัญญาว่าจะวางคืน"
+          }, {
+            "t": "Move the laptop yourself and start working.",
+            "th": "ขยับโน้ตบุ๊กเองแล้วเริ่มทำงาน",
+            "v": "bad",
+            "n": "That is the guest's property. Touching it without asking can end very badly.",
+            "nTh": "นั่นคือทรัพย์สินของลูกค้า การแตะโดยไม่ขออาจจบไม่สวย"
+          }, {
+            "t": "\"Please move your things.\"",
+            "th": "\"ช่วยเก็บของด้วยครับ\"",
+            "v": "ok",
+            "n": "Better than touching it, but it puts the work on the guest. Offer to move it for them, carefully.",
+            "nTh": "ดีกว่าไปแตะเอง แต่เป็นการผลักภาระให้ลูกค้า เสนอขยับให้เองอย่างระมัดระวัง"
+          }, {
+            "t": "Work around the papers and hope nothing falls.",
+            "th": "ทำงานเลี่ยง ๆ เอกสาร แล้วหวังว่าจะไม่มีอะไรตก",
+            "v": "bad",
+            "n": "If something breaks or spills, it is on you. Clear the space properly, with permission.",
+            "nTh": "ถ้ามีอะไรพังหรือหก คุณต้องรับผิดชอบ เคลียร์พื้นที่ให้เรียบร้อยโดยขออนุญาต"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "A 'Do Not Disturb' sign hangs on Room 508, but the room below is flooding from a leak that traces to 508's bathroom. It is urgent.",
+          "sceneTh": "ป้าย 'ห้ามรบกวน' แขวนอยู่ที่ห้อง 508 แต่ห้องข้างล่างน้ำท่วมจากท่อรั่วที่มาจากห้องน้ำของ 508 เรื่องด่วน",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Call the room by phone first: explain there is a leak affecting the room below and ask permission to come in.",
+            "th": "โทรเข้าห้องก่อน อธิบายว่ามีท่อรั่วกระทบห้องข้างล่าง แล้วขออนุญาตเข้าไป",
+            "v": "best",
+            "n": "Respect the sign, but the leak cannot wait. Phone first — that honours the sign and the emergency.",
+            "nTh": "เคารพป้าย แต่ท่อรั่วรอไม่ได้ โทรก่อน เป็นการเคารพทั้งป้ายและเหตุด่วน"
+          }, {
+            "t": "Ignore the sign and knock loudly — it is an emergency.",
+            "th": "ไม่สนป้ายแล้วเคาะแรง ๆ เพราะเป็นเหตุด่วน",
+            "v": "ok",
+            "n": "The urgency is real, but barging past a DND sign should be a call first, then reception if there is no answer.",
+            "nTh": "เรื่องด่วนจริง แต่การฝ่าป้ายห้ามรบกวนควรโทรก่อน ถ้าไม่รับค่อยแจ้งแผนกต้อนรับ"
+          }, {
+            "t": "Wait until the guest removes the sign.",
+            "th": "รอจนกว่าลูกค้าจะเอาป้ายออก",
+            "v": "bad",
+            "n": "Water is pouring into another room now. Waiting turns one problem into two.",
+            "nTh": "น้ำกำลังไหลลงอีกห้องเดี๋ยวนี้ การรอทำให้ปัญหาเดียวกลายเป็นสองปัญหา"
+          }, {
+            "t": "Let yourself in quietly with your key so you don't disturb them.",
+            "th": "ใช้กุญแจเข้าไปเงียบ ๆ เพื่อไม่ให้รบกวนลูกค้า",
+            "v": "bad",
+            "n": "Entering behind a DND sign with no contact will frighten the guest and can cost you your job.",
+            "nTh": "การเข้าห้องที่ติดป้ายห้ามรบกวนโดยไม่ติดต่อทำให้ลูกค้าตกใจและอาจทำให้คุณตกงาน"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "Reception gives you key access to fix a lamp while the guest is out for the day.",
+          "sceneTh": "แผนกต้อนรับให้กุญแจเข้าไปซ่อมโคมไฟขณะที่ลูกค้าออกไปข้างนอกทั้งวัน",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Knock and announce yourself first, then enter, and leave a card saying maintenance was here and what you did.",
+            "th": "เคาะและบอกตัวตนก่อน แล้วค่อยเข้า และวางการ์ดบอกว่าช่างเข้ามาซ่อมอะไรบ้าง",
+            "v": "best",
+            "n": "Knock even when you think it is empty, and leave a note. The guest should never be surprised someone was in their room.",
+            "nTh": "เคาะแม้คิดว่าห้องว่าง และวางโน้ตไว้ ลูกค้าไม่ควรแปลกใจที่มีคนเข้าห้อง"
+          }, {
+            "t": "Enter quietly, fix it, and leave without a trace.",
+            "th": "เข้าเงียบ ๆ ซ่อมเสร็จแล้วออกไปโดยไม่ทิ้งร่องรอย",
+            "v": "ok",
+            "n": "The repair is fine, but a guest who learns someone was in their room with no note feels uneasy. Leave a card.",
+            "nTh": "ซ่อมก็เรียบร้อย แต่ลูกค้าที่รู้ทีหลังว่ามีคนเข้าห้องโดยไม่มีโน้ตจะรู้สึกไม่สบายใจ วางการ์ดไว้"
+          }, {
+            "t": "Go through the guest's things to find a better bulb.",
+            "th": "รื้อของลูกค้าเพื่อหาหลอดไฟที่ดีกว่า",
+            "v": "bad",
+            "n": "Never touch or search a guest's belongings. You are there for the lamp, nothing else.",
+            "nTh": "ห้ามแตะหรือรื้อของลูกค้า คุณมาซ่อมโคมไฟ ไม่ใช่อย่างอื่น"
+          }, {
+            "t": "Bring a friend in to help pass the time.",
+            "th": "ชวนเพื่อนเข้ามาเป็นเพื่อนแก้เบื่อ",
+            "v": "bad",
+            "n": "Only authorised staff enter a guest's room, and only for the job. Never bring anyone else.",
+            "nTh": "เฉพาะพนักงานที่ได้รับอนุญาตเท่านั้นที่เข้าห้องลูกค้าได้ และเข้าเพื่องานเท่านั้น ห้ามพาใครเข้าไป"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You knock for the third time. No answer, but you can clearly hear the shower running inside.",
+          "sceneTh": "คุณเคาะเป็นครั้งที่สาม ไม่มีใครตอบ แต่ได้ยินเสียงฝักบัวเปิดอยู่ในห้องชัดเจน",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Do not enter. Leave and come back later, or leave a note asking them to call when convenient.",
+            "th": "อย่าเข้า ออกไปแล้วกลับมาใหม่ หรือวางโน้ตขอให้ลูกค้าโทรกลับเมื่อสะดวก",
+            "v": "best",
+            "n": "Someone is in the shower. Entering now is the worst thing you can do. Come back later.",
+            "nTh": "มีคนอาบน้ำอยู่ การเข้าไปตอนนี้คือสิ่งที่แย่ที่สุด กลับมาใหม่ทีหลัง"
+          }, {
+            "t": "Enter anyway — you did knock three times.",
+            "th": "เข้าไปเลย เพราะคุณเคาะสามครั้งแล้ว",
+            "v": "bad",
+            "n": "Knocking does not give you permission when you can hear they cannot answer. Never enter.",
+            "nTh": "การเคาะไม่ใช่การได้รับอนุญาต ในเมื่อได้ยินว่าลูกค้ามารับไม่ได้ ห้ามเข้าเด็ดขาด"
+          }, {
+            "t": "Wait outside the door until the shower stops.",
+            "th": "ยืนรอหน้าประตูจนกว่าเสียงฝักบัวจะหยุด",
+            "v": "ok",
+            "n": "Not harmful, but standing outside a guest's door is uncomfortable for them. Better to return later.",
+            "nTh": "ไม่ได้เป็นอันตราย แต่การยืนรอหน้าประตูทำให้ลูกค้าอึดอัด กลับมาใหม่ดีกว่า"
+          }, {
+            "t": "Knock much harder so they hear you over the water.",
+            "th": "เคาะแรงขึ้นอีกมากเพื่อให้ได้ยินเสียงคุณกลบเสียงน้ำ",
+            "v": "bad",
+            "n": "Pounding on the door of someone in the shower is alarming. Leave them be.",
+            "nTh": "การทุบประตูใส่คนที่กำลังอาบน้ำทำให้ตกใจ ปล่อยเขาไว้เถอะ"
+          }]
+        }]
+      }, {
+        "id": "problem",
+        "name": {
+          "en": "Understanding the Problem",
+          "th": "เข้าใจปัญหา"
+        },
+        "questions": [{
+          "type": "guest",
+          "scene": "You are in the room. You need to know exactly what is wrong before you open anything.",
+          "sceneTh": "คุณอยู่ในห้องแล้ว คุณต้องรู้ว่าปัญหาคืออะไรแน่ ๆ ก่อนจะเริ่มเปิดอะไร",
+          "guest": {
+            "en": "The air-conditioning isn't working.",
+            "th": "แอร์ไม่ทำงานเลย"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I see. Is it not cold, or is it not turning on at all?\"",
+            "th": "\"เข้าใจค่ะ มันไม่เย็น หรือว่าเปิดไม่ติดเลยคะ\"",
+            "v": "best",
+            "n": "One kind question saves you twenty minutes. Find out which problem it is before you start.",
+            "nTh": "คำถามดี ๆ หนึ่งคำถามช่วยประหยัดเวลายี่สิบนาที หาให้เจอว่าเป็นปัญหาแบบไหนก่อนเริ่ม"
+          }, {
+            "t": "\"Okay, I will check it.\"",
+            "th": "\"ได้ค่ะ เดี๋ยวดิฉันตรวจดูให้\"",
+            "v": "ok",
+            "n": "Fine, but you learned nothing. A quick question first tells you where to look.",
+            "nTh": "ก็โอเค แต่คุณยังไม่รู้อะไรเลย ถามสั้น ๆ ก่อนจะช่วยให้รู้ว่าต้องดูตรงไหน"
+          }, {
+            "t": "\"The air-con here is always a problem.\"",
+            "th": "\"แอร์ที่นี่มีปัญหาประจำเลยค่ะ\"",
+            "v": "bad",
+            "n": "Never tell a guest the hotel's equipment is bad. Fix it, do not complain about it.",
+            "nTh": "ห้ามบอกลูกค้าว่าอุปกรณ์ของโรงแรมไม่ดี ซ่อมมัน ไม่ใช่บ่นเรื่องมัน"
+          }, {
+            "t": "\"Are you sure you turned it on?\"",
+            "th": "\"คุณแน่ใจนะคะว่าเปิดแล้ว\"",
+            "v": "bad",
+            "n": "This sounds like you are blaming the guest. Ask about the fault, not about them.",
+            "nTh": "ฟังดูเหมือนโทษลูกค้า ถามเรื่องอาการเสีย ไม่ใช่เรื่องตัวลูกค้า"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest is describing a problem with the bathroom.",
+          "sceneTh": "ลูกค้ากำลังอธิบายปัญหาในห้องน้ำ",
+          "guest": {
+            "en": "There's no hot water in the shower this morning.",
+            "th": "เช้านี้น้ำในฝักบัวไม่ร้อนเลย"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I am sorry about that. Let me check it now — may I run the shower to see?\"",
+            "th": "\"ต้องขอโทษด้วยนะคะ เดี๋ยวดิฉันตรวจให้เลยค่ะ ขออนุญาตเปิดฝักบัวดูได้ไหมคะ\"",
+            "v": "best",
+            "n": "Apologise, act, and ask before you use their bathroom. All three, briefly.",
+            "nTh": "ขอโทษ ลงมือทำ และขอก่อนใช้ห้องน้ำของลูกค้า ครบสามอย่างแบบสั้น ๆ"
+          }, {
+            "t": "\"Sometimes it takes a long time to get hot.\"",
+            "th": "\"บางทีก็ใช้เวลานานกว่าจะร้อนค่ะ\"",
+            "v": "bad",
+            "n": "That is an excuse, not a fix. Do not explain the problem away — go and check it.",
+            "nTh": "นั่นคือข้อแก้ตัว ไม่ใช่การซ่อม อย่าอธิบายให้ปัญหาหายไป ให้ไปตรวจ"
+          }, {
+            "t": "\"I will check the water heater.\"",
+            "th": "\"เดี๋ยวดิฉันจะไปตรวจเครื่องทำน้ำร้อนค่ะ\"",
+            "v": "ok",
+            "n": "Good action, but you skipped the sorry. A word of apology first costs nothing.",
+            "nTh": "ลงมือดี แต่ลืมขอโทษ คำขอโทษก่อนไม่เสียอะไรเลย"
+          }, {
+            "t": "\"Every room is like this today.\"",
+            "th": "\"วันนี้ทุกห้องเป็นเหมือนกันหมดค่ะ\"",
+            "v": "bad",
+            "n": "Even if true, this tells the guest the whole hotel is broken. Never say it.",
+            "nTh": "ต่อให้จริง ก็เท่ากับบอกลูกค้าว่าโรงแรมพังทั้งหมด ห้ามพูด"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You have found the fault: a blocked drain under the sink. The guest asks what was wrong.",
+          "sceneTh": "คุณเจอสาเหตุแล้ว ท่อใต้อ่างอุดตัน ลูกค้าถามว่าเสียตรงไหน",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"The drain was blocked, sir. I have cleared it — the water runs freely now.\"",
+            "th": "\"ท่อน้ำอุดตันค่ะ ดิฉันทะลวงออกแล้ว ตอนนี้น้ำไหลสะดวกแล้วค่ะ\"",
+            "v": "best",
+            "n": "Say what was wrong in plain words, and tell them it is fixed. Clear and calm.",
+            "nTh": "บอกอาการเสียด้วยคำง่าย ๆ และบอกว่าซ่อมเรียบร้อยแล้ว ชัดเจนและใจเย็น"
+          }, {
+            "t": "\"The P-trap had a siphon blockage in the outlet pipe.\"",
+            "th": "\"ตัวพีแทร็ปมีการอุดตันแบบไซฟอนที่ท่อทางออกค่ะ\"",
+            "v": "ok",
+            "n": "All true, but the guest is not a plumber. Use words a guest understands.",
+            "nTh": "จริงทั้งหมด แต่ลูกค้าไม่ใช่ช่างประปา ใช้คำที่ลูกค้าเข้าใจ"
+          }, {
+            "t": "\"Nothing. It is fine now.\"",
+            "th": "\"ไม่มีอะไรค่ะ ตอนนี้ปกติแล้ว\"",
+            "v": "bad",
+            "n": "The guest asked a question. Brushing it off feels like you are hiding something.",
+            "nTh": "ลูกค้าถามคำถาม การปัดตกทำให้รู้สึกเหมือนคุณปิดบังอะไรบางอย่าง"
+          }, {
+            "t": "\"Guests put too much down the sink.\"",
+            "th": "\"ลูกค้าชอบทิ้งของลงอ่างมากเกินไปค่ะ\"",
+            "v": "bad",
+            "n": "Never blame the guest, even gently. Just say what you fixed.",
+            "nTh": "ห้ามโทษลูกค้า แม้จะพูดเบา ๆ แค่บอกว่าคุณซ่อมอะไร"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest is upset — this is the second time they have called about the same TV.",
+          "sceneTh": "ลูกค้าไม่พอใจ นี่เป็นครั้งที่สองที่โทรมาเรื่องทีวีเครื่องเดิม",
+          "guest": {
+            "en": "This is the second time today. Why does nobody fix it properly?",
+            "th": "นี่ครั้งที่สองแล้ววันนี้ ทำไมไม่มีใครซ่อมให้เรียบร้อยสักที"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I am sorry you have had to call twice. I will replace the TV now so this stops for good.\"",
+            "th": "\"ต้องขอโทษที่ทำให้คุณต้องโทรมาสองครั้งนะคะ ดิฉันจะเปลี่ยนทีวีให้ใหม่เลยค่ะ จะได้จบปัญหานี้ไปเลย\"",
+            "v": "best",
+            "n": "Own the repeat, apologise for it, and give a fix that ends the problem — not another patch.",
+            "nTh": "รับเรื่องที่ต้องซ่อมซ้ำ ขอโทษ และให้การแก้ที่จบปัญหา ไม่ใช่ซ่อมชั่วคราวอีกรอบ"
+          }, {
+            "t": "\"It was fixed before. I don't know why it broke again.\"",
+            "th": "\"เมื่อกี้ซ่อมแล้วนะคะ ไม่รู้ทำไมมันเสียอีก\"",
+            "v": "bad",
+            "n": "'I don't know' leaves the guest with nothing. Never say it — say what you will do.",
+            "nTh": "'ไม่รู้' ทำให้ลูกค้าไม่เหลืออะไรเลย ห้ามพูด ให้บอกว่าคุณจะทำอะไร"
+          }, {
+            "t": "\"I am sorry. Let me look at it again.\"",
+            "th": "\"ขอโทษค่ะ ขอดูอีกครั้งนะคะ\"",
+            "v": "ok",
+            "n": "The apology is right, but 'look again' is what failed last time. Offer a real solution.",
+            "nTh": "ขอโทษถูกแล้ว แต่ 'ดูอีกครั้ง' คือสิ่งที่ล้มเหลวเมื่อกี้ เสนอทางแก้จริง ๆ"
+          }, {
+            "t": "\"That is not my fault, the other technician came.\"",
+            "th": "\"ไม่ใช่ความผิดผมนะครับ ช่างคนก่อนมาต่างหาก\"",
+            "v": "bad",
+            "n": "The guest does not care who came. To them, you are the hotel. Own it.",
+            "nTh": "ลูกค้าไม่สนว่าใครมา สำหรับเขาคุณคือโรงแรม รับผิดชอบไป"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest speaks very little English. They point at the air-conditioner and look frustrated.",
+          "sceneTh": "ลูกค้าพูดอังกฤษได้น้อยมาก ชี้ไปที่แอร์และดูหงุดหงิด",
+          "guest": {
+            "en": "No... cold. No cold.",
+            "th": "ไม่... เย็น ไม่เย็น"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Smile, point at the air-con and say slowly, \"Not cold? I check now. One minute.\" Use simple words and your hands.",
+            "th": "ยิ้ม ชี้ไปที่แอร์ แล้วพูดช้า ๆ ว่า \"ไม่เย็นใช่ไหม เดี๋ยวตรวจให้เลย หนึ่งนาที\" ใช้คำง่าย ๆ และมือช่วย",
+            "v": "best",
+            "n": "With little shared language, short words and gestures win. Slow and simple, not louder or longer.",
+            "nTh": "เมื่อภาษาไม่ตรงกัน คำสั้น ๆ กับท่าทางได้ผล ช้าและง่าย ไม่ใช่ดังขึ้นหรือยาวขึ้น"
+          }, {
+            "t": "Speak a long, full English sentence, hoping they catch some of it.",
+            "th": "พูดประโยคอังกฤษยาว ๆ เต็ม ๆ หวังว่าลูกค้าจะจับใจความได้บ้าง",
+            "v": "bad",
+            "n": "A long sentence to someone with little English just loses them. Keep it to a few clear words.",
+            "nTh": "ประโยคยาว ๆ กับคนที่พูดอังกฤษได้น้อยยิ่งทำให้งง ใช้คำชัด ๆ ไม่กี่คำ"
+          }, {
+            "t": "Speak the same English but much louder.",
+            "th": "พูดอังกฤษเหมือนเดิมแต่เสียงดังขึ้นมาก",
+            "v": "bad",
+            "n": "Louder is not clearer. It only makes the guest feel small. Slow down and use gestures.",
+            "nTh": "ดังขึ้นไม่ได้ชัดขึ้น มีแต่ทำให้ลูกค้ารู้สึกแย่ พูดช้าลงและใช้ท่าทาง"
+          }, {
+            "t": "Call reception and hand the guest the phone to explain.",
+            "th": "โทรหาแผนกต้อนรับแล้วยื่นโทรศัพท์ให้ลูกค้าอธิบายเอง",
+            "v": "ok",
+            "n": "A translator can help for something complex — but for 'not cold' you can handle it yourself with a few words.",
+            "nTh": "ล่ามช่วยได้ถ้าเรื่องซับซ้อน แต่แค่ 'ไม่เย็น' คุณจัดการเองได้ด้วยคำไม่กี่คำ"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest reports the in-room safe is locked shut and will not open. Their passport is inside.",
+          "sceneTh": "ลูกค้าแจ้งว่าตู้เซฟในห้องล็อกและเปิดไม่ออก หนังสือเดินทางอยู่ข้างใน",
+          "guest": {
+            "en": "The safe won't open and my passport is in there. I'm getting worried.",
+            "th": "ตู้เซฟเปิดไม่ออก แล้วพาสปอร์ตฉันอยู่ข้างในนั้น เริ่มกังวลแล้ว"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I understand, sir — we will get it open. For your security, may I see your ID first, then I will unlock it for you.\"",
+            "th": "\"เข้าใจค่ะ เดี๋ยวเราเปิดให้ได้แน่นอน เพื่อความปลอดภัยของคุณ ขอดูบัตรประจำตัวก่อนนะคะ แล้วดิฉันจะเปิดให้ค่ะ\"",
+            "v": "best",
+            "n": "Reassure them, then follow the security rule — confirm identity before opening a safe. Both matter.",
+            "nTh": "ทำให้ลูกค้าสบายใจ แล้วทำตามกฎความปลอดภัย ยืนยันตัวตนก่อนเปิดเซฟ สำคัญทั้งคู่"
+          }, {
+            "t": "Open the safe straight away — they are clearly the guest.",
+            "th": "เปิดเซฟให้เลย เพราะเห็นชัดว่าเป็นลูกค้า",
+            "v": "bad",
+            "n": "'Clearly the guest' is not proof. Checking ID before opening a safe protects them and you.",
+            "nTh": "'เห็นชัดว่าเป็นลูกค้า' ไม่ใช่หลักฐาน การตรวจบัตรก่อนเปิดเซฟปกป้องทั้งลูกค้าและคุณ"
+          }, {
+            "t": "\"You must go to reception to sort this out.\"",
+            "th": "\"คุณต้องไปที่แผนกต้อนรับเพื่อจัดการเรื่องนี้ค่ะ\"",
+            "v": "bad",
+            "n": "'You must' sends a worried guest away. You can open it — verify ID and help them here.",
+            "nTh": "'คุณต้อง' คือการไล่ลูกค้าที่กำลังกังวล คุณเปิดได้ ตรวจบัตรแล้วช่วยที่นี่เลย"
+          }, {
+            "t": "\"Safes do this sometimes, don't worry about it.\"",
+            "th": "\"เซฟเป็นแบบนี้บ่อย ๆ ค่ะ ไม่ต้องกังวล\"",
+            "v": "ok",
+            "n": "A little reassuring, but their passport is locked away. Act, don't just soothe.",
+            "nTh": "ปลอบได้นิดหน่อย แต่พาสปอร์ตยังถูกล็อกอยู่ ลงมือทำ ไม่ใช่แค่ปลอบ"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest complains the Wi-Fi is slow. That is IT's area, not yours.",
+          "sceneTh": "ลูกค้าบ่นว่าไวไฟช้า นั่นเป็นงานของไอที ไม่ใช่ของคุณ",
+          "guest": {
+            "en": "The internet is so slow I can't do any work. Can you fix it?",
+            "th": "อินเทอร์เน็ตช้ามากจนทำงานไม่ได้เลย ช่วยแก้ให้หน่อยได้ไหม"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I am sorry about that. I will report it to our IT team right away and ask them to call you within a few minutes.\"",
+            "th": "\"ต้องขอโทษด้วยค่ะ ดิฉันจะแจ้งทีมไอทีทันที และให้เขาโทรหาคุณภายในไม่กี่นาทีนะคะ\"",
+            "v": "best",
+            "n": "Not your job, but never say that. Own it, pass it to the right team, and give the guest a next step.",
+            "nTh": "ไม่ใช่งานคุณ แต่ห้ามพูดแบบนั้น รับเรื่อง ส่งต่อทีมที่ถูกต้อง และบอกลูกค้าว่าจะเกิดอะไรต่อ"
+          }, {
+            "t": "\"That is not my department. I only do maintenance.\"",
+            "th": "\"ไม่ใช่แผนกผมครับ ผมทำแต่งานซ่อมบำรุง\"",
+            "v": "bad",
+            "n": "'Not my department' is a phrase we never say. To the guest, you are the hotel.",
+            "nTh": "'ไม่ใช่แผนกผม' คือคำที่เราไม่พูด สำหรับลูกค้าคุณคือโรงแรม"
+          }, {
+            "t": "Try to fix the Wi-Fi router yourself even though it is not your field.",
+            "th": "พยายามซ่อมเราเตอร์ไวไฟเองทั้งที่ไม่ใช่สายงาน",
+            "v": "bad",
+            "n": "Working on kit you do not know can make it worse. Route it to IT — that helps the guest fastest.",
+            "nTh": "ไปยุ่งกับอุปกรณ์ที่ไม่ชำนาญอาจทำให้แย่ลง ส่งต่อไอทีช่วยลูกค้าได้เร็วที่สุด"
+          }, {
+            "t": "\"You can try turning it off and on yourself.\"",
+            "th": "\"ลองปิดแล้วเปิดใหม่เองดูได้นะคะ\"",
+            "v": "ok",
+            "n": "A fair tip, but you are handing the guest the work. Report it and let IT follow up.",
+            "nTh": "เป็นคำแนะนำที่พอได้ แต่เป็นการโยนงานให้ลูกค้า แจ้งเรื่องแล้วให้ไอทีตามต่อ"
+          }]
+        }]
+      }, {
+        "id": "work",
+        "name": {
+          "en": "While You Work",
+          "th": "ระหว่างซ่อม"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "To fix the leaking tap you must shut off the water to the room for about ten minutes.",
+          "sceneTh": "เพื่อซ่อมก๊อกที่รั่ว คุณต้องปิดน้ำในห้องประมาณสิบนาที",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I need to turn the water off for about ten minutes. Is that all right with you now?\"",
+            "th": "\"ดิฉันต้องปิดน้ำประมาณสิบนาทีนะคะ ตอนนี้สะดวกไหมคะ\"",
+            "v": "best",
+            "n": "Warn the guest before you cut anything off, say how long, and check the timing suits them.",
+            "nTh": "เตือนลูกค้าก่อนตัดน้ำหรือไฟ บอกว่านานแค่ไหน และเช็กว่าเวลานี้สะดวกไหม"
+          }, {
+            "t": "Turn the water off and start. They will notice.",
+            "th": "ปิดน้ำแล้วเริ่มเลย เดี๋ยวลูกค้าก็รู้เอง",
+            "v": "bad",
+            "n": "Cutting the water with no warning is how a guest ends up with soap in their eyes. Always tell them first.",
+            "nTh": "ตัดน้ำโดยไม่เตือนคือสาเหตุที่ลูกค้าโดนสบู่เข้าตา ต้องบอกก่อนเสมอ"
+          }, {
+            "t": "\"I turn off water ten minutes, okay.\"",
+            "th": "\"ปิดน้ำสิบนาทีนะครับ โอเค\"",
+            "v": "ok",
+            "n": "The message gets through, but it is a statement, not a question. Ask if the timing is okay.",
+            "nTh": "สื่อสารได้ แต่เป็นการบอก ไม่ใช่การถาม ให้ถามว่าเวลานี้สะดวกไหม"
+          }, {
+            "t": "\"Don't use the bathroom until I finish.\"",
+            "th": "\"อย่าเพิ่งใช้ห้องน้ำจนกว่าผมจะเสร็จนะครับ\"",
+            "v": "bad",
+            "n": "This orders the guest around in their own room. Explain and ask, do not command.",
+            "nTh": "นี่เป็นการสั่งลูกค้าในห้องของเขาเอง อธิบายและขอ ไม่ใช่สั่ง"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The repair is noisy — you need to drill for a minute. The guest is reading nearby.",
+          "sceneTh": "งานซ่อมเสียงดัง คุณต้องเจาะสักหนึ่งนาที ลูกค้านั่งอ่านหนังสืออยู่ใกล้ ๆ",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Excuse me, there will be some noise for about a minute. I am sorry for the disturbance.\"",
+            "th": "\"ขอโทษนะคะ จะมีเสียงดังประมาณหนึ่งนาที ต้องขออภัยที่รบกวนค่ะ\"",
+            "v": "best",
+            "n": "Warn them the noise is coming and apologise for it. A guest forgives noise they were told about.",
+            "nTh": "เตือนว่าจะมีเสียงดังและขอโทษ ลูกค้าให้อภัยเสียงที่ได้รับการบอกล่วงหน้า"
+          }, {
+            "t": "Just start drilling — it is only a minute.",
+            "th": "เจาะเลย แค่นาทีเดียวเอง",
+            "v": "bad",
+            "n": "A sudden loud noise beside a guest is a fright. One sentence of warning prevents it.",
+            "nTh": "เสียงดังจู่ ๆ ข้างลูกค้าทำให้ตกใจ ประโยคเตือนเดียวป้องกันได้"
+          }, {
+            "t": "\"Sorry, noise.\"",
+            "th": "\"ขอโทษค่ะ เสียงดัง\"",
+            "v": "ok",
+            "n": "It warns them, just barely. A full sentence sounds far more professional.",
+            "nTh": "เตือนได้แบบเฉียดฉิว ประโยคเต็มฟังดูมืออาชีพกว่ามาก"
+          }, {
+            "t": "Put your headphones in and drill.",
+            "th": "ใส่หูฟังแล้วเจาะ",
+            "v": "bad",
+            "n": "Protecting only your own ears ignores the guest completely. Warn them first.",
+            "nTh": "ป้องกันแต่หูตัวเองคือการไม่สนใจลูกค้าเลย เตือนลูกค้าก่อน"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "Halfway through, the guest looks over at the parts on the floor.",
+          "sceneTh": "ระหว่างซ่อม ลูกค้ามองมาที่อะไหล่ที่วางอยู่บนพื้น",
+          "guest": {
+            "en": "Is it going to take much longer? I have to leave at four.",
+            "th": "จะอีกนานไหม ฉันต้องออกตอนสี่โมง"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"About ten more minutes, madam. You will be able to leave on time — I will be finished well before four.\"",
+            "th": "\"อีกประมาณสิบนาทีค่ะ คุณออกได้ทันแน่นอน ดิฉันจะเสร็จก่อนสี่โมงค่ะ\"",
+            "v": "best",
+            "n": "Give a real number and answer the worry behind the question — they can still leave on time.",
+            "nTh": "ให้ตัวเลขจริง และตอบความกังวลที่ซ่อนอยู่ ว่าลูกค้ายังออกทันเวลา"
+          }, {
+            "t": "\"Maybe soon.\"",
+            "th": "\"เดี๋ยวก็เสร็จค่ะ\"",
+            "v": "ok",
+            "n": "Too vague to reassure anyone. Give a time they can plan around.",
+            "nTh": "คลุมเครือเกินกว่าจะทำให้ลูกค้าสบายใจ ให้เวลาที่ลูกค้าวางแผนได้"
+          }, {
+            "t": "\"I don't know. These things are hard to say.\"",
+            "th": "\"ไม่รู้ค่ะ งานแบบนี้บอกยาก\"",
+            "v": "bad",
+            "n": "The guest has a deadline. 'I don't know' leaves them stuck. Give your best estimate.",
+            "nTh": "ลูกค้ามีเวลานัด 'ไม่รู้' ทำให้เขาค้างเติ่ง ให้เวลาประมาณการที่ดีที่สุด"
+          }, {
+            "t": "\"If you are busy, you can go and leave me here.\"",
+            "th": "\"ถ้าคุณยุ่ง จะออกไปก่อนแล้วปล่อยผมไว้ก็ได้ครับ\"",
+            "v": "bad",
+            "n": "Never suggest working alone in a guest's room. That is a security rule, not a courtesy.",
+            "nTh": "ห้ามเสนอทำงานคนเดียวในห้องลูกค้า นั่นคือกฎความปลอดภัย ไม่ใช่แค่มารยาท"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You accidentally leave a small smudge of grease on the white bathroom counter.",
+          "sceneTh": "คุณเผลอทำคราบจาระบีเปื้อนเล็กน้อยบนเคาน์เตอร์ห้องน้ำสีขาว",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Clean it off completely before you leave, and check the floor for any parts or dust.",
+            "th": "เช็ดออกให้หมดก่อนออกจากห้อง และตรวจพื้นว่ามีอะไหล่หรือฝุ่นตกหล่นไหม",
+            "v": "best",
+            "n": "Leave the room cleaner than you found it. A guest judges the whole repair by the mess left behind.",
+            "nTh": "ทิ้งห้องให้สะอาดกว่าตอนที่เข้ามา ลูกค้าตัดสินงานซ่อมทั้งหมดจากความสะอาดที่ทิ้งไว้"
+          }, {
+            "t": "Wipe most of it and leave — housekeeping will get the rest.",
+            "th": "เช็ดออกเกือบหมดแล้วไป เดี๋ยวแม่บ้านเก็บที่เหลือเอง",
+            "v": "bad",
+            "n": "It is your mark, so it is your job. Do not leave your mess for another department.",
+            "nTh": "คราบของคุณ ก็หน้าที่ของคุณ อย่าทิ้งความเลอะให้แผนกอื่น"
+          }, {
+            "t": "Leave it — the guest will not notice.",
+            "th": "ปล่อยไว้ ลูกค้าไม่สังเกตหรอก",
+            "v": "bad",
+            "n": "On a white counter they will. A dirty mark undoes a perfect repair.",
+            "nTh": "บนเคาน์เตอร์สีขาว ลูกค้าเห็นแน่ คราบสกปรกทำลายงานซ่อมที่สมบูรณ์แบบ"
+          }, {
+            "t": "Tell the guest there is a mark for housekeeping to clean.",
+            "th": "บอกลูกค้าว่ามีคราบให้แม่บ้านมาเช็ด",
+            "v": "ok",
+            "n": "Honest, but you are handing the guest your problem. Just clean it yourself.",
+            "nTh": "ตรงไปตรงมา แต่เป็นการโยนปัญหาให้ลูกค้า เช็ดเองเลยดีกว่า"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You have most tools but need one part from the workshop. The guest is in the room.",
+          "sceneTh": "คุณมีเครื่องมือเกือบครบ แต่ต้องไปเอาอะไหล่หนึ่งชิ้นจากห้องช่าง ลูกค้าอยู่ในห้อง",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I need one part from downstairs — I will be about fifteen minutes. May I leave my toolbox here, or shall I take it with me?\"",
+            "th": "\"ดิฉันต้องไปเอาอะไหล่ชิ้นหนึ่งข้างล่าง ประมาณสิบห้านาทีค่ะ ขอวางกล่องเครื่องมือไว้ตรงนี้ หรือให้เอาไปด้วยดีคะ\"",
+            "v": "best",
+            "n": "Tell them how long, and give them the choice about your tools in their space. Respect the room.",
+            "nTh": "บอกว่านานแค่ไหน และให้ลูกค้าเลือกเรื่องเครื่องมือในพื้นที่ของเขา เคารพห้องลูกค้า"
+          }, {
+            "t": "Leave your tools all over the floor and walk out without a word.",
+            "th": "วางเครื่องมือเกลื่อนพื้นแล้วเดินออกไปโดยไม่พูดอะไร",
+            "v": "bad",
+            "n": "Leaving tools scattered with no word is unsafe and rude. Tell them, and tidy your tools.",
+            "nTh": "ทิ้งเครื่องมือเกลื่อนโดยไม่บอกเป็นทั้งอันตรายและเสียมารยาท บอกลูกค้าและเก็บเครื่องมือ"
+          }, {
+            "t": "\"Wait here, I come back,\" and leave.",
+            "th": "\"รอตรงนี้นะ เดี๋ยวมา\" แล้วเดินออกไป",
+            "v": "ok",
+            "n": "At least you spoke, but 'wait here' orders the guest and gives no time. Say how long and be polite.",
+            "nTh": "อย่างน้อยก็พูด แต่ 'รอตรงนี้' เป็นการสั่งลูกค้าและไม่บอกเวลา บอกว่านานแค่ไหนและสุภาพ"
+          }, {
+            "t": "Take the guest's key card so you can let yourself back in.",
+            "th": "เอาคีย์การ์ดของลูกค้าไปเพื่อจะได้กลับเข้ามาเอง",
+            "v": "bad",
+            "n": "Never take a guest's key. Knock again when you return, like the first time.",
+            "nTh": "ห้ามเอาคีย์การ์ดของลูกค้าไป กลับมาก็เคาะใหม่เหมือนครั้งแรก"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "You have finished a tricky repair. The pleased guest holds out a 500-baht note.",
+          "sceneTh": "คุณซ่อมงานยาก ๆ เสร็จ ลูกค้าพอใจและยื่นแบงก์ห้าร้อยบาทให้",
+          "guest": {
+            "en": "Here, this is for you. Thank you.",
+            "th": "นี่ อันนี้สำหรับคุณ ขอบคุณนะ"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"That is very kind of you, thank you. It was my pleasure to help.\"",
+            "th": "\"ใจดีจังเลยค่ะ ขอบคุณค่ะ ดิฉันยินดีที่ได้ช่วยนะคะ\"",
+            "v": "best",
+            "n": "Accept graciously and warmly, and put the service first. Simple and polite.",
+            "nTh": "รับอย่างสุภาพและอบอุ่น และให้การบริการมาก่อน เรียบง่ายและสุภาพ"
+          }, {
+            "t": "Wave it away firmly: \"No, no, I cannot, take it back.\"",
+            "th": "โบกมือปฏิเสธหนักแน่น \"ไม่ ๆ รับไม่ได้ เอาคืนไปเถอะ\"",
+            "v": "ok",
+            "n": "A firm refusal can embarrass a guest who meant well. A warm thank-you is smoother.",
+            "nTh": "การปฏิเสธแข็ง ๆ อาจทำให้ลูกค้าที่หวังดีเขิน คำขอบคุณอบอุ่น ๆ ราบรื่นกว่า"
+          }, {
+            "t": "\"Only 500? The job was difficult.\"",
+            "th": "\"แค่ห้าร้อยเองเหรอครับ งานยากนะ\"",
+            "v": "bad",
+            "n": "Never comment on the amount. That turns a kind gesture into an insult.",
+            "nTh": "ห้ามวิจารณ์จำนวนเงิน นั่นเปลี่ยนน้ำใจให้กลายเป็นการดูถูก"
+          }, {
+            "t": "Take it silently and pocket it without a word.",
+            "th": "รับมาเงียบ ๆ แล้วเก็บใส่กระเป๋าโดยไม่พูดอะไร",
+            "v": "ok",
+            "n": "Not wrong, but a simple 'thank you' is what makes it gracious.",
+            "nTh": "ไม่ผิด แต่คำ 'ขอบคุณ' ง่าย ๆ คือสิ่งที่ทำให้ดูมีน้ำใจ"
+          }]
+        }]
+      }, {
+        "id": "cantfix",
+        "name": {
+          "en": "When You Can't Fix It Now",
+          "th": "เมื่อยังซ่อมไม่ได้ตอนนี้"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "The minibar fridge needs a part you do not have on the trolley. It must be ordered.",
+          "sceneTh": "ตู้เย็นมินิบาร์ต้องใช้อะไหล่ที่ไม่มีบนรถเข็น ต้องสั่งของมาก่อน",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I am sorry — this needs a part I don't have with me. I will fetch it and come back by six this evening.\"",
+            "th": "\"ต้องขอโทษด้วยค่ะ อันนี้ต้องใช้อะไหล่ที่ดิฉันไม่ได้เอามาด้วย ดิฉันจะไปเอามาและกลับมาซ่อมให้ก่อนหกโมงเย็นนะคะ\"",
+            "v": "best",
+            "n": "Own it, explain simply, and give a real time you will return. A promise with a time is a promise kept.",
+            "nTh": "รับผิดชอบ อธิบายง่าย ๆ และให้เวลาที่จะกลับมาแน่นอน สัญญาที่มีเวลาคือสัญญาที่รักษาได้"
+          }, {
+            "t": "\"I cannot fix this. It is not my department.\"",
+            "th": "\"ผมซ่อมไม่ได้ครับ ไม่ใช่แผนกของผม\"",
+            "v": "bad",
+            "n": "'Not my department' is a phrase we never say. You are the hotel to this guest — arrange it.",
+            "nTh": "'ไม่ใช่แผนกของผม' คือคำที่เราไม่พูดเด็ดขาด สำหรับลูกค้าคุณคือโรงแรม จัดการให้"
+          }, {
+            "t": "\"I need a part. I will come back sometime.\"",
+            "th": "\"ต้องใช้อะไหล่ครับ เดี๋ยวจะกลับมา\"",
+            "v": "ok",
+            "n": "Honest, but 'sometime' worries a guest. Give a real time and they relax.",
+            "nTh": "ตรงไปตรงมา แต่ 'เดี๋ยว' ทำให้ลูกค้ากังวล ให้เวลาชัดเจนแล้วลูกค้าจะสบายใจ"
+          }, {
+            "t": "\"You will have to wait, I don't know how long.\"",
+            "th": "\"คุณต้องรอนะครับ ไม่รู้ว่านานแค่ไหน\"",
+            "v": "bad",
+            "n": "This gives the guest a problem and no plan. Never leave them with 'I don't know'.",
+            "nTh": "นี่คือการยื่นปัญหาให้ลูกค้าโดยไม่มีแผน อย่าทิ้งลูกค้าไว้กับ 'ไม่รู้'"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The repair is beyond you — it needs a specialist contractor. The guest wants an answer.",
+          "sceneTh": "งานนี้เกินความสามารถคุณ ต้องใช้ช่างผู้เชี่ยวชาญจากภายนอก ลูกค้าอยากได้คำตอบ",
+          "guest": {
+            "en": "So can you fix it or not?",
+            "th": "ตกลงซ่อมได้หรือไม่ได้"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"This one needs our specialist, sir. Let me arrange it and I will call you within the hour to confirm the time.\"",
+            "th": "\"งานนี้ต้องให้ช่างผู้เชี่ยวชาญของเราดูค่ะ ขอจัดการให้นะคะ แล้วดิฉันจะโทรแจ้งเวลาภายในหนึ่งชั่วโมงค่ะ\"",
+            "v": "best",
+            "n": "Be honest that you need help, but keep ownership — you arrange it and you follow up.",
+            "nTh": "ซื่อสัตย์ว่าต้องให้คนอื่นช่วย แต่ยังรับผิดชอบ คุณจัดการและคุณติดตามผลเอง"
+          }, {
+            "t": "\"No, I can't. Call reception.\"",
+            "th": "\"ไม่ได้ครับ โทรหาแผนกต้อนรับเอาเองนะครับ\"",
+            "v": "bad",
+            "n": "Never hand the guest the job of chasing the hotel. You make the call, not them.",
+            "nTh": "ห้ามโยนให้ลูกค้าไล่ตามเรื่องเอง คุณเป็นคนโทรจัดการ ไม่ใช่ลูกค้า"
+          }, {
+            "t": "\"I will try my best.\"",
+            "th": "\"จะพยายามเต็มที่ครับ\"",
+            "v": "ok",
+            "n": "Willing, but it answers nothing. Tell the guest the actual next step and when.",
+            "nTh": "เต็มใจดี แต่ไม่ได้ตอบอะไร บอกลูกค้าว่าขั้นตอนถัดไปคืออะไรและเมื่อไหร่"
+          }, {
+            "t": "\"Maybe tomorrow, maybe the day after.\"",
+            "th": "\"อาจจะพรุ่งนี้ หรืออาจจะมะรืนครับ\"",
+            "v": "bad",
+            "n": "Two maybes is no answer. Commit to a next step and a time to confirm.",
+            "nTh": "'อาจจะ' สองครั้งไม่ใช่คำตอบ ให้ยืนยันขั้นตอนถัดไปและเวลาที่จะแจ้งกลับ"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You have promised to return at six. It is now clear you will be twenty minutes late.",
+          "sceneTh": "คุณสัญญาว่าจะกลับมาตอนหกโมง ตอนนี้ชัดแล้วว่าคุณจะสายไปยี่สิบนาที",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Call the room before six: \"I am running about twenty minutes late, I am sorry. I will be there by 6:20.\"",
+            "th": "โทรเข้าห้องก่อนหกโมง \"ดิฉันจะไปสายประมาณยี่สิบนาที ต้องขอโทษด้วยค่ะ จะไปถึงภายใน 6 โมง 20 นะคะ\"",
+            "v": "best",
+            "n": "Tell them before the deadline passes, not after. A guest can forgive late; they cannot forgive being forgotten.",
+            "nTh": "บอกก่อนถึงเวลานัด ไม่ใช่หลังเลยเวลา ลูกค้าให้อภัยความสายได้ แต่ให้อภัยการถูกลืมไม่ได้"
+          }, {
+            "t": "Just arrive at 6:20 and apologise then.",
+            "th": "ไปถึงตอน 6 โมง 20 แล้วค่อยขอโทษ",
+            "v": "ok",
+            "n": "Better than nothing, but the guest has already waited and worried. A quick call would have saved that.",
+            "nTh": "ดีกว่าไม่ทำอะไร แต่ลูกค้ารอและกังวลไปแล้ว โทรสั้น ๆ จะช่วยได้"
+          }, {
+            "t": "Say nothing and hope they do not notice the time.",
+            "th": "ไม่พูดอะไรแล้วหวังว่าลูกค้าจะไม่สังเกตเวลา",
+            "v": "bad",
+            "n": "They gave you a time because it matters to them. Silence breaks the promise you made.",
+            "nTh": "ลูกค้าให้เวลามาเพราะมันสำคัญกับเขา การเงียบคือการผิดสัญญาที่คุณให้ไว้"
+          }, {
+            "t": "Send someone else at six without telling the guest.",
+            "th": "ให้คนอื่นไปแทนตอนหกโมงโดยไม่บอกลูกค้า",
+            "v": "bad",
+            "n": "The guest expects you. A stranger at the door with no warning is not the fix you promised.",
+            "nTh": "ลูกค้ารอคุณอยู่ คนแปลกหน้ามาที่ประตูโดยไม่บอกไม่ใช่สิ่งที่คุณสัญญาไว้"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The fridge part will not arrive until tomorrow. The guest says they keep medicine that must stay cold.",
+          "sceneTh": "อะไหล่ตู้เย็นจะมาถึงพรุ่งนี้ ลูกค้าบอกว่าเก็บยาที่ต้องแช่เย็นไว้",
+          "guest": {
+            "en": "But I have insulin in there — it has to stay cold. What do I do tonight?",
+            "th": "แต่ฉันมีอินซูลินอยู่ในนั้น มันต้องแช่เย็นตลอด คืนนี้จะทำยังไง"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I understand — this is important. I will bring a working fridge to your room within the hour, and tell my manager now.\"",
+            "th": "\"เข้าใจค่ะ เรื่องนี้สำคัญ ดิฉันจะนำตู้เย็นที่ใช้ได้มาที่ห้องคุณภายในหนึ่งชั่วโมง และแจ้งหัวหน้าเดี๋ยวนี้เลยค่ะ\"",
+            "v": "best",
+            "n": "Medicine that must stay cold is close to safety. Solve tonight now — a replacement fridge — and escalate.",
+            "nTh": "ยาที่ต้องแช่เย็นเป็นเรื่องเกือบเท่าความปลอดภัย แก้เรื่องคืนนี้ทันที หาตู้เย็นมาแทน และแจ้งหัวหน้า"
+          }, {
+            "t": "\"The part comes tomorrow, so please wait until then.\"",
+            "th": "\"อะไหล่มาพรุ่งนี้ค่ะ รบกวนรอถึงตอนนั้นนะคะ\"",
+            "v": "bad",
+            "n": "Their insulin cannot wait until tomorrow. This is urgent — find a cold place tonight.",
+            "nTh": "อินซูลินของลูกค้ารอถึงพรุ่งนี้ไม่ได้ นี่เรื่องด่วน หาที่แช่เย็นให้คืนนี้"
+          }, {
+            "t": "\"You can put it in a bucket of ice.\"",
+            "th": "\"เอาไปแช่ในถังน้ำแข็งก็ได้ค่ะ\"",
+            "v": "ok",
+            "n": "Quick thinking, but ice melts and insulin can spoil. Bring a proper working fridge.",
+            "nTh": "คิดเร็วดี แต่น้ำแข็งละลายและอินซูลินอาจเสีย หาตู้เย็นที่ใช้ได้จริงมาให้"
+          }, {
+            "t": "\"That is a problem for reception, not maintenance.\"",
+            "th": "\"อันนั้นเป็นเรื่องของแผนกต้อนรับ ไม่ใช่ช่างครับ\"",
+            "v": "bad",
+            "n": "Never pass a guest's health problem to another desk. Solve it, then inform whoever needs to know.",
+            "nTh": "ห้ามโยนปัญหาสุขภาพของลูกค้าให้แผนกอื่น แก้ก่อน แล้วค่อยแจ้งคนที่ควรรู้"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You have made a temporary fix to a wobbling ceiling fan, but the real part should be replaced to be safe.",
+          "sceneTh": "คุณซ่อมพัดลมเพดานที่สั่นแบบชั่วคราวไว้ แต่ควรเปลี่ยนอะไหล่จริงเพื่อความปลอดภัย",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I have made it safe for now, but I would like to replace the part tomorrow to be sure. May I come at ten?\"",
+            "th": "\"ดิฉันทำให้ปลอดภัยไว้ก่อนแล้ว แต่อยากเปลี่ยนอะไหล่พรุ่งนี้เพื่อความมั่นใจค่ะ ขอมาตอนสิบโมงได้ไหมคะ\"",
+            "v": "best",
+            "n": "Be honest it is temporary, and book the real fix. Do not let a safety item sit on a patch.",
+            "nTh": "ซื่อสัตย์ว่าเป็นการซ่อมชั่วคราว และนัดซ่อมจริง อย่าปล่อยเรื่องความปลอดภัยไว้แค่ซ่อมชั่วคราว"
+          }, {
+            "t": "\"All done, no problem,\" and say nothing about the part.",
+            "th": "\"เสร็จเรียบร้อย ไม่มีปัญหาค่ะ\" โดยไม่พูดเรื่องอะไหล่",
+            "v": "bad",
+            "n": "Hiding that it is only temporary on a fan over the bed is a safety risk. Tell them and book the fix.",
+            "nTh": "ปิดบังว่าเป็นการซ่อมชั่วคราวสำหรับพัดลมเหนือเตียงคือความเสี่ยง บอกลูกค้าและนัดซ่อม"
+          }, {
+            "t": "\"It might be okay, we will see.\"",
+            "th": "\"น่าจะโอเค เดี๋ยวดูกันค่ะ\"",
+            "v": "bad",
+            "n": "'We will see' on a safety fix leaves the guest exposed. Commit to replacing the part.",
+            "nTh": "'เดี๋ยวดูกัน' กับงานความปลอดภัยทำให้ลูกค้าเสี่ยง ยืนยันว่าจะเปลี่ยนอะไหล่"
+          }, {
+            "t": "\"I fixed it. If it breaks again, call us.\"",
+            "th": "\"ซ่อมแล้วค่ะ ถ้าเสียอีกโทรมาได้เลย\"",
+            "v": "ok",
+            "n": "Honest that it might fail, but a safety part should be booked, not left to break again first.",
+            "nTh": "ซื่อสัตย์ว่าอาจเสียอีก แต่อะไหล่ความปลอดภัยควรนัดเปลี่ยน ไม่ใช่รอให้เสียก่อน"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest raises their voice — they are angry the repair cannot be finished today.",
+          "sceneTh": "ลูกค้าขึ้นเสียง โกรธที่ซ่อมวันนี้ไม่เสร็จ",
+          "guest": {
+            "en": "This is ridiculous. I've waited all day and it's still broken!",
+            "th": "นี่มันเกินไปแล้ว ฉันรอทั้งวันแล้วมันยังพังอยู่เลย"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Stay calm: \"You are right to be frustrated, and I am sorry. Here is exactly what I will do and by when...\"",
+            "th": "ใจเย็น \"คุณหงุดหงิดก็ถูกแล้วค่ะ ต้องขอโทษด้วย นี่คือสิ่งที่ดิฉันจะทำและเสร็จเมื่อไหร่...\"",
+            "v": "best",
+            "n": "Do not match their heat. Acknowledge the feeling, apologise, and give a concrete plan with a time.",
+            "nTh": "อย่าขึ้นเสียงตาม รับรู้ความรู้สึก ขอโทษ และให้แผนที่ชัดเจนพร้อมเวลา"
+          }, {
+            "t": "\"There is no need to shout at me.\"",
+            "th": "\"ไม่ต้องมาตะโกนใส่ผมก็ได้นะครับ\"",
+            "v": "bad",
+            "n": "Correcting an angry guest pours fuel on the fire. Absorb it and steer to a solution.",
+            "nTh": "การไปสวนลูกค้าที่กำลังโกรธเหมือนเติมเชื้อไฟ รับไว้แล้วพาไปสู่ทางแก้"
+          }, {
+            "t": "\"It's not my fault the part is late.\"",
+            "th": "\"อะไหล่มาช้าไม่ใช่ความผิดผมนะครับ\"",
+            "v": "bad",
+            "n": "The guest does not care whose fault it is. Own the outcome and give them a plan.",
+            "nTh": "ลูกค้าไม่สนว่าเป็นความผิดใคร รับผลลัพธ์และให้แผนกับลูกค้า"
+          }, {
+            "t": "\"I'm sorry,\" and stand quietly waiting for them to calm down.",
+            "th": "\"ขอโทษค่ะ\" แล้วยืนเงียบ ๆ รอให้ลูกค้าใจเย็นลง",
+            "v": "ok",
+            "n": "The apology is right, but silence leaves them with nothing. Follow it with a clear next step.",
+            "nTh": "ขอโทษถูกแล้ว แต่การเงียบทำให้ลูกค้าไม่เหลืออะไร ตามด้วยขั้นตอนถัดไปที่ชัดเจน"
+          }]
+        }]
+      }, {
+        "id": "safety",
+        "name": {
+          "en": "Safety First",
+          "th": "ความปลอดภัยต้องมาก่อน"
+        },
+        "questions": [{
+          "type": "guest",
+          "scene": "The guest points at the wall socket by the desk. It is black around the edge and there is a faint burning smell.",
+          "sceneTh": "ลูกค้าชี้ไปที่ปลั๊กผนังข้างโต๊ะ ขอบปลั๊กมีรอยดำและมีกลิ่นไหม้จาง ๆ",
+          "guest": {
+            "en": "I plugged in my charger and it made a spark. Is it safe?",
+            "th": "ฉันเสียบที่ชาร์จแล้วมันมีประกายไฟ มันปลอดภัยไหม"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"Please do not touch it, sir. I will switch off the power to it now and make it safe before anything else.\"",
+            "th": "\"อย่าเพิ่งแตะนะคะ ดิฉันจะตัดไฟตรงนั้นเดี๋ยวนี้และทำให้ปลอดภัยก่อนอย่างอื่นค่ะ\"",
+            "v": "best",
+            "n": "This is safety, not service. Stop the guest touching it and cut the power first — everything else waits. Then report it.",
+            "nTh": "นี่คือความปลอดภัย ไม่ใช่การบริการ ห้ามลูกค้าแตะและตัดไฟก่อน อย่างอื่นรอได้ แล้วรายงานต่อ"
+          }, {
+            "t": "\"It is probably fine, just don't use that one.\"",
+            "th": "\"น่าจะไม่เป็นไรค่ะ แค่อย่าใช้อันนั้น\"",
+            "v": "bad",
+            "n": "A sparking, burnt socket can start a fire. 'Probably fine' can get someone hurt. Cut the power.",
+            "nTh": "ปลั๊กที่ไหม้และมีประกายไฟทำให้เกิดไฟไหม้ได้ 'น่าจะไม่เป็นไร' ทำให้คนบาดเจ็บได้ ตัดไฟทันที"
+          }, {
+            "t": "\"Let me plug something in to test it.\"",
+            "th": "\"เดี๋ยวขอเสียบอะไรลองดูนะคะ\"",
+            "v": "bad",
+            "n": "Never test a burnt socket by using it. Isolate the power first, then inspect it safely.",
+            "nTh": "ห้ามทดสอบปลั๊กที่ไหม้ด้วยการใช้งาน ตัดไฟก่อน แล้วค่อยตรวจอย่างปลอดภัย"
+          }, {
+            "t": "\"I will come back with my tools later.\"",
+            "th": "\"เดี๋ยวจะกลับมาพร้อมเครื่องมือทีหลังค่ะ\"",
+            "v": "bad",
+            "n": "A fire risk cannot wait for 'later'. Make it safe now, then do the repair.",
+            "nTh": "ความเสี่ยงไฟไหม้รอ 'ทีหลัง' ไม่ได้ ทำให้ปลอดภัยเดี๋ยวนี้ แล้วค่อยซ่อม"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "A guest stops you in the corridor near the pool.",
+          "sceneTh": "ลูกค้าเรียกคุณที่ทางเดินใกล้สระว่ายน้ำ",
+          "guest": {
+            "en": "The light inside the pool wall is flickering underwater. My kids are swimming.",
+            "th": "ไฟที่ผนังในสระกะพริบอยู่ใต้น้ำ ลูก ๆ ของฉันว่ายน้ำอยู่"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"Thank you for telling me. Please ask them to come out of the pool now while I switch the pool power off and check it.\"",
+            "th": "\"ขอบคุณที่แจ้งนะคะ รบกวนให้เด็ก ๆ ขึ้นจากสระก่อนนะคะ ดิฉันจะตัดไฟสระและตรวจให้ค่ะ\"",
+            "v": "best",
+            "n": "Electricity and water together is the most dangerous thing you will meet. People out first, power off, then check. Report it at once.",
+            "nTh": "ไฟฟ้ากับน้ำคือสิ่งอันตรายที่สุดที่คุณจะเจอ ให้คนขึ้นจากน้ำก่อน ตัดไฟ แล้วค่อยตรวจ รายงานทันที"
+          }, {
+            "t": "\"It's just the bulb, it's not dangerous.\"",
+            "th": "\"แค่หลอดไฟค่ะ ไม่อันตรายหรอก\"",
+            "v": "bad",
+            "n": "You cannot know that from the corridor, and you are guessing with children in the water. Get them out first.",
+            "nTh": "คุณรู้แบบนั้นจากทางเดินไม่ได้ และนี่คือการเดาทั้งที่มีเด็กอยู่ในน้ำ ให้เด็กขึ้นก่อน"
+          }, {
+            "t": "\"I will note it and check after my lunch.\"",
+            "th": "\"เดี๋ยวจดไว้แล้วไปตรวจหลังพักเที่ยงค่ะ\"",
+            "v": "bad",
+            "n": "A possible live current in a pool full of children never waits for lunch. Act now.",
+            "nTh": "ไฟฟ้ารั่วในสระที่มีเด็กเต็มไปหมดรอพักเที่ยงไม่ได้ ลงมือเดี๋ยวนี้"
+          }, {
+            "t": "\"You should tell the lifeguard.\"",
+            "th": "\"คุณควรไปบอกไลฟ์การ์ดนะคะ\"",
+            "v": "ok",
+            "n": "Getting the lifeguard is good — but you are here now. Act first, then bring the lifeguard in too.",
+            "nTh": "เรียกไลฟ์การ์ดเป็นเรื่องดี แต่คุณอยู่ตรงนี้แล้ว ลงมือก่อน แล้วค่อยเรียกไลฟ์การ์ดมาด้วย"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "Fixing a cabinet hinge on the balcony, you notice the balcony railing is loose. The guest is watching.",
+          "sceneTh": "ระหว่างซ่อมบานพับตู้ที่ระเบียง คุณสังเกตว่าราวระเบียงหลวม ลูกค้ามองอยู่",
+          "guest": {
+            "en": "Oh, I hadn't noticed that. Is the railing okay?",
+            "th": "อ้าว ฉันไม่ทันสังเกตเลย ราวระเบียงโอเคไหม"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"Please don't lean on it for now. I will secure it today and check the whole railing before I sign it off.\"",
+            "th": "\"ตอนนี้อย่าเพิ่งพิงนะคะ ดิฉันจะยึดให้แน่นวันนี้เลย และตรวจราวทั้งเส้นก่อนปิดงานค่ะ\"",
+            "v": "best",
+            "n": "A loose high railing is a fall risk. Warn the guest off it, fix it today, and check the whole thing — this is safety.",
+            "nTh": "ราวระเบียงสูงที่หลวมเสี่ยงตก เตือนลูกค้าไม่ให้พิง ซ่อมวันนี้ และตรวจทั้งเส้น นี่คือความปลอดภัย"
+          }, {
+            "t": "\"It's a little loose but it will hold.\"",
+            "th": "\"หลวมนิดหน่อยแต่ยังรับได้ค่ะ\"",
+            "v": "bad",
+            "n": "Never reassure a guest that a high railing 'will hold' when you have not secured it. Warn them and fix it.",
+            "nTh": "ห้ามบอกลูกค้าว่าราวระเบียงสูง 'ยังรับได้' ทั้งที่ยังไม่ได้ยึด เตือนลูกค้าและซ่อม"
+          }, {
+            "t": "\"That's not the job I came for.\"",
+            "th": "\"อันนั้นไม่ใช่งานที่ผมมาซ่อมครับ\"",
+            "v": "bad",
+            "n": "A safety fault is everyone's job the moment they see it. Never walk past a danger.",
+            "nTh": "อาการเสียที่เกี่ยวกับความปลอดภัยเป็นงานของทุกคนทันทีที่เห็น ห้ามเดินผ่านอันตราย"
+          }, {
+            "t": "\"I'll write it down for someone to look at.\"",
+            "th": "\"เดี๋ยวจดไว้ให้คนมาดูค่ะ\"",
+            "v": "ok",
+            "n": "Reporting it is right, but a loose railing needs a warning to the guest now, not just a note for later.",
+            "nTh": "รายงานถูกแล้ว แต่ราวที่หลวมต้องเตือนลูกค้าเดี๋ยวนี้ ไม่ใช่แค่จดไว้ทีหลัง"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "Near the room's kitchenette you catch a strong smell of gas. The guest is standing by the stove.",
+          "sceneTh": "ใกล้มุมครัวเล็กในห้อง คุณได้กลิ่นแก๊สแรง ลูกค้ายืนอยู่ข้างเตา",
+          "guest": {
+            "en": "I think I smell gas too. Should I turn on the fan?",
+            "th": "ฉันว่าฉันก็ได้กลิ่นแก๊สเหมือนกัน เปิดพัดลมดีไหม"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"Please do not touch any switch. Come outside with me now — I will shut the gas off and report it immediately.\"",
+            "th": "\"อย่าเพิ่งแตะสวิตช์ใด ๆ นะคะ ออกมาข้างนอกกับดิฉันเดี๋ยวนี้ค่ะ ดิฉันจะปิดแก๊สและแจ้งทันที\"",
+            "v": "best",
+            "n": "This is safety. With a gas smell, any switch can spark and ignite it. People out, no switches, gas off, report.",
+            "nTh": "นี่คือความปลอดภัย เมื่อมีกลิ่นแก๊ส สวิตช์ใด ๆ อาจเกิดประกายไฟและติดไฟ พาคนออก ห้ามแตะสวิตช์ ปิดแก๊ส แจ้ง"
+          }, {
+            "t": "\"Yes, turn on the fan to clear the smell.\"",
+            "th": "\"ค่ะ เปิดพัดลมไล่กลิ่นเลย\"",
+            "v": "bad",
+            "n": "A fan switch can spark and ignite gas. Never operate any switch when you smell gas.",
+            "nTh": "สวิตช์พัดลมอาจเกิดประกายไฟและจุดแก๊สติด ห้ามใช้สวิตช์ใด ๆ เมื่อได้กลิ่นแก๊ส"
+          }, {
+            "t": "\"Open a window and it will be fine.\"",
+            "th": "\"เปิดหน้าต่างแล้วก็หายเองค่ะ\"",
+            "v": "ok",
+            "n": "Ventilation helps, but a strong gas smell needs the guest out and the supply shut off, not just a window.",
+            "nTh": "การระบายอากาศช่วยได้ แต่กลิ่นแก๊สแรงต้องพาลูกค้าออกและปิดแก๊ส ไม่ใช่แค่เปิดหน้าต่าง"
+          }, {
+            "t": "\"Let me light the stove to check if it is really gas.\"",
+            "th": "\"ขอจุดเตาดูว่าเป็นแก๊สจริงไหมนะคะ\"",
+            "v": "bad",
+            "n": "Never introduce a flame near a gas smell. That is how an explosion happens.",
+            "nTh": "ห้ามนำเปลวไฟเข้าใกล้กลิ่นแก๊สเด็ดขาด นั่นคือสาเหตุการระเบิด"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "While fixing the TV bracket you see bare, exposed wiring behind the unit — not part of your job today.",
+          "sceneTh": "ระหว่างซ่อมขาแขวนทีวี คุณเห็นสายไฟเปลือยโผล่อยู่หลังเครื่อง ไม่ใช่งานที่มาซ่อมวันนี้",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Switch off the power to it, make the wiring safe, and report it before you leave the room.",
+            "th": "ตัดไฟตรงนั้น ทำให้สายไฟปลอดภัย และรายงานก่อนออกจากห้อง",
+            "v": "best",
+            "n": "Exposed live wiring is a shock and fire risk. The moment you see it, it is your job. Isolate, make safe, report.",
+            "nTh": "สายไฟเปลือยที่มีไฟเสี่ยงไฟช็อตและไฟไหม้ ทันทีที่เห็นก็เป็นงานคุณ ตัดไฟ ทำให้ปลอดภัย รายงาน"
+          }, {
+            "t": "Leave it — you came to fix the bracket, not the wiring.",
+            "th": "ปล่อยไว้ เพราะมาซ่อมขาแขวน ไม่ใช่สายไฟ",
+            "v": "bad",
+            "n": "Walking past exposed wiring in an occupied room is how people get hurt. Never ignore a danger you see.",
+            "nTh": "การเดินผ่านสายไฟเปลือยในห้องที่มีคนพักคือสาเหตุที่คนบาดเจ็บ ห้ามมองข้ามอันตรายที่เห็น"
+          }, {
+            "t": "Push the wire back behind the TV so it is out of sight.",
+            "th": "ดันสายไฟกลับเข้าไปหลังทีวีให้พ้นสายตา",
+            "v": "bad",
+            "n": "Hiding a live wire does not make it safe — it makes it worse. Cut the power and report it.",
+            "nTh": "การซ่อนสายไฟที่มีไฟไม่ได้ทำให้ปลอดภัย มีแต่แย่ลง ตัดไฟและรายงาน"
+          }, {
+            "t": "Tell the guest to be careful not to touch behind the TV.",
+            "th": "บอกลูกค้าให้ระวังอย่าไปแตะหลังทีวี",
+            "v": "ok",
+            "n": "A warning is better than nothing, but a live wire must be made safe, not just pointed out.",
+            "nTh": "การเตือนดีกว่าไม่ทำอะไร แต่สายไฟที่มีไฟต้องทำให้ปลอดภัย ไม่ใช่แค่ชี้ให้ดู"
+          }]
+        }]
+      }, {
+        "id": "finish",
+        "name": {
+          "en": "Finishing Up",
+          "th": "ก่อนออกจากห้อง"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "The air-conditioning is fixed and blowing cold. You are ready to leave the room.",
+          "sceneTh": "ซ่อมแอร์เสร็จแล้วและเป่าลมเย็นดี คุณพร้อมจะออกจากห้อง",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"It is working now — please feel the cold air. Is there anything else I can look at while I am here?\"",
+            "th": "\"ใช้ได้แล้วค่ะ ลองสัมผัสลมเย็นดูได้เลยค่ะ มีอะไรให้ดิฉันดูให้อีกไหมคะ ในเมื่อดิฉันอยู่ตรงนี้แล้ว\"",
+            "v": "best",
+            "n": "Show them it works, then offer a little more. That one question turns a repair into service.",
+            "nTh": "ให้ลูกค้าเห็นว่าใช้ได้ แล้วเสนอช่วยเพิ่ม คำถามนั้นเปลี่ยนงานซ่อมให้เป็นการบริการ"
+          }, {
+            "t": "\"Finished. Bye.\"",
+            "th": "\"เสร็จแล้วค่ะ บายค่ะ\"",
+            "v": "ok",
+            "n": "It is done, but flat. Show them it works and ask if they need anything else.",
+            "nTh": "เสร็จก็จริง แต่เย็นชา ให้ลูกค้าเห็นว่าใช้ได้และถามว่าต้องการอะไรอีกไหม"
+          }, {
+            "t": "Pack up and leave without a word.",
+            "th": "เก็บของแล้วออกไปโดยไม่พูดอะไร",
+            "v": "bad",
+            "n": "Leaving in silence leaves the guest unsure it is even fixed. Always confirm before you go.",
+            "nTh": "ออกไปเงียบ ๆ ทำให้ลูกค้าไม่แน่ใจว่าซ่อมเสร็จหรือยัง ยืนยันก่อนออกเสมอ"
+          }, {
+            "t": "\"Should be okay now.\"",
+            "th": "\"น่าจะโอเคแล้วค่ะ\"",
+            "v": "bad",
+            "n": "'Should be' tells the guest you are not sure. Test it in front of them so they know it is fixed.",
+            "nTh": "'น่าจะ' บอกลูกค้าว่าคุณไม่มั่นใจ ทดสอบให้ลูกค้าเห็นเพื่อให้รู้ว่าซ่อมเสร็จจริง"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "You have finished and confirmed it works. The guest is happy.",
+          "sceneTh": "คุณซ่อมเสร็จและยืนยันว่าใช้ได้แล้ว ลูกค้าพอใจ",
+          "guest": {
+            "en": "Thank you so much, that's great. Sorry to have troubled you.",
+            "th": "ขอบคุณมากเลย เยี่ยมไปเลย ขอโทษที่รบกวนนะ"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"It is my pleasure, madam. Thank you for your patience — please call us any time.\"",
+            "th": "\"ด้วยความยินดีค่ะ ขอบคุณที่ลูกค้าใจเย็นรอนะคะ โทรหาเราได้ตลอดเวลาเลยค่ะ\"",
+            "v": "best",
+            "n": "'It is my pleasure' is the magic phrase, and thanking them for their patience leaves the room warm.",
+            "nTh": "'ด้วยความยินดี' คือคำวิเศษ และการขอบคุณที่ลูกค้าใจเย็นทำให้จบอย่างอบอุ่น"
+          }, {
+            "t": "\"No problem.\"",
+            "th": "\"ไม่มีปัญหาค่ะ\"",
+            "v": "ok",
+            "n": "Friendly, but small. 'It is my pleasure' is the phrase we want them to hear.",
+            "nTh": "เป็นกันเองดี แต่ธรรมดาไป 'ด้วยความยินดี' คือคำที่เราอยากให้ลูกค้าได้ยิน"
+          }, {
+            "t": "\"Yes, it was a lot of trouble actually.\"",
+            "th": "\"ใช่ค่ะ จริง ๆ ก็ยุ่งพอสมควรเลย\"",
+            "v": "bad",
+            "n": "She apologised — never make a guest feel they were a burden. Reassure her instead.",
+            "nTh": "ลูกค้าขอโทษแล้ว ห้ามทำให้ลูกค้ารู้สึกว่าเป็นภาระ ให้ลูกค้าสบายใจแทน"
+          }, {
+            "t": "\"It is my job.\"",
+            "th": "\"ก็หน้าที่ผมครับ\"",
+            "v": "ok",
+            "n": "True and not rude, but it is a closed door. 'It is my pleasure' opens one.",
+            "nTh": "จริงและไม่หยาบ แต่เป็นการปิดบทสนทนา 'ด้วยความยินดี' เปิดใจมากกว่า"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You are leaving. On the desk you see the guest's watch, which you moved earlier to reach the socket.",
+          "sceneTh": "คุณกำลังจะออก บนโต๊ะคุณเห็นนาฬิกาของลูกค้าที่คุณขยับไว้ตอนซ่อมปลั๊ก",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Put the watch back exactly where it was and say, \"I have put your watch back here, sir.\"",
+            "th": "วางนาฬิกาคืนตรงที่เดิมเป๊ะ แล้วบอกว่า \"ดิฉันวางนาฬิกาคืนไว้ตรงนี้นะคะ\"",
+            "v": "best",
+            "n": "Return everything you moved to its place, and say so out loud. That is how trust is kept.",
+            "nTh": "วางทุกอย่างที่ขยับคืนที่เดิม และพูดบอกด้วย นั่นคือวิธีรักษาความไว้ใจ"
+          }, {
+            "t": "Leave the watch where you set it down.",
+            "th": "วางนาฬิกาไว้ตรงที่คุณวางไว้",
+            "v": "ok",
+            "n": "Not wrong, but a moved valuable can look like a missing one. Put it back and mention it.",
+            "nTh": "ไม่ผิด แต่ของมีค่าที่ถูกขยับอาจดูเหมือนหาย วางคืนและบอกด้วย"
+          }, {
+            "t": "Slip it into the desk drawer to keep it safe.",
+            "th": "เก็บใส่ลิ้นชักโต๊ะเพื่อความปลอดภัย",
+            "v": "bad",
+            "n": "Never move a guest's valuables out of sight. That is exactly how you get accused of taking it.",
+            "nTh": "ห้ามเอาของมีค่าของลูกค้าไปเก็บให้พ้นสายตา นั่นคือวิธีที่จะโดนกล่าวหาว่าขโมย"
+          }, {
+            "t": "Say nothing about it and leave.",
+            "th": "ไม่พูดถึงมันแล้วออกไป",
+            "v": "ok",
+            "n": "You did no wrong, but a word confirms you touched nothing you should not have.",
+            "nTh": "คุณไม่ได้ทำผิด แต่การพูดสักคำยืนยันว่าคุณไม่ได้แตะอะไรที่ไม่ควร"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "You have finished. As you pack up, the guest asks you to look at a problem in their friend's room next door.",
+          "sceneTh": "คุณซ่อมเสร็จแล้ว ระหว่างเก็บของ ลูกค้าขอให้คุณไปดูปัญหาในห้องเพื่อนที่อยู่ติดกัน",
+          "guest": {
+            "en": "While you're here, could you quickly check my friend's room next door? Room 214.",
+            "th": "ในเมื่อคุณอยู่แล้ว ช่วยไปดูห้องเพื่อนฉันข้าง ๆ หน่อยได้ไหม ห้อง 214"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I would be glad to help. Let me check with reception so it is booked properly — may I have them send me to 214?\"",
+            "th": "\"ยินดีช่วยค่ะ ขอเช็กกับแผนกต้อนรับก่อนเพื่อให้ลงงานถูกต้องนะคะ ให้เขาส่งดิฉันไปห้อง 214 ได้ไหมคะ\"",
+            "v": "best",
+            "n": "You cannot enter another room on a third party's say-so. Be willing, but go through reception.",
+            "nTh": "คุณเข้าอีกห้องตามคำของคนอื่นไม่ได้ เต็มใจช่วย แต่ต้องผ่านแผนกต้อนรับ"
+          }, {
+            "t": "\"Sure, give me the key and I'll pop over.\"",
+            "th": "\"ได้เลยครับ เอากุญแจมา เดี๋ยวแวะไปให้\"",
+            "v": "bad",
+            "n": "Never enter a room because another guest asked. Access must come through reception, for security.",
+            "nTh": "ห้ามเข้าห้องเพราะลูกค้าอีกคนขอ การเข้าห้องต้องผ่านแผนกต้อนรับเพื่อความปลอดภัย"
+          }, {
+            "t": "\"Sorry, that is not my room to enter.\"",
+            "th": "\"ขอโทษค่ะ ห้องนั้นดิฉันเข้าไม่ได้\"",
+            "v": "ok",
+            "n": "Correct that you cannot just go, but it sounds like a refusal. Offer to arrange it properly.",
+            "nTh": "ถูกที่ว่าเข้าเองไม่ได้ แต่ฟังดูเหมือนปฏิเสธ เสนอจัดการให้อย่างถูกต้อง"
+          }, {
+            "t": "Ignore the request and finish packing.",
+            "th": "ไม่สนคำขอแล้วเก็บของต่อ",
+            "v": "bad",
+            "n": "Ignoring a guest is never the answer. Acknowledge it and offer the right way to help.",
+            "nTh": "การเพิกเฉยลูกค้าไม่ใช่คำตอบ รับคำขอและเสนอวิธีช่วยที่ถูกต้อง"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "At the door on your way out, you remember you also ran the hot tap earlier and never checked it came good.",
+          "sceneTh": "ตอนอยู่ที่ประตูกำลังจะออก คุณนึกได้ว่าเมื่อกี้เปิดก๊อกน้ำร้อนไว้ด้วยและยังไม่ได้เช็กว่าปกติดี",
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "Go back and test the hot water in front of the guest before you leave.",
+            "th": "กลับไปทดสอบน้ำร้อนให้ลูกค้าเห็นก่อนออกจากห้อง",
+            "v": "best",
+            "n": "Never leave on a 'probably'. Two minutes checking now saves a second call-out and a second apology.",
+            "nTh": "อย่าออกไปทั้งที่ 'น่าจะ' เช็กสองนาทีตอนนี้ประหยัดการเรียกซ้ำและการขอโทษรอบสอง"
+          }, {
+            "t": "Leave — you are fairly sure it was fine.",
+            "th": "ออกไปเลย เพราะค่อนข้างมั่นใจว่าปกติดี",
+            "v": "bad",
+            "n": "'Fairly sure' is how a guest ends up calling again tonight. Check it while you are here.",
+            "nTh": "'ค่อนข้างมั่นใจ' คือสาเหตุที่ลูกค้าโทรมาอีกคืนนี้ เช็กตอนที่ยังอยู่"
+          }, {
+            "t": "Tell the guest to check the hot water themselves later.",
+            "th": "บอกลูกค้าให้ไปเช็กน้ำร้อนเองทีหลัง",
+            "v": "bad",
+            "n": "Never hand your check to the guest. Testing your own work is your job, not theirs.",
+            "nTh": "ห้ามโยนการตรวจให้ลูกค้า การทดสอบงานของคุณคือหน้าที่คุณ ไม่ใช่ของลูกค้า"
+          }, {
+            "t": "Make a note to check it on your next visit.",
+            "th": "จดไว้ว่าจะเช็กในการมาครั้งหน้า",
+            "v": "ok",
+            "n": "There may be no next visit. You are at the tap now — turn it on and be sure.",
+            "nTh": "อาจไม่มีครั้งหน้า คุณอยู่ที่ก๊อกแล้ว เปิดดูให้แน่ใจเลย"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The grateful guest asks for your personal phone number to call you directly next time.",
+          "sceneTh": "ลูกค้าที่พอใจขอเบอร์โทรส่วนตัวของคุณเพื่อจะโทรหาคุณโดยตรงในครั้งหน้า",
+          "guest": {
+            "en": "You were great. Can I get your number so I can just call you directly next time?",
+            "th": "คุณเก่งมาก ขอเบอร์หน่อยได้ไหม ครั้งหน้าจะได้โทรหาคุณตรง ๆ"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Thank you, that is kind. The best way is to call reception any time and they will send me straight up.\"",
+            "th": "\"ขอบคุณค่ะ ใจดีจังเลย วิธีที่ดีที่สุดคือโทรหาแผนกต้อนรับได้ตลอดเวลา แล้วเขาจะส่งดิฉันขึ้นมาให้ทันทีค่ะ\"",
+            "v": "best",
+            "n": "Take the compliment warmly, but keep it professional — route them through reception, not your personal line.",
+            "nTh": "รับคำชมอย่างอบอุ่น แต่รักษาความเป็นมืออาชีพ ให้ผ่านแผนกต้อนรับ ไม่ใช่เบอร์ส่วนตัว"
+          }, {
+            "t": "Give them your personal mobile number.",
+            "th": "ให้เบอร์มือถือส่วนตัว",
+            "v": "bad",
+            "n": "Keep guest contact through the hotel's channels. A personal number crosses a line you should not.",
+            "nTh": "ให้ลูกค้าติดต่อผ่านช่องทางของโรงแรม เบอร์ส่วนตัวคือการข้ามเส้นที่ไม่ควร"
+          }, {
+            "t": "\"No, we are not allowed to do that.\"",
+            "th": "\"ไม่ได้ค่ะ เราไม่ได้รับอนุญาตให้ทำแบบนั้น\"",
+            "v": "ok",
+            "n": "The rule is right, but a flat 'not allowed' feels cold after a compliment. Offer the reception route warmly.",
+            "nTh": "กฎถูกต้อง แต่ 'ไม่ได้รับอนุญาต' ห้วน ๆ ฟังดูเย็นชาหลังคำชม เสนอช่องทางแผนกต้อนรับอย่างอบอุ่น"
+          }, {
+            "t": "Pretend you did not hear and leave.",
+            "th": "ทำเป็นไม่ได้ยินแล้วออกไป",
+            "v": "bad",
+            "n": "Ignoring the guest is rude. Answer warmly and point them to the right way to reach you.",
+            "nTh": "การเพิกเฉยลูกค้าเสียมารยาท ตอบอย่างอบอุ่นและบอกช่องทางที่ถูกต้องในการติดต่อ"
           }]
         }]
       }]
@@ -2199,7 +3491,23 @@ const PRON = {
   laundry: ["LAWN-dree", "Two beats. It is an R, not an L.", "สองพยางค์ เป็นเสียง R ไม่ใช่ L"],
   sirloin: ["SIR-loyn", "Stress the first beat. Ends -N.", "เน้นพยางค์แรก ท้ายคำออก -N"],
   tourists: ["TOO-rists", "Ends with -sts. Say all of it, slowly if you must.", "ท้ายคำออก -sts ให้ครบ ช้าได้ แต่ต้องครบ"],
-  privacy: ["PRIV-uh-see", "Stress the first beat.", "เน้นพยางค์แรก"]
+  privacy: ["PRIV-uh-see", "Stress the first beat.", "เน้นพยางค์แรก"],
+  // Maintenance / Engineering vocabulary
+  maintenance: ["MAIN-tuh-nunce", "Stress the first beat — MAIN. Three beats, not 'main-ten-ance'.", "เน้นพยางค์แรก MAIN สามพยางค์ ไม่ใช่ 'เมน-เท็น-แนนซ์'"],
+  technician: ["tek-NISH-un", "Stress the second beat. The middle is 'nish'.", "เน้นพยางค์ที่สอง ตรงกลางออกเสียง 'นิช'"],
+  replace: ["ree-PLACE", "Stress the second beat. It is an R, not an L, and finish the -CE.", "เน้นพยางค์ที่สอง เป็นเสียง R ไม่ใช่ L และออกเสียง -CE ท้ายคำ"],
+  disturb: ["dih-STURB", "Stress the second beat. End with -RB, both sounds.", "เน้นพยางค์ที่สอง ท้ายคำออกทั้ง R และ B"],
+  disturbance: ["dih-STUR-buns", "Stress the second beat.", "เน้นพยางค์ที่สอง"],
+  railing: ["RAY-ling", "Starts with R, not L. Two beats.", "ขึ้นต้นด้วยเสียง R ไม่ใช่ L สองพยางค์"],
+  wiring: ["WY-ring", "W not V — round the lips, do not touch the teeth.", "ใช้เสียง W ไม่ใช่ V ห่อริมฝีปาก ไม่ใช่ฟันแตะปาก"],
+  leak: ["leek", "One beat. Finish the hard K — not 'lee'.", "พยางค์เดียว ออกเสียง K ท้ายให้ชัด ไม่ใช่ 'ลี'"],
+  drain: ["drayn", "One beat. Ends -N. Say the d and r together.", "พยางค์เดียว ท้ายออก -N ออกเสียง d กับ r ติดกัน"],
+  immediately: ["ih-MEE-dee-it-lee", "Stress the second beat. Take it slowly — five beats.", "เน้นพยางค์ที่สอง ค่อย ๆ ออก ห้าพยางค์"],
+  switch: ["swich", "One beat. Starts sw-, ends -TCH. Not 'sic'.", "พยางค์เดียว ขึ้นต้น sw- ท้ายออก -TCH ไม่ใช่ 'สิช'"],
+  secure: ["sih-KYOOR", "Stress the second beat. Ends in an R.", "เน้นพยางค์ที่สอง ท้ายคำออกเสียง R"],
+  spark: ["spark", "One beat. Ends -RK — say both sounds.", "พยางค์เดียว ท้ายออก -RK ให้ครบ"],
+  fridge: ["frij", "One beat. Ends with a J sound.", "พยางค์เดียว ท้ายออกเสียง J"],
+  insulin: ["IN-suh-lin", "Stress the first beat.", "เน้นพยางค์แรก"]
 };
 const findPron = sentence => {
   const words = sentence.toLowerCase().replace(/[^a-zà-ÿ\s]/g, " ").split(/\s+/);
