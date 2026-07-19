@@ -78,6 +78,10 @@ const CONTENT = {
         "en": "Guest Service Agent",
         "th": "พนักงานบริการส่วนหน้า"
       },
+      "fo-resort-host": {
+        "en": "Resort Host",
+        "th": "รีสอร์ทโฮสต์"
+      },
       "fo-airport-representative": {
         "en": "Airport Representative",
         "th": "พนักงานต้อนรับสนามบิน"
@@ -244,11 +248,7 @@ const CONTENT = {
       "id": "little-shore",
       "assignments": [{
         "department": "front-office",
-        "role": "fo-guest-service-agent",
-        "labelOverride": {
-          "en": "Resort Host",
-          "th": "รีสอร์ทโฮสต์"
-        }
+        "role": "fo-resort-host"
       }, {
         "department": "front-office",
         "role": "fo-bellboy"
@@ -3317,10 +3317,948 @@ const CONTENT = {
           }]
         }]
       }]
+    },
+    "fo-resort-host": {
+      "id": "fo-resort-host",
+      "name": {
+        "en": "Resort Host",
+        "th": "รีสอร์ทโฮสต์"
+      },
+      "guestFacing": true,
+      "source": "FOTLKL — English for Resort Host (The Little Shore)",
+      "inherits": ["core-service-standard"],
+      "units": [{
+        "id": "welcome",
+        "name": {
+          "en": "Welcome Ashore",
+          "th": "ต้อนรับขึ้นฝั่ง"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "A guest steps off the boat onto the jetty at {{property.name}}. You greet them with a wai.",
+          "sceneTh": "แขกก้าวลงจากเรือขึ้นสู่ท่าเทียบเรือของ{{property.name}} คุณไหว้ทักทาย",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Sawasdee kha, welcome ashore. Welcome to {{property.name}}.\"",
+            "th": "\"สวัสดีค่ะ ยินดีต้อนรับขึ้นฝั่ง ยินดีต้อนรับสู่{{property.name}}ค่ะ\"",
+            "v": "best",
+            "n": "The wai, then our signature greeting. 'Welcome ashore' is what makes arriving here feel special.",
+            "nTh": "ไหว้ก่อน แล้วตามด้วยคำต้อนรับประจำรีสอร์ท 'ยินดีต้อนรับขึ้นฝั่ง' ทำให้การมาถึงรู้สึกพิเศษ"
+          }, {
+            "t": "\"Hello. Check-in?\"",
+            "th": "\"สวัสดีค่ะ เช็คอินไหมคะ\"",
+            "v": "ok",
+            "n": "Correct, but cold. The guest just crossed the water to reach us — welcome them warmly first.",
+            "nTh": "ถูก แต่เย็นชา แขกเพิ่งข้ามน้ำมาถึงเรา ต้อนรับอย่างอบอุ่นก่อน"
+          }, {
+            "t": "\"Wait there, someone will come.\"",
+            "th": "\"รอตรงนั้นนะคะ เดี๋ยวมีคนมา\"",
+            "v": "bad",
+            "n": "Never leave an arriving guest standing. You are the welcome.",
+            "nTh": "ห้ามปล่อยแขกที่เพิ่งมาถึงยืนรอ คุณคือการต้อนรับ"
+          }, {
+            "t": "\"You are late, the boat was supposed to be earlier.\"",
+            "th": "\"มาสายนะคะ เรือน่าจะมาถึงเร็วกว่านี้\"",
+            "v": "bad",
+            "n": "Never comment on timing. The guest's arrival is a happy moment, not a problem.",
+            "nTh": "ห้ามพูดเรื่องเวลา การมาถึงของแขกเป็นช่วงเวลาที่ดี ไม่ใช่ปัญหา"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The guest looks tired from a long journey. You want to make them feel at home.",
+          "sceneTh": "แขกดูเหนื่อยจากการเดินทางไกล คุณอยากทำให้เขารู้สึกเหมือนอยู่บ้าน",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Welcome back home. How was your flight?\"",
+            "th": "\"ยินดีต้อนรับกลับบ้านค่ะ การเดินทางเป็นอย่างไรบ้างคะ\"",
+            "v": "best",
+            "n": "'Welcome home' and a question about their journey — warm, personal, and it opens a conversation.",
+            "nTh": "'ยินดีต้อนรับกลับบ้าน' และถามถึงการเดินทาง อบอุ่น เป็นกันเอง และเปิดบทสนทนา"
+          }, {
+            "t": "\"You look very tired.\"",
+            "th": "\"คุณดูเหนื่อยมากเลยนะคะ\"",
+            "v": "bad",
+            "n": "Never tell a guest they look tired. Notice it, but say something kind instead.",
+            "nTh": "ห้ามบอกแขกว่าดูเหนื่อย สังเกตได้ แต่ให้พูดสิ่งดี ๆ แทน"
+          }, {
+            "t": "\"Please fill in this form first.\"",
+            "th": "\"กรุณากรอกแบบฟอร์มนี้ก่อนค่ะ\"",
+            "v": "ok",
+            "n": "Paperwork can wait a moment. Greet the person before the process.",
+            "nTh": "เอกสารรอสักครู่ได้ ทักทายแขกก่อนเริ่มขั้นตอน"
+          }, {
+            "t": "\"How was your flight?\"",
+            "th": "\"การเดินทางเป็นอย่างไรบ้างคะ\"",
+            "v": "ok",
+            "n": "A good question, but lead with the welcome — the warmth is what they remember.",
+            "nTh": "คำถามดี แต่เริ่มด้วยการต้อนรับก่อน ความอบอุ่นคือสิ่งที่แขกจำได้"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You bring the guest to the lobby to sit down after their journey.",
+          "sceneTh": "คุณพาแขกมานั่งที่ล็อบบี้หลังการเดินทาง",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Please have a seat. This is your welcome drink and a fresh cold towel.\"",
+            "th": "\"เชิญนั่งค่ะ นี่คือเครื่องดื่มต้อนรับและผ้าเย็นค่ะ\"",
+            "v": "best",
+            "n": "Seat them, then the welcome drink and cold towel. Small comforts after a long trip matter most.",
+            "nTh": "เชิญนั่ง แล้วเสิร์ฟเครื่องดื่มต้อนรับและผ้าเย็น ความสบายเล็ก ๆ หลังเดินทางไกลสำคัญที่สุด"
+          }, {
+            "t": "Hand over the towel without a word.",
+            "th": "ยื่นผ้าเย็นให้โดยไม่พูดอะไร",
+            "v": "ok",
+            "n": "The gesture is right, but say what it is — a warm word turns a towel into hospitality.",
+            "nTh": "ท่าทางถูก แต่บอกด้วยว่าคืออะไร คำพูดอบอุ่นเปลี่ยนผ้าเย็นให้เป็นการต้อนรับ"
+          }, {
+            "t": "\"Drinks are extra, would you like one?\"",
+            "th": "\"เครื่องดื่มคิดเงินเพิ่มนะคะ รับไหมคะ\"",
+            "v": "bad",
+            "n": "The welcome drink is a gift, never a sale. Never put a price on the welcome.",
+            "nTh": "เครื่องดื่มต้อนรับคือของขวัญ ไม่ใช่การขาย ห้ามตั้งราคากับการต้อนรับ"
+          }, {
+            "t": "\"Sit anywhere.\"",
+            "th": "\"นั่งตรงไหนก็ได้ค่ะ\"",
+            "v": "ok",
+            "n": "Fine, but a guided 'please have a seat' feels cared-for, not left to fend for themselves.",
+            "nTh": "ก็ได้ แต่ 'เชิญนั่งค่ะ' ที่นำทางทำให้แขกรู้สึกได้รับการดูแล"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The guest has settled in the lobby with their welcome drink.",
+          "sceneTh": "แขกนั่งลงที่ล็อบบี้พร้อมเครื่องดื่มต้อนรับ",
+          "guest": {
+            "en": "It's our first time here. It looks beautiful.",
+            "th": "นี่เป็นครั้งแรกของเราที่นี่ ดูสวยงามมาก"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Happy to have you with us. May I help you check in, and then I'll show you around?\"",
+            "th": "\"ยินดีที่ได้ต้อนรับค่ะ ขออนุญาตช่วยเช็คอินให้ แล้วเดี๋ยวพาชมรอบ ๆ นะคะ\"",
+            "v": "best",
+            "n": "Warm reply, then guide them forward. First-time guests remember the host who took care of them.",
+            "nTh": "ตอบอย่างอบอุ่น แล้วนำทางต่อ แขกครั้งแรกจะจำโฮสต์ที่ดูแลเขา"
+          }, {
+            "t": "\"Yes, it's nice.\"",
+            "th": "\"ค่ะ สวยดีค่ะ\"",
+            "v": "ok",
+            "n": "Not wrong, but flat. Match their excitement and move them into their stay.",
+            "nTh": "ไม่ผิด แต่เรียบ ๆ รับพลังความตื่นเต้นของแขกและพาเข้าสู่การเข้าพัก"
+          }, {
+            "t": "\"Everyone says that.\"",
+            "th": "\"ใคร ๆ ก็พูดแบบนั้นค่ะ\"",
+            "v": "bad",
+            "n": "This shrinks their moment. Let their first impression be theirs.",
+            "nTh": "คำนี้ลดทอนช่วงเวลาของแขก ปล่อยให้ความประทับใจแรกเป็นของเขา"
+          }, {
+            "t": "\"Please wait, I'm busy now.\"",
+            "th": "\"รอสักครู่นะคะ ตอนนี้ยุ่งอยู่\"",
+            "v": "bad",
+            "n": "Never tell an arriving guest you are too busy for them.",
+            "nTh": "ห้ามบอกแขกที่เพิ่งมาถึงว่าคุณยุ่งเกินกว่าจะดูแลเขา"
+          }]
+        }]
+      }, {
+        "id": "checkin",
+        "name": {
+          "en": "Check-In",
+          "th": "เช็คอิน"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "You are ready to start the check-in and need to find the booking.",
+          "sceneTh": "คุณพร้อมเริ่มเช็คอินและต้องค้นหาการจอง",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"May I have your reservation name, please?\"",
+            "th": "\"ขอทราบชื่อในการจองด้วยค่ะ\"",
+            "v": "best",
+            "n": "'May I' and 'please' — the polite way to ask. Start with the name to find the booking.",
+            "nTh": "'May I' และ 'please' คือวิธีขออย่างสุภาพ เริ่มด้วยชื่อเพื่อค้นหาการจอง"
+          }, {
+            "t": "\"Name?\"",
+            "th": "\"ชื่ออะไรคะ\"",
+            "v": "ok",
+            "n": "Understandable, but one word sounds like an interrogation. Use the full polite question.",
+            "nTh": "เข้าใจได้ แต่คำเดียวฟังดูเหมือนสอบสวน ใช้ประโยคขอที่สุภาพเต็ม"
+          }, {
+            "t": "\"Give me your passport.\"",
+            "th": "\"เอาพาสปอร์ตมาค่ะ\"",
+            "v": "bad",
+            "n": "'Give me' is an order. Always ask — 'May I have...' — and say why.",
+            "nTh": "'เอามา' คือคำสั่ง ให้ขอเสมอ 'ขอ...ได้ไหมคะ' และบอกเหตุผล"
+          }, {
+            "t": "\"You have a booking or not?\"",
+            "th": "\"มีจองหรือเปล่าคะ\"",
+            "v": "bad",
+            "n": "Sounds like a challenge. Assume they are our guest and ask kindly for the name.",
+            "nTh": "ฟังดูเหมือนตั้งคำถามท้าทาย ให้ถือว่าเขาคือแขกของเราและขอชื่ออย่างสุภาพ"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You need the guest's passports and a card to guarantee incidental charges.",
+          "sceneTh": "คุณต้องขอพาสปอร์ตของแขกและบัตรเพื่อการันตีค่าใช้จ่ายเพิ่มเติม",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"May I have both passports, and a credit card to guarantee, please?\"",
+            "th": "\"ขอพาสปอร์ตของทั้งสองท่าน และบัตรเครดิตสำหรับการันตีด้วยค่ะ\"",
+            "v": "best",
+            "n": "Ask for both together, politely, so the guest hands them over once and relaxes.",
+            "nTh": "ขอทั้งสองอย่างพร้อมกันอย่างสุภาพ แขกจะยื่นให้ครั้งเดียวและสบายใจ"
+          }, {
+            "t": "\"I need your credit card. It's the rule.\"",
+            "th": "\"ต้องใช้บัตรเครดิตค่ะ เป็นกฎ\"",
+            "v": "bad",
+            "n": "Never say 'it's the rule'. Explain it is only to guarantee, and ask politely.",
+            "nTh": "ห้ามพูดว่า 'เป็นกฎ' อธิบายว่าเป็นแค่การการันตี และขออย่างสุภาพ"
+          }, {
+            "t": "\"Passport.\"",
+            "th": "\"พาสปอร์ตค่ะ\"",
+            "v": "ok",
+            "n": "They will understand, but a one-word demand is cold. Ask the full polite question.",
+            "nTh": "แขกเข้าใจ แต่คำสั่งคำเดียวเย็นชา ใช้ประโยคขอที่สุภาพเต็ม"
+          }, {
+            "t": "\"Don't worry, no card needed.\"",
+            "th": "\"ไม่ต้องห่วงค่ะ ไม่ต้องใช้บัตร\"",
+            "v": "bad",
+            "n": "Do not skip the guarantee to avoid an awkward moment — explain it warmly instead.",
+            "nTh": "อย่าข้ามการการันตีเพื่อเลี่ยงความอึดอัด ให้อธิบายอย่างอบอุ่นแทน"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You want the guest to be able to enjoy the resort without carrying cash.",
+          "sceneTh": "คุณอยากให้แขกใช้บริการในรีสอร์ทได้โดยไม่ต้องพกเงินสด",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"During your stay, please feel free to charge everything to your room.\"",
+            "th": "\"ระหว่างเข้าพัก เชิญเซ็นค่าใช้จ่ายทั้งหมดเข้าห้องได้เลยค่ะ\"",
+            "v": "best",
+            "n": "Tell them they can charge to the room — it removes friction and feels generous.",
+            "nTh": "บอกว่าเซ็นเข้าห้องได้ ช่วยลดความยุ่งยากและรู้สึกใจดี"
+          }, {
+            "t": "\"You have to pay cash everywhere.\"",
+            "th": "\"ต้องจ่ายเงินสดทุกที่นะคะ\"",
+            "v": "bad",
+            "n": "Untrue and unhelpful. Charging to the room is the whole convenience of staying with us.",
+            "nTh": "ไม่จริงและไม่ช่วยอะไร การเซ็นเข้าห้องคือความสะดวกของการพักกับเรา"
+          }, {
+            "t": "\"Payment is your problem.\"",
+            "th": "\"เรื่องจ่ายเงินเป็นเรื่องของคุณเองนะคะ\"",
+            "v": "bad",
+            "n": "Never. Make everything easy for the guest.",
+            "nTh": "ห้ามเด็ดขาด ทำให้ทุกอย่างง่ายสำหรับแขก"
+          }, {
+            "t": "\"Just charge to the room.\"",
+            "th": "\"เซ็นเข้าห้องเอาค่ะ\"",
+            "v": "ok",
+            "n": "Right information, but a warmer, fuller sentence makes it feel like an offer, not an instruction.",
+            "nTh": "ข้อมูลถูก แต่ประโยคที่อบอุ่นและครบทำให้รู้สึกเหมือนข้อเสนอ ไม่ใช่คำสั่ง"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "It is early. The guest has arrived before the room is ready.",
+          "sceneTh": "ยังเช้าอยู่ แขกมาถึงก่อนที่ห้องจะพร้อม",
+          "guest": {
+            "en": "Can we go to our room now?",
+            "th": "เราขึ้นห้องได้เลยไหม"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"Check-in is from 3 p.m., and your room isn't quite ready yet. May I keep your bags and offer you a drink while you wait?\"",
+            "th": "\"เช็คอินเริ่มบ่ายสามโมงค่ะ ห้องยังไม่พร้อมดีนัก ขออนุญาตเก็บกระเป๋าให้ และเชิญเครื่องดื่มระหว่างรอนะคะ\"",
+            "v": "best",
+            "n": "Give the honest reason, then solve the wait — bags kept, a drink, somewhere comfortable.",
+            "nTh": "บอกเหตุผลตามจริง แล้วแก้เรื่องการรอ เก็บกระเป๋าให้ เครื่องดื่ม และที่นั่งสบาย ๆ"
+          }, {
+            "t": "\"No. Come back at 3 p.m.\"",
+            "th": "\"ไม่ได้ค่ะ กลับมาตอนบ่ายสาม\"",
+            "v": "bad",
+            "n": "A flat 'no' with nowhere to go strands a tired guest. Offer to hold bags and make them comfortable.",
+            "nTh": "'ไม่ได้' ห้วน ๆ โดยไม่มีทางออกทำให้แขกที่เหนื่อยค้างเติ่ง เสนอเก็บกระเป๋าและทำให้สบาย"
+          }, {
+            "t": "\"The room is ready, go ahead.\" (it isn't)\"",
+            "th": "\"ห้องพร้อมแล้วค่ะ เชิญเลย\" (ทั้งที่ยังไม่พร้อม)",
+            "v": "bad",
+            "n": "Never send a guest to a room that isn't ready. They arrive to a mess and lose trust.",
+            "nTh": "ห้ามส่งแขกไปห้องที่ยังไม่พร้อม แขกจะเจอห้องที่ยังไม่เรียบร้อยและเสียความไว้ใจ"
+          }, {
+            "t": "\"Your room is not ready yet.\"",
+            "th": "\"ห้องของคุณยังไม่พร้อมค่ะ\"",
+            "v": "ok",
+            "n": "True, but it leaves the guest stuck. Add the time and offer to hold their bags.",
+            "nTh": "จริง แต่ทำให้แขกค้าง เพิ่มเวลาและเสนอเก็บกระเป๋าให้"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The room is now ready and you want to confirm the guest's contact details for their folio.",
+          "sceneTh": "ห้องพร้อมแล้ว และคุณต้องการยืนยันข้อมูลติดต่อของแขกสำหรับบัญชีห้องพัก",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Your room is ready. May I reconfirm your email and phone number, please?\"",
+            "th": "\"ห้องพร้อมแล้วค่ะ ขอยืนยันอีเมลและเบอร์โทรของคุณอีกครั้งได้ไหมคะ\"",
+            "v": "best",
+            "n": "Good news first, then confirm details politely. 'Reconfirm' shows you already have them on file.",
+            "nTh": "บอกข่าวดีก่อน แล้วยืนยันข้อมูลอย่างสุภาพ 'ยืนยันอีกครั้ง' แสดงว่าคุณมีข้อมูลอยู่แล้ว"
+          }, {
+            "t": "\"Email and phone number.\"",
+            "th": "\"อีเมลกับเบอร์โทรค่ะ\"",
+            "v": "ok",
+            "n": "Understandable but abrupt. Wrap it in a polite question.",
+            "nTh": "เข้าใจได้แต่ห้วน ใส่ไว้ในประโยคขอที่สุภาพ"
+          }, {
+            "t": "\"Why is your email different from the booking?\"",
+            "th": "\"ทำไมอีเมลไม่ตรงกับที่จองคะ\"",
+            "v": "bad",
+            "n": "Do not interrogate over small mismatches. Just confirm the correct details kindly.",
+            "nTh": "อย่าซักไซ้เรื่องข้อมูลไม่ตรงเล็กน้อย แค่ยืนยันข้อมูลที่ถูกต้องอย่างสุภาพ"
+          }, {
+            "t": "\"We don't need your phone number.\"",
+            "th": "\"ไม่ต้องใช้เบอร์โทรหรอกค่ะ\"",
+            "v": "bad",
+            "n": "We do need it — to reach them about their room or transport. Confirm it warmly.",
+            "nTh": "เราต้องใช้ เพื่อติดต่อเรื่องห้องหรือการเดินทาง ยืนยันอย่างอบอุ่น"
+          }]
+        }]
+      }, {
+        "id": "staychange",
+        "name": {
+          "en": "Extending & Changing the Room",
+          "th": "ต่อวันพักและเปลี่ยนห้อง"
+        },
+        "questions": [{
+          "type": "guest",
+          "scene": "A guest comes to the desk during their stay.",
+          "sceneTh": "แขกเดินมาที่เคาน์เตอร์ระหว่างเข้าพัก",
+          "guest": {
+            "en": "We're loving it here. Can we stay a few more nights?",
+            "th": "เราชอบที่นี่มาก ขอพักต่ออีกสองสามคืนได้ไหม"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I'd be delighted. How many more nights would you like? Allow me to check availability for you.\"",
+            "th": "\"ยินดีอย่างยิ่งค่ะ ต้องการพักต่ออีกกี่คืนดีคะ ขออนุญาตตรวจสอบห้องว่างให้นะคะ\"",
+            "v": "best",
+            "n": "Share their delight, ask the length, then check. Warm and efficient.",
+            "nTh": "รับความยินดีของแขก ถามจำนวนคืน แล้วตรวจสอบ อบอุ่นและกระฉับกระเฉง"
+          }, {
+            "t": "\"Maybe. I'll see.\"",
+            "th": "\"อาจจะได้ค่ะ เดี๋ยวดู\"",
+            "v": "ok",
+            "n": "Willing, but vague. Tell them you'll check availability and ask how many nights.",
+            "nTh": "เต็มใจ แต่คลุมเครือ บอกว่าจะตรวจห้องว่างและถามจำนวนคืน"
+          }, {
+            "t": "\"We're probably full.\"",
+            "th": "\"น่าจะเต็มค่ะ\"",
+            "v": "bad",
+            "n": "Don't guess a 'no'. Check first — a guest who wants to stay longer is a gift.",
+            "nTh": "อย่าเดาว่า 'ไม่ได้' ตรวจสอบก่อน แขกที่อยากพักต่อคือสิ่งที่ดี"
+          }, {
+            "t": "\"You have to rebook online.\"",
+            "th": "\"ต้องไปจองใหม่ออนไลน์เองค่ะ\"",
+            "v": "bad",
+            "n": "Never send a happy guest away to do our job. Handle the extension at the desk.",
+            "nTh": "ห้ามไล่แขกที่พอใจไปทำงานของเราเอง จัดการต่อวันพักที่เคาน์เตอร์"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You have checked and the guest can extend. You quote the price.",
+          "sceneTh": "คุณตรวจสอบแล้วและแขกสามารถพักต่อได้ คุณแจ้งราคา",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Absolutely, you can extend. The total for the additional 4 nights is 60,000 Baht, and that includes daily breakfast.\"",
+            "th": "\"ได้แน่นอนค่ะ ค่าห้องเพิ่มอีก 4 คืน รวมเป็น 60,000 บาท และรวมอาหารเช้าทุกวันด้วยค่ะ\"",
+            "v": "best",
+            "n": "Say yes clearly, give the total, and mention breakfast is included — value, stated plainly.",
+            "nTh": "ตอบรับชัดเจน แจ้งยอดรวม และบอกว่ารวมอาหารเช้า บอกความคุ้มค่าอย่างตรงไปตรงมา"
+          }, {
+            "t": "\"It's 60,000. Cash only.\"",
+            "th": "\"60,000 ค่ะ รับแต่เงินสด\"",
+            "v": "bad",
+            "n": "We take cards too, and 'cash only' sounds like a demand. Quote the price and offer both.",
+            "nTh": "เรารับบัตรด้วย และ 'รับแต่เงินสด' ฟังดูเหมือนบังคับ แจ้งราคาและเสนอทั้งสองแบบ"
+          }, {
+            "t": "\"The price is 60,000 Baht.\"",
+            "th": "\"ราคา 60,000 บาทค่ะ\"",
+            "v": "ok",
+            "n": "Correct, but mention breakfast is included — it makes the number feel fair.",
+            "nTh": "ถูก แต่บอกด้วยว่ารวมอาหารเช้า ทำให้ราคารู้สึกสมเหตุสมผล"
+          }, {
+            "t": "\"That's expensive but okay.\"",
+            "th": "\"แพงอยู่นะคะ แต่ก็โอเค\"",
+            "v": "bad",
+            "n": "Never call our own rate expensive. State the price with confidence and its value.",
+            "nTh": "ห้ามพูดว่าราคาของเราแพง แจ้งราคาอย่างมั่นใจพร้อมความคุ้มค่า"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The guest agrees to extend and pays. You need to update their key card.",
+          "sceneTh": "แขกตกลงพักต่อและชำระเงินแล้ว คุณต้องอัปเดตคีย์การ์ด",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Here is your receipt. Let me update your room card, and I'll extend it until your new check-out date.\"",
+            "th": "\"นี่ใบเสร็จของคุณค่ะ ขออัปเดตคีย์การ์ดให้ และจะต่ออายุจนถึงวันเช็คเอาท์ใหม่นะคะ\"",
+            "v": "best",
+            "n": "Receipt, then update the card and say what you did. The guest leaves knowing everything is sorted.",
+            "nTh": "ให้ใบเสร็จ แล้วอัปเดตการ์ดและบอกสิ่งที่ทำ แขกจากไปโดยรู้ว่าทุกอย่างเรียบร้อย"
+          }, {
+            "t": "Take the card, update it, and hand it back silently.",
+            "th": "รับการ์ด อัปเดต แล้วยื่นคืนโดยไม่พูดอะไร",
+            "v": "ok",
+            "n": "It works, but tell them what you did and give the receipt — silence leaves them unsure.",
+            "nTh": "ใช้ได้ แต่บอกสิ่งที่ทำและให้ใบเสร็จ ความเงียบทำให้แขกไม่แน่ใจ"
+          }, {
+            "t": "\"Your old card won't work anymore, figure it out.\"",
+            "th": "\"การ์ดเดิมใช้ไม่ได้แล้วนะคะ ไปจัดการเอาเอง\"",
+            "v": "bad",
+            "n": "Never leave a guest to 'figure it out'. Update it for them and confirm it works.",
+            "nTh": "ห้ามปล่อยให้แขก 'จัดการเอง' อัปเดตให้และยืนยันว่าใช้งานได้"
+          }, {
+            "t": "\"No receipt, we don't do those.\"",
+            "th": "\"ไม่มีใบเสร็จค่ะ เราไม่ทำ\"",
+            "v": "bad",
+            "n": "Always give a receipt for a payment. It is the guest's proof and their right.",
+            "nTh": "ให้ใบเสร็จสำหรับการชำระเงินเสมอ เป็นหลักฐานและสิทธิ์ของแขก"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "A guest asks to move to a better room.",
+          "sceneTh": "แขกขอย้ายไปห้องที่ดีกว่า",
+          "guest": {
+            "en": "Is it possible to upgrade to the Seaview Pool Suite?",
+            "th": "อัปเกรดเป็นซีวิวพูลสวีทได้ไหม"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"Allow me to check availability. If the Seaview Pool Suite is taken, may I suggest another category for you?\"",
+            "th": "\"ขออนุญาตตรวจสอบห้องว่างนะคะ หากซีวิวพูลสวีทถูกจองแล้ว ขอแนะนำห้องประเภทอื่นให้ได้ไหมคะ\"",
+            "v": "best",
+            "n": "Check first, and have a backup ready. Offering an alternative keeps a 'no' from being the end.",
+            "nTh": "ตรวจสอบก่อน และเตรียมทางเลือกสำรอง การเสนอห้องอื่นทำให้ 'ไม่ว่าง' ไม่ใช่จุดจบ"
+          }, {
+            "t": "\"That room is always full, forget it.\"",
+            "th": "\"ห้องนั้นเต็มตลอดค่ะ ลืมไปได้เลย\"",
+            "v": "bad",
+            "n": "Dismissive and unhelpful. Check, and offer an alternative if it's taken.",
+            "nTh": "ปัดตกและไม่ช่วยอะไร ตรวจสอบ และเสนอทางเลือกหากเต็ม"
+          }, {
+            "t": "\"Sure, no problem!\" (before checking)\"",
+            "th": "\"ได้เลยค่ะ ไม่มีปัญหา!\" (ก่อนตรวจสอบ)",
+            "v": "bad",
+            "n": "Never promise before you check. A promise you can't keep is worse than a delay.",
+            "nTh": "ห้ามสัญญาก่อนตรวจสอบ สัญญาที่รักษาไม่ได้แย่กว่าการรอ"
+          }, {
+            "t": "\"Let me check for you.\"",
+            "th": "\"ขอตรวจสอบให้นะคะ\"",
+            "v": "ok",
+            "n": "Right first step, but line up an alternative so you're ready if it's unavailable.",
+            "nTh": "เริ่มถูก แต่เตรียมทางเลือกไว้เผื่อห้องไม่ว่าง"
+          }]
+        }]
+      }, {
+        "id": "roomproblems",
+        "name": {
+          "en": "In-Room Problems",
+          "th": "ปัญหาในห้องพัก"
+        },
+        "questions": [{
+          "type": "guest",
+          "scene": "A guest calls the desk, upset about their room.",
+          "sceneTh": "แขกโทรมาที่เคาน์เตอร์ ไม่พอใจเรื่องห้องพัก",
+          "guest": {
+            "en": "The room wasn't cleaned properly. There's dust everywhere.",
+            "th": "ห้องทำความสะอาดไม่เรียบร้อย มีฝุ่นเต็มไปหมด"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I sincerely apologize for the inconvenience. I'll bring our housekeeping team to your room very shortly to put it right.\"",
+            "th": "\"ต้องขออภัยอย่างยิ่งในความไม่สะดวกค่ะ ดิฉันจะพาทีมแม่บ้านไปที่ห้องของคุณโดยเร็วเพื่อแก้ไขให้เรียบร้อย\"",
+            "v": "best",
+            "n": "Apologise sincerely and act at once, with a real team and a real time. Own it fully.",
+            "nTh": "ขออภัยอย่างจริงใจและลงมือทันที พร้อมทีมจริงและเวลาจริง รับผิดชอบเต็มที่"
+          }, {
+            "t": "\"Housekeeping is not my department.\"",
+            "th": "\"งานแม่บ้านไม่ใช่แผนกของดิฉันค่ะ\"",
+            "v": "bad",
+            "n": "'Not my department' is a phrase we never say. To the guest, you are the resort. Fix it.",
+            "nTh": "'ไม่ใช่แผนกของดิฉัน' คือคำที่เราไม่พูด สำหรับแขกคุณคือรีสอร์ท จัดการให้"
+          }, {
+            "t": "\"I'm sorry. I'll tell someone.\"",
+            "th": "\"ขอโทษค่ะ เดี๋ยวจะบอกใครสักคน\"",
+            "v": "ok",
+            "n": "The apology is right, but 'someone' and no time sounds vague. Name the team and a time.",
+            "nTh": "ขอโทษถูก แต่ 'ใครสักคน' โดยไม่มีเวลาฟังดูคลุมเครือ ระบุทีมและเวลา"
+          }, {
+            "t": "\"Are you sure? It was cleaned this morning.\"",
+            "th": "\"แน่ใจนะคะ เพิ่งทำความสะอาดเมื่อเช้า\"",
+            "v": "bad",
+            "n": "Never argue with the guest about their own room. Apologise and fix it.",
+            "nTh": "ห้ามเถียงกับแขกเรื่องห้องของเขาเอง ขอโทษและแก้ไข"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "A guest reports a maintenance fault.",
+          "sceneTh": "แขกแจ้งปัญหาการซ่อมบำรุง",
+          "guest": {
+            "en": "The air-conditioner isn't getting cold.",
+            "th": "แอร์ไม่เย็นเลย"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I'm so sorry. Our technician will check the refrigerant and the temperature and fix it promptly for you.\"",
+            "th": "\"ต้องขอโทษด้วยค่ะ ช่างเทคนิคของเราจะตรวจสอบสารทำความเย็นและอุณหภูมิ แล้วแก้ไขให้ทันทีค่ะ\"",
+            "v": "best",
+            "n": "Apologise, then give a clear, confident action. The guest hears that it will be handled.",
+            "nTh": "ขอโทษ แล้วบอกการแก้ไขที่ชัดเจนและมั่นใจ แขกได้ยินว่าเรื่องจะถูกจัดการ"
+          }, {
+            "t": "\"Old air-conditioners are like that.\"",
+            "th": "\"แอร์เก่ามันเป็นแบบนี้แหละค่ะ\"",
+            "v": "bad",
+            "n": "Never excuse a fault or run down our equipment. Send the technician and fix it.",
+            "nTh": "ห้ามแก้ตัวให้อาการเสียหรือพูดถึงอุปกรณ์ของเราในแง่ลบ ส่งช่างไปแก้ไข"
+          }, {
+            "t": "\"I'll send someone.\"",
+            "th": "\"เดี๋ยวส่งคนไปให้ค่ะ\"",
+            "v": "ok",
+            "n": "Fine, but add the apology and a little confidence that it will be sorted.",
+            "nTh": "ก็ได้ แต่เพิ่มคำขอโทษและความมั่นใจว่าจะแก้ไขให้"
+          }, {
+            "t": "\"Just open the window for now.\"",
+            "th": "\"เปิดหน้าต่างไปก่อนนะคะ\"",
+            "v": "bad",
+            "n": "Never make the guest work around our fault. Send the technician.",
+            "nTh": "ห้ามให้แขกทนกับอาการเสียของเรา ส่งช่างไป"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "The problem in the room is serious and cannot be fixed today.",
+          "sceneTh": "ปัญหาในห้องรุนแรงและไม่สามารถซ่อมได้ในวันนี้",
+          "guest": {
+            "en": "So am I supposed to sleep in a hot room tonight?",
+            "th": "แล้วคืนนี้ให้ฉันนอนในห้องที่ร้อนอย่างนั้นเหรอ"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I'm truly sorry. The air-conditioner can't be fixed today, so allow me to arrange another room for you right now.\"",
+            "th": "\"ต้องขอโทษจริง ๆ ค่ะ วันนี้ซ่อมแอร์ไม่ได้ ดิฉันขออนุญาตจัดห้องใหม่ให้คุณเดี๋ยวนี้เลยนะคะ\"",
+            "v": "best",
+            "n": "When it can't be fixed, move the guest — now. A comfortable night matters more than the repair.",
+            "nTh": "เมื่อซ่อมไม่ได้ ให้ย้ายห้องแขกทันที คืนที่สบายสำคัญกว่าการซ่อม"
+          }, {
+            "t": "\"Sorry, nothing I can do tonight.\"",
+            "th": "\"ขอโทษค่ะ คืนนี้ทำอะไรไม่ได้เลย\"",
+            "v": "bad",
+            "n": "There is always something: move them. Never leave a guest in an unusable room.",
+            "nTh": "มีสิ่งที่ทำได้เสมอ คือย้ายห้อง ห้ามปล่อยแขกไว้ในห้องที่ใช้ไม่ได้"
+          }, {
+            "t": "\"Our engineering will take a long time. Would you like me to find a new room?\"",
+            "th": "\"ฝ่ายช่างจะใช้เวลานานค่ะ ต้องการให้ดิฉันหาห้องใหม่ให้ไหมคะ\"",
+            "v": "ok",
+            "n": "Right direction, but don't make a distressed guest decide. Offer the new room and lead.",
+            "nTh": "ทิศทางถูก แต่อย่าให้แขกที่ไม่สบายใจเป็นคนตัดสินใจ เสนอห้องใหม่และนำทาง"
+          }, {
+            "t": "\"You can have a fan.\"",
+            "th": "\"เอาพัดลมไปใช้ก็ได้ค่ะ\"",
+            "v": "bad",
+            "n": "A fan is not a fix for a hot suite. Move the guest to a working room.",
+            "nTh": "พัดลมไม่ใช่การแก้ปัญหาห้องสวีทที่ร้อน ย้ายแขกไปห้องที่ใช้งานได้"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "A guest calls, alarmed, about something in the room.",
+          "sceneTh": "แขกโทรมาด้วยความตกใจเรื่องบางอย่างในห้อง",
+          "guest": {
+            "en": "There's a lizard on the wall! Please get it out.",
+            "th": "มีจิ้งจกอยู่บนผนัง! ช่วยเอาออกไปที"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I'm sorry for the fright. Our housekeeping will come and remove it right away, and we'll check the balcony door to keep it from happening again.\"",
+            "th": "\"ขอโทษที่ทำให้ตกใจค่ะ แม่บ้านของเราจะไปนำออกให้ทันที และจะตรวจประตูระเบียงเพื่อไม่ให้เกิดขึ้นอีก\"",
+            "v": "best",
+            "n": "Acknowledge the fright, remove it now, and prevent a repeat. Calm, quick, caring.",
+            "nTh": "รับรู้ความตกใจ นำออกทันที และป้องกันไม่ให้เกิดซ้ำ ใจเย็น รวดเร็ว ใส่ใจ"
+          }, {
+            "t": "\"It's just a lizard, it's harmless.\"",
+            "th": "\"แค่จิ้งจกเองค่ะ ไม่มีอันตราย\"",
+            "v": "bad",
+            "n": "True, but it dismisses the guest's feeling. Reassure by acting, not by minimising.",
+            "nTh": "จริง แต่เป็นการปัดความรู้สึกของแขก ทำให้สบายใจด้วยการลงมือ ไม่ใช่การลดทอน"
+          }, {
+            "t": "\"Try to catch it yourself.\"",
+            "th": "\"ลองจับเองดูไหมคะ\"",
+            "v": "bad",
+            "n": "Never make the guest deal with it. Send housekeeping at once.",
+            "nTh": "ห้ามให้แขกจัดการเอง ส่งแม่บ้านไปทันที"
+          }, {
+            "t": "\"Housekeeping will come and remove it.\"",
+            "th": "\"แม่บ้านจะไปนำออกให้ค่ะ\"",
+            "v": "ok",
+            "n": "Good action, but add a word of reassurance for the fright first.",
+            "nTh": "ลงมือดี แต่เพิ่มคำปลอบใจสำหรับความตกใจก่อน"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "A guest complains about noise late at night.",
+          "sceneTh": "แขกร้องเรียนเรื่องเสียงดังตอนดึก",
+          "guest": {
+            "en": "The people next door are really loud. We can't sleep.",
+            "th": "ห้องข้าง ๆ เสียงดังมาก เรานอนไม่ได้เลย"
+          },
+          "ask": "What do you do?",
+          "askTh": "คุณจะทำอย่างไร",
+          "options": [{
+            "t": "\"I apologize for the disturbance. I'll speak with them right away and ask them to lower the noise so you can rest.\"",
+            "th": "\"ขออภัยในความไม่สะดวกค่ะ ดิฉันจะไปแจ้งห้องนั้นทันทีให้ลดเสียงลง เพื่อให้คุณได้พักผ่อน\"",
+            "v": "best",
+            "n": "Apologise and act quietly and firmly. The guest just wants quiet, tonight.",
+            "nTh": "ขอโทษและจัดการอย่างสุภาพแต่หนักแน่น แขกแค่อยากได้ความเงียบในคืนนี้"
+          }, {
+            "t": "\"There's nothing I can do about other guests.\"",
+            "th": "\"เรื่องแขกคนอื่น ดิฉันทำอะไรไม่ได้ค่ะ\"",
+            "v": "bad",
+            "n": "You can, and must: speak to the room politely and settle it.",
+            "nTh": "คุณทำได้และต้องทำ ไปแจ้งห้องนั้นอย่างสุภาพและจัดการให้เรียบร้อย"
+          }, {
+            "t": "\"Just call them yourself.\"",
+            "th": "\"โทรไปบอกเขาเองสิคะ\"",
+            "v": "bad",
+            "n": "Never make one guest confront another. That is our job.",
+            "nTh": "ห้ามให้แขกไปเผชิญหน้ากับแขกอีกคน นั่นคืองานของเรา"
+          }, {
+            "t": "\"I'll look into it.\"",
+            "th": "\"เดี๋ยวดูให้ค่ะ\"",
+            "v": "ok",
+            "n": "Too vague for someone who can't sleep. Say you'll speak to them now.",
+            "nTh": "คลุมเครือเกินไปสำหรับคนที่นอนไม่ได้ บอกว่าจะไปแจ้งเดี๋ยวนี้"
+          }]
+        }]
+      }, {
+        "id": "transport",
+        "name": {
+          "en": "Getting Around & Breakfast Box",
+          "th": "การเดินทางและอาหารเช้าแบบกล่อง"
+        },
+        "questions": [{
+          "type": "guest",
+          "scene": "A guest wants to arrange a car to the airport for their departure.",
+          "sceneTh": "แขกต้องการจัดรถไปสนามบินสำหรับวันเดินทางกลับ",
+          "guest": {
+            "en": "We fly out tomorrow. Can you arrange a car to the airport?",
+            "th": "พรุ่งนี้เราบินกลับ ช่วยจัดรถไปสนามบินได้ไหม"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Of course. May I have your flight number, and how many people and bags, so I arrange the right car?\"",
+            "th": "\"ได้เลยค่ะ ขอทราบหมายเลขเที่ยวบิน จำนวนผู้โดยสาร และกระเป๋า เพื่อจัดรถให้เหมาะสมนะคะ\"",
+            "v": "best",
+            "n": "Say yes, then gather exactly what you need — flight, people, bags — to book the right vehicle.",
+            "nTh": "ตอบรับ แล้วถามสิ่งที่ต้องใช้ให้ครบ เที่ยวบิน จำนวนคน กระเป๋า เพื่อจัดรถให้ถูก"
+          }, {
+            "t": "\"Yes. What time?\"",
+            "th": "\"ได้ค่ะ กี่โมงคะ\"",
+            "v": "ok",
+            "n": "A start, but you'll need the flight number and party size too. Ask for all of it once.",
+            "nTh": "เริ่มได้ แต่ต้องใช้หมายเลขเที่ยวบินและจำนวนคนด้วย ถามให้ครบในครั้งเดียว"
+          }, {
+            "t": "\"Take a taxi outside.\"",
+            "th": "\"ไปเรียกแท็กซี่ข้างนอกเอาค่ะ\"",
+            "v": "bad",
+            "n": "We arrange transport for our guests. Never send them out to fend for themselves.",
+            "nTh": "เราจัดรถให้แขก ห้ามไล่แขกออกไปจัดการเอง"
+          }, {
+            "t": "\"I'm not sure we do that.\"",
+            "th": "\"ไม่แน่ใจว่าเราทำให้ได้ไหมค่ะ\"",
+            "v": "bad",
+            "n": "We do. Never sound unsure about a service we offer — arrange it with confidence.",
+            "nTh": "เราทำได้ ห้ามฟังดูไม่มั่นใจในบริการของเรา จัดการอย่างมั่นใจ"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You are advising the guest what time to leave for a smooth departure.",
+          "sceneTh": "คุณกำลังแนะนำเวลาที่แขกควรออกเดินทางเพื่อไปสนามบินอย่างราบรื่น",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"I'd recommend leaving 4 hours before your flight — the drive is about an hour, and 3 hours is ideal for airport check-in.\"",
+            "th": "\"ขอแนะนำให้ออกก่อนเที่ยวบิน 4 ชั่วโมงค่ะ เดินทางประมาณ 1 ชั่วโมง และเผื่อ 3 ชั่วโมงสำหรับเช็คอินที่สนามบิน\"",
+            "v": "best",
+            "n": "Give the recommendation and the reasoning. The guest trusts advice that explains itself.",
+            "nTh": "ให้คำแนะนำพร้อมเหตุผล แขกเชื่อคำแนะนำที่อธิบายที่มา"
+          }, {
+            "t": "\"Leave early.\"",
+            "th": "\"ออกแต่เช้านะคะ\"",
+            "v": "ok",
+            "n": "Too vague to plan around. Give the actual hours and why.",
+            "nTh": "คลุมเครือเกินกว่าจะวางแผน ให้จำนวนชั่วโมงจริงและเหตุผล"
+          }, {
+            "t": "\"You'll probably make it.\"",
+            "th": "\"น่าจะทันค่ะ\"",
+            "v": "bad",
+            "n": "Never leave a flight to chance. Give a clear, safe departure time.",
+            "nTh": "ห้ามปล่อยเรื่องเที่ยวบินให้เสี่ยง ให้เวลาออกเดินทางที่ชัดเจนและปลอดภัย"
+          }, {
+            "t": "\"That's up to you.\"",
+            "th": "\"แล้วแต่คุณเลยค่ะ\"",
+            "v": "bad",
+            "n": "The guest is asking for your expertise. Give a real recommendation.",
+            "nTh": "แขกกำลังขอความเชี่ยวชาญจากคุณ ให้คำแนะนำที่ชัดเจน"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The car is booked. You explain the VIP van fare and how it's paid.",
+          "sceneTh": "จองรถแล้ว คุณอธิบายค่ารถตู้วีไอพีและวิธีชำระ",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"The VIP private van is 2,500 Baht. We'll charge it to your room, and you can settle it at check-out.\"",
+            "th": "\"รถตู้วีไอพีส่วนตัวราคา 2,500 บาทค่ะ เราจะเซ็นเข้าห้องให้ และชำระตอนเช็คเอาท์ได้เลยค่ะ\"",
+            "v": "best",
+            "n": "State the fare and make paying effortless — charge to the room, settle at check-out.",
+            "nTh": "แจ้งราคาและทำให้การจ่ายง่าย เซ็นเข้าห้อง ชำระตอนเช็คเอาท์"
+          }, {
+            "t": "\"2,500 Baht, pay me now in cash.\"",
+            "th": "\"2,500 บาทค่ะ จ่ายสดกับดิฉันเดี๋ยวนี้เลย\"",
+            "v": "bad",
+            "n": "Don't demand cash up front. Charge to the room like everything else.",
+            "nTh": "อย่าเรียกเงินสดล่วงหน้า เซ็นเข้าห้องเหมือนทุกอย่าง"
+          }, {
+            "t": "\"It's 2,500 Baht.\"",
+            "th": "\"2,500 บาทค่ะ\"",
+            "v": "ok",
+            "n": "Correct, but add that it goes on the room bill so there's no fuss now.",
+            "nTh": "ถูก แต่บอกด้วยว่าเซ็นเข้าห้อง จะได้ไม่ต้องยุ่งยากตอนนี้"
+          }, {
+            "t": "\"I don't know the price.\"",
+            "th": "\"ไม่ทราบราคาค่ะ\"",
+            "v": "bad",
+            "n": "Know your service's prices. Guessing or not knowing erodes trust.",
+            "nTh": "ต้องรู้ราคาบริการของตัวเอง การเดาหรือไม่รู้ทำให้เสียความเชื่อใจ"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "A guest leaving before breakfast asks about a breakfast box.",
+          "sceneTh": "แขกที่ออกเดินทางก่อนเวลาอาหารเช้าถามเรื่องอาหารเช้าแบบกล่อง",
+          "guest": {
+            "en": "We leave at 5 a.m. Can we still get breakfast?",
+            "th": "เราออกตีห้า ยังได้อาหารเช้าไหม"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Of course. How many breakfast boxes would you like, and is anyone allergic to any foods? You can pick them up at the lobby.\"",
+            "th": "\"ได้ค่ะ ต้องการอาหารเช้าแบบกล่องกี่กล่องคะ และมีใครแพ้อาหารอะไรไหมคะ รับได้ที่ล็อบบี้ค่ะ\"",
+            "v": "best",
+            "n": "Yes, then the three things you need: how many, allergies, and where to collect them.",
+            "nTh": "ตอบรับ แล้วถามสามสิ่งที่ต้องรู้ กี่กล่อง แพ้อะไรไหม และรับที่ไหน"
+          }, {
+            "t": "\"No, breakfast is only from 7 a.m.\"",
+            "th": "\"ไม่ได้ค่ะ อาหารเช้าเริ่มเจ็ดโมง\"",
+            "v": "bad",
+            "n": "We solve this with a breakfast box. Never let an early departure mean no breakfast.",
+            "nTh": "เราแก้ด้วยอาหารเช้าแบบกล่อง อย่าให้การออกเดินทางเช้าหมายถึงไม่ได้อาหารเช้า"
+          }, {
+            "t": "\"How many boxes would you like?\"",
+            "th": "\"รับกี่กล่องคะ\"",
+            "v": "ok",
+            "n": "Good start — but also ask about allergies and tell them where to collect.",
+            "nTh": "เริ่มดี แต่ถามเรื่องการแพ้อาหารและบอกจุดรับด้วย"
+          }, {
+            "t": "\"Just take some fruit from the lobby.\"",
+            "th": "\"หยิบผลไม้ที่ล็อบบี้ไปก็ได้ค่ะ\"",
+            "v": "bad",
+            "n": "That's not the service. Offer the proper breakfast box.",
+            "nTh": "นั่นไม่ใช่บริการของเรา เสนออาหารเช้าแบบกล่องที่ถูกต้อง"
+          }]
+        }]
+      }, {
+        "id": "checkout",
+        "name": {
+          "en": "Check-Out & Farewell",
+          "th": "เช็คเอาท์และการอำลา"
+        },
+        "questions": [{
+          "type": "choice",
+          "scene": "A guest arrives at the desk to check out. Their bags are still in the room.",
+          "sceneTh": "แขกมาที่เคาน์เตอร์เพื่อเช็คเอาท์ กระเป๋ายังอยู่ในห้อง",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Are you ready to check out? Our bellboy will collect your luggage shortly. May I have your key card?\"",
+            "th": "\"พร้อมเช็คเอาท์ไหมคะ พนักงานยกกระเป๋าจะไปรับสัมภาระให้เร็ว ๆ นี้ ขอคีย์การ์ดด้วยค่ะ\"",
+            "v": "best",
+            "n": "Confirm, arrange the bags, and take the card — the three things check-out needs, in order.",
+            "nTh": "ยืนยัน จัดการกระเป๋า และรับการ์ด สามสิ่งที่การเช็คเอาท์ต้องทำ เรียงตามลำดับ"
+          }, {
+            "t": "\"Key card. Now.\"",
+            "th": "\"คีย์การ์ดค่ะ เดี๋ยวนี้\"",
+            "v": "bad",
+            "n": "Curt and demanding. Ask politely and offer to handle the luggage.",
+            "nTh": "ห้วนและออกคำสั่ง ขออย่างสุภาพและเสนอช่วยเรื่องกระเป๋า"
+          }, {
+            "t": "\"Carry your own bags down, please.\"",
+            "th": "\"ช่วยถือกระเป๋าลงมาเองนะคะ\"",
+            "v": "bad",
+            "n": "We collect the luggage for the guest. Never send them to carry it themselves.",
+            "nTh": "เรารับกระเป๋าให้แขก ห้ามให้แขกถือเอง"
+          }, {
+            "t": "\"Ready to check out?\"",
+            "th": "\"พร้อมเช็คเอาท์ไหมคะ\"",
+            "v": "ok",
+            "n": "Good opener, but continue — offer the bellboy and ask for the card.",
+            "nTh": "เปิดดี แต่ทำต่อ เสนอพนักงานยกกระเป๋าและขอการ์ด"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "Before you print the bill, you need to check the room account is complete.",
+          "sceneTh": "ก่อนพิมพ์บิล คุณต้องตรวจสอบว่าบัญชีห้องพักครบถ้วน",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Have you used anything from the minibar? And kindly check the safety box is empty before you leave.\"",
+            "th": "\"ได้ใช้อะไรจากมินิบาร์ไหมคะ และรบกวนตรวจว่าเซฟว่างเปล่าก่อนออกนะคะ\"",
+            "v": "best",
+            "n": "Ask about the minibar and remind them about the safe — it saves the guest a lost passport and a wrong bill.",
+            "nTh": "ถามเรื่องมินิบาร์และเตือนเรื่องเซฟ ช่วยไม่ให้แขกลืมพาสปอร์ตและไม่ให้บิลผิด"
+          }, {
+            "t": "\"You didn't take anything from the minibar, right?\"",
+            "th": "\"ไม่ได้หยิบอะไรจากมินิบาร์ใช่ไหมคะ\"",
+            "v": "ok",
+            "n": "A leading question can make a guest feel accused. Ask it neutrally.",
+            "nTh": "คำถามชี้นำอาจทำให้แขกรู้สึกถูกกล่าวหา ถามอย่างเป็นกลาง"
+          }, {
+            "t": "\"We'll just charge you for the minibar anyway.\"",
+            "th": "\"เดี๋ยวคิดค่ามินิบาร์ไปเลยแล้วกันค่ะ\"",
+            "v": "bad",
+            "n": "Never charge without checking. Ask, verify, then bill only what was used.",
+            "nTh": "ห้ามคิดเงินโดยไม่ตรวจสอบ ถาม ตรวจ แล้วคิดเฉพาะที่ใช้จริง"
+          }, {
+            "t": "\"Forget the safe, just go.\"",
+            "th": "\"ไม่ต้องสนใจเซฟหรอกค่ะ ไปได้เลย\"",
+            "v": "bad",
+            "n": "Always remind them about the safe — a forgotten passport is a ruined trip.",
+            "nTh": "เตือนเรื่องเซฟเสมอ พาสปอร์ตที่ลืมไว้ทำให้ทริปพัง"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "You present the folio. You want the guest to trust the charges.",
+          "sceneTh": "คุณยื่นใบสรุปค่าใช้จ่าย คุณอยากให้แขกมั่นใจในรายการ",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"This is the summary of your charges. Please double-check it, and if anything looks wrong, do let me know.\"",
+            "th": "\"นี่คือสรุปค่าใช้จ่ายของคุณค่ะ รบกวนตรวจสอบอีกครั้ง หากพบสิ่งใดไม่ถูกต้อง แจ้งดิฉันได้เลยนะคะ\"",
+            "v": "best",
+            "n": "Invite them to check and to speak up. Openness about the bill builds trust at the last moment.",
+            "nTh": "เชิญให้แขกตรวจและทักท้วงได้ ความโปร่งใสเรื่องบิลสร้างความเชื่อใจในนาทีสุดท้าย"
+          }, {
+            "t": "\"Here's your bill. It's all correct.\"",
+            "th": "\"นี่บิลค่ะ ถูกต้องหมดแล้ว\"",
+            "v": "ok",
+            "n": "Probably true, but inviting them to check themselves feels more honest and open.",
+            "nTh": "อาจจะจริง แต่การเชิญให้แขกตรวจเองรู้สึกซื่อตรงและเปิดกว่า"
+          }, {
+            "t": "\"Just pay, it's fine.\"",
+            "th": "\"จ่ายเลยค่ะ ไม่มีอะไรหรอก\"",
+            "v": "bad",
+            "n": "Never rush a guest past their own bill. Invite them to check it.",
+            "nTh": "ห้ามเร่งแขกให้ข้ามบิลของตัวเอง เชิญให้ตรวจสอบ"
+          }, {
+            "t": "\"If it's wrong, that's not my fault.\"",
+            "th": "\"ถ้าผิดก็ไม่ใช่ความผิดดิฉันนะคะ\"",
+            "v": "bad",
+            "n": "Never get defensive about the bill. Offer to check and fix anything together.",
+            "nTh": "ห้ามตั้งท่าป้องกันตัวเรื่องบิล เสนอตรวจและแก้ไขด้วยกัน"
+          }]
+        }, {
+          "type": "choice",
+          "scene": "The guest is ready to pay and asks about currency.",
+          "sceneTh": "แขกพร้อมชำระเงินและถามเรื่องสกุลเงิน",
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"Would you like to settle in cash or by card? And in Thai Baht or your home currency — we'd recommend your home currency.\"",
+            "th": "\"ต้องการชำระเป็นเงินสดหรือบัตรดีคะ และเป็นเงินบาทหรือสกุลเงินประเทศของคุณ ซึ่งเราแนะนำสกุลเงินประเทศของคุณค่ะ\"",
+            "v": "best",
+            "n": "Offer both, then give a helpful recommendation. Guiding the choice is service, not pressure.",
+            "nTh": "เสนอทั้งสองแบบ แล้วให้คำแนะนำที่เป็นประโยชน์ การช่วยเลือกคือบริการ ไม่ใช่การกดดัน"
+          }, {
+            "t": "\"Cash only, Baht only.\"",
+            "th": "\"รับแต่เงินสด แต่เงินบาทเท่านั้นค่ะ\"",
+            "v": "bad",
+            "n": "We accept cards and other currencies. Never limit the guest's options falsely.",
+            "nTh": "เรารับบัตรและสกุลเงินอื่น ห้ามจำกัดทางเลือกของแขกโดยไม่จริง"
+          }, {
+            "t": "\"Cash or card?\"",
+            "th": "\"เงินสดหรือบัตรคะ\"",
+            "v": "ok",
+            "n": "Good, but also cover the currency question and your recommendation.",
+            "nTh": "ดี แต่ถามเรื่องสกุลเงินและให้คำแนะนำด้วย"
+          }, {
+            "t": "\"Pay however, I don't mind.\"",
+            "th": "\"จ่ายแบบไหนก็ได้ค่ะ ไม่ว่ากัน\"",
+            "v": "ok",
+            "n": "Relaxed, but the guest wants guidance. Offer the options and a recommendation.",
+            "nTh": "สบาย ๆ ดี แต่แขกอยากได้คำแนะนำ เสนอทางเลือกและคำแนะนำ"
+          }]
+        }, {
+          "type": "guest",
+          "scene": "Everything is settled. The guest is about to leave for the airport.",
+          "sceneTh": "ทุกอย่างเรียบร้อย แขกกำลังจะออกเดินทางไปสนามบิน",
+          "guest": {
+            "en": "Thank you, we had a wonderful stay.",
+            "th": "ขอบคุณนะ เราพักที่นี่ได้อย่างมีความสุขมาก"
+          },
+          "ask": "What do you say?",
+          "askTh": "คุณจะพูดอย่างไร",
+          "options": [{
+            "t": "\"It was our pleasure. Thank you for choosing to stay with us — have a safe and pleasant flight home, and we look forward to welcoming you again.\"",
+            "th": "\"ด้วยความยินดีค่ะ ขอบคุณที่เลือกพักกับเรา ขอให้เดินทางกลับบ้านโดยสวัสดิภาพ และหวังว่าจะได้ต้อนรับอีกครั้งนะคะ\"",
+            "v": "best",
+            "n": "'It was our pleasure', thanks, a safe-flight wish, and an invitation back. The farewell they'll remember.",
+            "nTh": "'ด้วยความยินดี' ขอบคุณ อวยพรเดินทางปลอดภัย และเชิญกลับมาอีก การอำลาที่แขกจะจดจำ"
+          }, {
+            "t": "\"Thank you. Bye.\"",
+            "th": "\"ขอบคุณค่ะ บายค่ะ\"",
+            "v": "ok",
+            "n": "Polite but small. This is the last moment — make it warm and complete.",
+            "nTh": "สุภาพแต่เรียบ นี่คือช่วงเวลาสุดท้าย ทำให้อบอุ่นและครบถ้วน"
+          }, {
+            "t": "\"If you liked it, please leave us a review online.\"",
+            "th": "\"ถ้าชอบ รบกวนรีวิวให้เราออนไลน์ด้วยนะคะ\"",
+            "v": "ok",
+            "n": "Asking for a review is fine, but lead with the farewell — the request comes after the warmth.",
+            "nTh": "ขอรีวิวได้ แต่เริ่มด้วยการอำลาก่อน คำขอมาหลังความอบอุ่น"
+          }, {
+            "t": "\"Okay, next guest please.\"",
+            "th": "\"ค่ะ แขกคนต่อไปค่ะ\"",
+            "v": "bad",
+            "n": "Never rush a guest out the door. The last words should be for them.",
+            "nTh": "ห้ามเร่งแขกออกไป คำพูดสุดท้ายควรเป็นของแขก"
+          }]
+        }]
+      }]
     }
   }
 };
-const AUDIO_MANIFEST = ["106eo9l1ic2", "113zqhnz3rz", "11wl07blf16", "125c9bj7ew0", "12nknuws0d1", "139hctxweds", "13ci1fn77yu", "13oxtrc20wh", "13vlw6ioqm", "13w7n81hv6t", "14662p4o3uk", "147sbl8jc1z", "14iiv6kyhkm", "14jwknbaw4l", "14mlwj22dsq", "154dnpi8vrk", "15x90bx7kx3", "15z01mhl235", "16qi81bxdyv", "16r5zgfgovr", "17h1ajcl90e", "17pyyf3wn3l", "189e2qobnbm", "18azch7i6t9", "18hrdovnek", "18jjwppdnlt", "18wkkf1byt4", "1983hatgvo6", "19fwnyr3sqq", "19ielgvsx8", "19p94qspyn5", "19yew8bj2sj", "1a7hrztsy9q", "1a8h02825bd", "1afonlzhila", "1bg9a2pwj9l", "1by1u4jatgu", "1bzoep8adxb", "1c1ut7jqku9", "1ch5zpr5ugy", "1cpwl5qwj5n", "1cxg8ewdz0e", "1cxi67twonf", "1d0rko7kbhv", "1d3cysyy7bo", "1ddy14rk1p9", "1e370z76lt0", "1e8l2guwvrp", "1ebn20sxbsr", "1ehmqzolyxc", "1epp3iqfbpl", "1ety9k65puy", "1euqefgnzzd", "1f0iwhwc7x0", "1f1i9ypn5od", "1fif898n549", "1fkxohdoynt", "1fpj2lnxqyp", "1frx2g1fo4q", "1fuqb360qos", "1fv1zy6x4g7", "1g8zpagx1i6", "1gbqzqfgy6d", "1h5m08jsqxq", "1h8bes4gfv9", "1hplatg07cg", "1ic85hn5n68", "1irsl9k5ljs", "1j4fz9zq6z3", "1j6a0frxl42", "1j736dsk1nb", "1jhcgh0cxyy", "1jjsgi8bsaq", "1jqcfat8m3s", "1jtmar82vk", "1k1uau773zv", "1k75j3t7exq", "1ka17362nm7", "1l0h5qgel9d", "1l41hgn76ef", "1l4q61es8zp", "1l4yjv7aczg", "1l5fq3i42l3", "1lkpa1a2e0d", "1lnr2zwbedw", "1m3xb0mglhh", "1m518qgtt2d", "1mfu1ufcm0c", "1mrzjq3tnh5", "1mtx93t9hb1", "1n1hnvejk3t", "1n7m6jgduet", "1nj5eous4ur", "1nma99tdpuq", "1ntrd0sj1wh", "1osq1kzvtv8", "1p57dkurjrk", "1p94iuhpxwk", "1pgwi363vza", "1pjf40p53as", "1plsutiadhc", "1pqv0tr0wln", "1pyenl61f94", "1q3jvi5kmzy", "1q7drvg6h97", "1qahsx66g72", "1qaqabnmbp0", "1qf8kdwq4lb", "1qf9v5b68bf", "1qgxej9eids", "1qsmga8zrwt", "1qwlvh4fgbi", "1r0fqh2jv9x", "1rax42uy3tp", "1rknigefb28", "1rquissdss8", "1si89s3zkut", "1skjru7oxl7", "1slfb4nao7v", "1svhhzqubr6", "1t6j3vpjoez", "1tis6ve6t67", "1tzhgcndago", "1u9rbb0ysp0", "1ubhd9k1oe2", "1ubr84n96ij", "1usep3yrbhz", "1uvatb059o", "1v3v7ivhrwf", "1v42f4bei5", "1v487piiagr", "1v6ue1ioufs", "1vc955meo2", "1vfq3dhfyhg", "1wb4osztpjd", "1wf5s14x3wn", "1wlzdf15qht", "1x046b7w46y", "1x3uu4rmk37", "1x4rk01jbfr", "1xdrdh4tc0o", "1xgccxjzcm1", "1xhee4rh2cz", "1xmwy9rhl9a", "1xnbru9nyj2", "1xnof6w08m8", "1xw1fynbagp", "1y372axgp51", "1y759hbcedv", "1y7uxjuuvgj", "1yececpla9n", "1yl9nwqtffx", "1yqf19llh1i", "1z7tujz3smm", "1z9tkpb7aq7", "1zadslclri7", "1zq6us7t7ju", "1zqyv32iciv", "2064ntphvbb", "20aplbm89tg", "20hg4bnb7he", "20lapiunxb3", "217btst3nog", "21h5a53pv5c", "224rx9hupih", "228yqutrmp8", "229yo73d9f5", "22iz80ft19s", "22yl500es27", "23lzcbr9gp1", "23yopy3zaq8", "24aqm5m6nqb", "251u9vbq6zs", "25p4n0nnvyy", "25vrq1se5xr", "264asj8vvbu", "26e47q9zoc6", "26i189yid9s", "26uq4x4w7lc", "2726mca4c3m", "27hw5paen5x", "27zfb81idf4", "284eh59dbwy", "286crmhzav", "28e9iwmnx5f", "28j7fdpyzng", "28mji10j3pp", "28omfcdy9bo", "29llp97gvog", "2a3evpalpj1", "2a7afr8cfip", "2ae13t508sj", "2amw0eehys3", "2ap3dm5kfds", "2avzuvyh0k3", "2ax9wi9rxez", "2axs49y73pc", "2azn1kjng6o", "2b72zcfj9nh", "2bgywbzql4s", "2bsghukafmd", "2bvt7tzchde", "2c3snlx5amw", "2cnc5s7m2i1", "2cp75x4ftx0", "2cu5s156e9w", "2cydhpfuwqi", "2cz2f3kcnil", "2d8lzvlhfpc", "2d9zsc6jhqp", "2e9gsyl5hlp", "2epyk61y0", "2evps4jxonq", "2ez3mslaqgb", "2ff418zc0xy", "2ffmlckyhyg", "2fkax354ehn", "2fszkxos65k", "2fwzwty6vpw", "2g1x992o865", "2g2wk1gyk1u", "2pw85qli3c", "35zef6a6yh", "366ya7fld9", "3bwk8ccypb", "42n781dt6b", "42zdmphpw3", "43tl5brcaa", "4enur57s2d", "4l2ocoigvx", "4lwmcg7f34", "4t6pzscck8", "4u0ilbfwri", "50t6nrgkyn", "59kbkvlim2", "5b9vxz90ad", "67a4x5qc6a", "6fvu83zvlq", "6xdm6gpfy0", "73v2w86xm7", "75x4d9ayql", "7j7tqix7db", "7tc94p1xfp", "7zpb9g6iqt", "8cvdk6ztbm", "8jotmyldph", "8peywowybu", "8snkgda42m", "926lbrztxo", "9h0p1r7lu7", "9pai0mfj8j", "9spqjdg2rg", "ar8hsmcrkw", "ath9labohg", "aw47bbms2", "awpnv8pw8o", "axzbds52yg", "b2im4nlofn", "b3u8km9jee", "b6varbz2v5", "b71fchdo5d", "bgobukjjhi", "c1eedde2vr", "c5jv5l9n06", "c6ai6bog8u", "cc528mwp0g", "ccy3lenapq", "chv2bs4igb", "ci86l009yc", "clhu9wldsn", "d0h27qnjh6", "d2hquxajpc", "d5xwrv7w49", "dbloce4f16", "dik0otdiur", "dp1vndhtn1", "ds88zn8ttd", "dv5xg05vhm", "dzcgti9866", "e2x4vyl8cf", "eb1oopzn5d", "ec7mwuf9tw", "edjrjh1fll", "esw03gt71k", "ez981eml8y", "f17weq4hnx", "f60jx1kbyx", "ffxue8wrid", "fib7cknv4y", "fpjj90nbwv", "g1lu46xfn8", "g4nxl7gv4c", "g4wdv9b18t", "gkuincshm2", "gquj2qi1rx", "h7j71eh6v4", "helfrdfw5l", "hitujkw967", "hpao9g8u5", "i2xoz98dl0", "i5x5027d3z", "ia45592cek", "ixav4rbp88", "ji39n2e93l", "jk5rizkw9v", "jmkigc8oh4", "jo1z0u91gs", "jyczu65flo", "k0ozeht5zf", "k13zjbmsl2", "kjg9ekiyjh", "kstkvlfyog", "ku6a905rrm", "kvwyn2su0g", "lu8cmflrmq", "m4lne8x3hl", "mh42prm0k7", "mznw6cykcy", "nfe7yrakw6", "nqulq3pur7", "nyo5y9whpq", "nzgmhi3lqd", "ogob6nj3q2", "oh7cl24ujs", "ot86g5emuo", "p6jrn969k2", "pky2r9yuuk", "po0b54gg7a", "qchcpqm6kt", "qxd7oef9n7", "qyl16trxpv", "r8niwudveu", "rt0gw6r53u", "rwtn7z3p5y", "s01u11g3iq", "sjnxo0htfl", "swnfav5n9c", "t28k5dtcv7", "t9rp6nieo0", "tapc8wwio1", "tbdj510vnq", "tbdwput00g", "te4vsumtyj", "te8rdem4zs", "tlcp2fmqio", "tp2gc9zgl0", "uco30jthyp", "ujbmr2tflw", "uvjedb7x5j", "uyjdcl8l8y", "v4nzwy57u3", "v9zbpwkghj", "va4k7c9xxn", "vfhm0inl1n", "vp99zdke7o", "wcjmwq5yxs", "wi8iclzjlx", "wjomsbj58b", "x7gx38zls8", "x9z5f5i8ym", "xpfp13zkpw", "xqr6u2bfa2", "yroxzv3qvz", "z60xvbffk", "z637pq5q5x", "ze4rt6lkxa", "zq15bms33m"];
+const AUDIO_MANIFEST = ["106eo9l1ic2", "106o409uatz", "113zqhnz3rz", "11wl07blf16", "125c9bj7ew0", "12nknuws0d1", "138368ak50", "139hctxweds", "13ci1fn77yu", "13oxtrc20wh", "13vlw6ioqm", "13w7n81hv6t", "14662p4o3uk", "147sbl8jc1z", "14g6w0f6q69", "14iiv6kyhkm", "14jwknbaw4l", "14mlwj22dsq", "154dnpi8vrk", "15iim6ydguj", "15x90bx7kx3", "15z01mhl235", "16g2qjjcrf4", "16qi81bxdyv", "16r5zgfgovr", "17777y2mlzq", "179ktta6gys", "17h1ajcl90e", "17pyyf3wn3l", "189e2qobnbm", "18azch7i6t9", "18hrdovnek", "18jjwppdnlt", "18n7ymvppdm", "18wkkf1byt4", "1983hatgvo6", "19fwnyr3sqq", "19ielgvsx8", "19mb33ektzx", "19meas6h3gx", "19p94qspyn5", "19suh1fhmac", "19u47mbnkrx", "19yew8bj2sj", "1a7hrztsy9q", "1a8h02825bd", "1afonlzhila", "1bg9a2pwj9l", "1by1u4jatgu", "1bzoep8adxb", "1c1ut7jqku9", "1ch5zpr5ugy", "1cpwl5qwj5n", "1curkz8lf4w", "1cxg8ewdz0e", "1cxi67twonf", "1d0rko7kbhv", "1d3cysyy7bo", "1d93ixg43mx", "1ddy14rk1p9", "1e370z76lt0", "1e5jh231rrx", "1e8l2guwvrp", "1ebn20sxbsr", "1ehmqzolyxc", "1ekur8kt8gy", "1epp3iqfbpl", "1etv630cig0", "1ety9k65puy", "1euqefgnzzd", "1eyhk8kmkwq", "1f0iwhwc7x0", "1f1i9ypn5od", "1fif898n549", "1fkxohdoynt", "1fpj2lnxqyp", "1frx2g1fo4q", "1ftgr2qrc2k", "1fuqb360qos", "1fv1zy6x4g7", "1g5fazc28ji", "1g8zpagx1i6", "1gb9juxaro5", "1gbqzqfgy6d", "1gh7gl2gccb", "1h5m08jsqxq", "1h8bes4gfv9", "1hplatg07cg", "1hxp6kqc63m", "1iabkvdv4jx", "1ic85hn5n68", "1irsl9k5ljs", "1iv8fh8f29m", "1j4fz9zq6z3", "1j6a0frxl42", "1j736dsk1nb", "1jbwiayp209", "1jhcgh0cxyy", "1jjsgi8bsaq", "1jper6m5ga8", "1jqcfat8m3s", "1jtmar82vk", "1k1uau773zv", "1k75j3t7exq", "1ka17362nm7", "1kbafxqurjk", "1l0h5qgel9d", "1l41hgn76ef", "1l4q61es8zp", "1l4yjv7aczg", "1l5fq3i42l3", "1la8ezefwp7", "1lkpa1a2e0d", "1lnr2zwbedw", "1m26lvk5xjx", "1m3xb0mglhh", "1m4inmhz0al", "1m518qgtt2d", "1mbuktkivgx", "1mfu1ufcm0c", "1mrzjq3tnh5", "1mtx93t9hb1", "1mx09ht6too", "1n1hnvejk3t", "1n7hopjmkm", "1n7m6jgduet", "1nj5eous4ur", "1nma99tdpuq", "1ntrd0sj1wh", "1osq1kzvtv8", "1p57dkurjrk", "1p94iuhpxwk", "1pgwi363vza", "1pjf40p53as", "1plsutiadhc", "1poemceru2p", "1pqv0tr0wln", "1pyenl61f94", "1q3jvi5kmzy", "1q7drvg6h97", "1qahsx66g72", "1qaqabnmbp0", "1qf8kdwq4lb", "1qf9v5b68bf", "1qgxej9eids", "1qsmga8zrwt", "1qwlvh4fgbi", "1r0fqh2jv9x", "1rax42uy3tp", "1rknigefb28", "1rquissdss8", "1s8jetah9km", "1seokieingw", "1si89s3zkut", "1skjru7oxl7", "1slfb4nao7v", "1svhhzqubr6", "1t2z3xojrhk", "1t6j3vpjoez", "1tcyv9022la", "1tgtwiw6vtt", "1tis6ve6t67", "1tzhgcndago", "1u8hb70yjpz", "1u9rbb0ysp0", "1ubhd9k1oe2", "1ubr84n96ij", "1usep3yrbhz", "1uvatb059o", "1v3v7ivhrwf", "1v42f4bei5", "1v487piiagr", "1v6ue1ioufs", "1vc955meo2", "1vfq3dhfyhg", "1vxtu6e5wcs", "1w0d5ite72z", "1wb4osztpjd", "1wf5s14x3wn", "1wlzdf15qht", "1x046b7w46y", "1x22d95qhgr", "1x3uu4rmk37", "1x4rk01jbfr", "1xdrdh4tc0o", "1xgccxjzcm1", "1xhee4rh2cz", "1xmwy9rhl9a", "1xnbru9nyj2", "1xnof6w08m8", "1xw1fynbagp", "1y372axgp51", "1y759hbcedv", "1y7uxjuuvgj", "1yececpla9n", "1yjij4ebmmm", "1yl9nwqtffx", "1ymo8e8jkt1", "1yqf19llh1i", "1yqo6pjmxsr", "1z7tujz3smm", "1z9tkpb7aq7", "1zadslclri7", "1zk82yo9ht3", "1zq6us7t7ju", "1zqyv32iciv", "2064ntphvbb", "207gj2ya5m", "20aplbm89tg", "20hg4bnb7he", "20lapiunxb3", "2121c70cpka", "217btst3nog", "21h5a53pv5c", "21s08aig3is", "224rx9hupih", "228yqutrmp8", "229yo73d9f5", "22iz80ft19s", "22w6bfd66vg", "22yl500es27", "23lzcbr9gp1", "23yopy3zaq8", "23zpmx8exkw", "24aqm5m6nqb", "24peby68f0l", "24s557ss40p", "251u9vbq6zs", "25fkvnx4e71", "25p4n0nnvyy", "25qo3pbs82d", "25vrq1se5xr", "264asj8vvbu", "26e47q9zoc6", "26i189yid9s", "26uq4x4w7lc", "2726mca4c3m", "27hw5paen5x", "27zfb81idf4", "284eh59dbwy", "286crmhzav", "28dnzjzqig0", "28e9iwmnx5f", "28j7fdpyzng", "28mji10j3pp", "28omfcdy9bo", "28xa12pqaqw", "29llp97gvog", "2a3evpalpj1", "2a7afr8cfip", "2a96lqikk18", "2ae13t508sj", "2amw0eehys3", "2ap3dm5kfds", "2avzuvyh0k3", "2ax9wi9rxez", "2axs49y73pc", "2azn1kjng6o", "2b0ozivqn2u", "2b2icqj20pq", "2b72zcfj9nh", "2bbh0ory5eu", "2bgywbzql4s", "2bsghukafmd", "2bvt7tzchde", "2c3snlx5amw", "2cnc5s7m2i1", "2cp75x4ftx0", "2cu5s156e9w", "2cydhpfuwqi", "2cz2f3kcnil", "2d3tn1uh4cy", "2d50jm5d8s8", "2d8lzvlhfpc", "2d9zsc6jhqp", "2dlbu2wb0e", "2e1maicfp3h", "2e9gsyl5hlp", "2edof27isef", "2epyk61y0", "2erumu30tof", "2evps4jxonq", "2ez3mslaqgb", "2f5682ldj22", "2f6nbs08sxo", "2fd0eemz71l", "2ff418zc0xy", "2ffmlckyhyg", "2fkax354ehn", "2fqw4a13wem", "2fszkxos65k", "2fwzwty6vpw", "2g1x992o865", "2g2wk1gyk1u", "2gf70ld0vjz", "2ggx6r7eaqp", "2kpvfzuuo8", "2porajyphz", "2pw85qli3c", "32redl1erl", "35smkhg8n5", "35zef6a6yh", "366ya7fld9", "3bwk8ccypb", "42n781dt6b", "42zdmphpw3", "43tl5brcaa", "4enur57s2d", "4l2ocoigvx", "4lwmcg7f34", "4t6pzscck8", "4u0ilbfwri", "50t6nrgkyn", "59kbkvlim2", "5b9vxz90ad", "5cooqv1y2w", "5g41uoktf6", "5rir00465x", "67a4x5qc6a", "6fvu83zvlq", "6xdm6gpfy0", "6xx1wd51ku", "73v2w86xm7", "75x4d9ayql", "77ip60tmt7", "7c349fqbsn", "7j7tqix7db", "7tc94p1xfp", "7zpb9g6iqt", "8cvdk6ztbm", "8jotmyldph", "8peywowybu", "8snkgda42m", "926lbrztxo", "9h0p1r7lu7", "9pai0mfj8j", "9pd10inzi3", "9spqjdg2rg", "9wjtd81ghv", "ar8hsmcrkw", "aslkyc19eo", "ath9labohg", "avlemq9btb", "aw47bbms2", "awpnv8pw8o", "axzbds52yg", "b21ykqy7la", "b2im4nlofn", "b3u8km9jee", "b6varbz2v5", "b71fchdo5d", "bgobukjjhi", "c1eedde2vr", "c5jv5l9n06", "c6ai6bog8u", "cc528mwp0g", "ccy3lenapq", "cf5fg3gkey", "chv2bs4igb", "ci86l009yc", "clhu9wldsn", "d0h27qnjh6", "d2hquxajpc", "d4nxnozh55", "d5xwrv7w49", "dbloce4f16", "dik0otdiur", "dp1vndhtn1", "ds88zn8ttd", "dv5xg05vhm", "dzcgti9866", "e2x4vyl8cf", "eb1oopzn5d", "ec7mwuf9tw", "edjrjh1fll", "ehlogvvqho", "esw03gt71k", "ez981eml8y", "f17weq4hnx", "f60jx1kbyx", "fcpkn2k921", "ffxue8wrid", "fib7cknv4y", "fpjj90nbwv", "fvuz5ndd98", "g1lu46xfn8", "g4nxl7gv4c", "g4wdv9b18t", "gdgig9exl6", "gkuincshm2", "gquj2qi1rx", "h7j71eh6v4", "h7qz47kvzb", "helfrdfw5l", "hitujkw967", "hpao9g8u5", "i2xoz98dl0", "i5x5027d3z", "ia45592cek", "ixav4rbp88", "j0s7skytvm", "ji39n2e93l", "jk5rizkw9v", "jmkigc8oh4", "jo1z0u91gs", "jy1ovziw22", "jyczu65flo", "k0ozeht5zf", "k13zjbmsl2", "kjg9ekiyjh", "kkaatfwac2", "kstkvlfyog", "ku6a905rrm", "kvwyn2su0g", "l8d2dtu6mh", "lu8cmflrmq", "ly9oppar0i", "m4lne8x3hl", "mh42prm0k7", "mznw6cykcy", "n3s40d7jde", "nfe7yrakw6", "npg1adjllq", "nqulq3pur7", "nyo5y9whpq", "nzgmhi3lqd", "ogob6nj3q2", "oh7cl24ujs", "ot86g5emuo", "p6jrn969k2", "pky2r9yuuk", "po0b54gg7a", "poeizbfwk3", "q6f126twqp", "qchcpqm6kt", "qxd7oef9n7", "qyl16trxpv", "r8niwudveu", "raqv7ia65z", "rc3pnhdkei", "rnnc9zwlyx", "rt0gw6r53u", "rwtn7z3p5y", "s01u11g3iq", "sjnxo0htfl", "swnfav5n9c", "t28k5dtcv7", "t9rp6nieo0", "tapc8wwio1", "tbdj510vnq", "tbdwput00g", "te4vsumtyj", "te8rdem4zs", "tlcp2fmqio", "tp2gc9zgl0", "ucdle0iscz", "uco30jthyp", "ujbmr2tflw", "uk9urgw3y1", "ut5r636x1z", "uvjedb7x5j", "uyjdcl8l8y", "v1g4hbwrc6", "v4nzwy57u3", "v9zbpwkghj", "va4k7c9xxn", "vfhm0inl1n", "vl7x0gidj9", "vp99zdke7o", "vs6jix4pa7", "vy2a7m1qtp", "wcjmwq5yxs", "wi8iclzjlx", "wjomsbj58b", "wqvdzmofxa", "x7gx38zls8", "x9z5f5i8ym", "xe5q0c1tni", "xpfp13zkpw", "xqr6u2bfa2", "yrol2a6dg9", "yroxzv3qvz", "yuameuwi9g", "z60xvbffk", "z637pq5q5x", "ze4rt6lkxa", "zq15bms33m", "zu2ma2qw1r"];
 
 /* ============================================================
    KATATHANI LINGO — Learn. Practice. Serve.
@@ -3508,7 +4446,24 @@ const PRON = {
   secure: ["sih-KYOOR", "Stress the second beat. Ends in an R.", "เน้นพยางค์ที่สอง ท้ายคำออกเสียง R"],
   spark: ["spark", "One beat. Ends -RK — say both sounds.", "พยางค์เดียว ท้ายออก -RK ให้ครบ"],
   fridge: ["frij", "One beat. Ends with a J sound.", "พยางค์เดียว ท้ายออกเสียง J"],
-  insulin: ["IN-suh-lin", "Stress the first beat.", "เน้นพยางค์แรก"]
+  insulin: ["IN-suh-lin", "Stress the first beat.", "เน้นพยางค์แรก"],
+  // Front Office / Resort Host vocabulary
+  welcome: ["WEL-kum", "W not V — round the lips. Two beats.", "ใช้เสียง W ไม่ใช่ V ห่อริมฝีปาก สองพยางค์"],
+  suite: ["sweet", "Say it like 'sweet' — never 'suit'.", "ออกเสียงเหมือน 'สวีท' ไม่ใช่ 'สูท'"],
+  receipt: ["ree-SEET", "The P is silent. Ends with a hard T.", "ตัว P ไม่ออกเสียง ท้ายคำออก T ชัด"],
+  towel: ["TOW-uhl", "Two beats. Finish the L — not 'tao'.", "สองพยางค์ ออกเสียง L ท้าย ไม่ใช่ 'ทาว'"],
+  passport: ["PASS-port", "Stress the first beat. Ends -RT, both sounds.", "เน้นพยางค์แรก ท้ายออก -RT ให้ครบ"],
+  passports: ["PASS-ports", "Ends -RTS. Say all of it, slowly if you must.", "ท้ายออก -RTS ให้ครบ ช้าได้แต่ต้องครบ"],
+  minibar: ["MIN-ee-bar", "Stress the first beat. Finish the -R.", "เน้นพยางค์แรก ออกเสียง R ท้าย"],
+  currency: ["KUR-un-see", "Stress the first beat. It is an R.", "เน้นพยางค์แรก เป็นเสียง R"],
+  guarantee: ["ga-run-TEE", "Stress the LAST beat.", "เน้นพยางค์สุดท้าย"],
+  availability: ["uh-vay-luh-BIL-uh-tee", "Five beats, stress the fourth (BIL). V not W.", "ห้าพยางค์ เน้นพยางค์ที่สี่ (BIL) ใช้เสียง V"],
+  reconfirm: ["ree-kun-FURM", "Stress the last beat. Ends -RM.", "เน้นพยางค์สุดท้าย ท้ายออก -RM"],
+  inconvenience: ["in-kun-VEEN-yuns", "Stress the third beat (VEEN).", "เน้นพยางค์ที่สาม (VEEN)"],
+  apologize: ["uh-POL-uh-jize", "Stress the second beat. Ends in a Z sound.", "เน้นพยางค์ที่สอง ท้ายคำเป็นเสียง Z"],
+  pleasure: ["PLEZH-er", "Soft ZH in the middle, R at the end.", "กลางคำเป็นเสียง ZH เบา ๆ ท้ายออก R"],
+  luggage: ["LUG-ij", "Two beats. Ends -ij, not -age.", "สองพยางค์ ท้ายออกเสียง -ij ไม่ใช่ -age"],
+  refrigerant: ["ree-FRIJ-er-unt", "Stress the second beat (FRIJ).", "เน้นพยางค์ที่สอง (FRIJ)"]
 };
 const findPron = sentence => {
   const words = sentence.toLowerCase().replace(/[^a-zà-ÿ\s]/g, " ").split(/\s+/);
@@ -3622,24 +4577,45 @@ const C = typeof CONTENT !== "undefined" ? CONTENT : {
    so the whole collection is visible from day one.
    ============================================================ */
 
-/* A role is playable once its file has at least one unit of questions. */
-const roleAvailable = roleId => !!(C.roles[roleId] && C.roles[roleId].units && C.roles[roleId].units.length);
+/* Which {{tokens}} a role's lesson text references (cached per role). We scan
+   the units only — $comments (which build.js strips anyway) never count. */
+const _roleTokens = {};
+const roleTokens = roleId => {
+  if (_roleTokens[roleId]) return _roleTokens[roleId];
+  const role = C.roles[roleId];
+  const out = new Set();
+  if (role && role.units) {
+    const s = JSON.stringify(role.units);
+    const re = /\{\{([^}]+)\}\}/g;
+    let m;
+    while (m = re.exec(s)) out.add(m[1].trim());
+  }
+  return _roleTokens[roleId] = [...out];
+};
 
-/* A property whose facts still say "FILL ME" would render placeholders in
-   the lessons, so it is not ready even if it inherits a built role. */
-const propertyReady = propertyId => {
+/* A single property fact is ready when it exists and isn't a FILL ME placeholder. */
+const factReady = (propertyId, token) => {
   const facts = C.properties[propertyId] && C.properties[propertyId].vars || {};
-  return !Object.keys(facts).some(k => {
-    const v = facts[k];
-    const s = typeof v === "object" && v ? [v.en, v.th].join(" ") : String(v);
-    return /FILL ME/i.test(s);
-  });
+  if (!(token in facts)) return false;
+  const v = facts[token];
+  const s = typeof v === "object" && v ? [v.en, v.th].join(" ") : String(v);
+  return !/FILL ME/i.test(s);
+};
+
+/* A role is playable at a property once it has lessons AND every token those
+   lessons use is a real fact for that property. Per-role, not per-property: a
+   token-light role (Resort Host) can go live at The Little Shore while an
+   outlet-heavy role there still waits for its facts to be filled in. */
+const roleAvailableAt = (propertyId, roleId) => {
+  const role = C.roles[roleId];
+  if (!role || !role.units || !role.units.length) return false;
+  return roleTokens(roleId).every(t => factReady(propertyId, t));
 };
 const assignmentsOf = propertyId => {
   const p = (C.catalogue.properties || []).find(x => x.id === propertyId);
   return p && p.assignments || [];
 };
-const propertyAvailable = propertyId => propertyReady(propertyId) && assignmentsOf(propertyId).some(a => roleAvailable(a.role));
+const propertyAvailable = propertyId => assignmentsOf(propertyId).some(a => roleAvailableAt(propertyId, a.role));
 const listProperties = () => (C.catalogue.properties || []).map(p => ({
   id: p.id,
   name: C.properties[p.id] && C.properties[p.id].name || {
@@ -3670,7 +4646,7 @@ const listDepartments = propertyId => {
       };
       rows.push(row);
     }
-    if (roleAvailable(a.role)) row.available = true;
+    if (roleAvailableAt(propertyId, a.role)) row.available = true;
   }
   return rows;
 };
@@ -3684,7 +4660,7 @@ const roleLabel = (roleId, labelOverride) => labelOverride || C.roles[roleId] &&
 const listRoles = (propertyId, departmentId) => assignmentsOf(propertyId).filter(a => a.department === departmentId).map(a => ({
   id: a.role,
   name: roleLabel(a.role, a.labelOverride),
-  available: roleAvailable(a.role)
+  available: roleAvailableAt(propertyId, a.role)
 }));
 
 /* ============================================================ */
