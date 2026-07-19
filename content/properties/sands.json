@@ -1,5 +1,5 @@
 {
-  "$comment": "Property variables. NO lesson content lives here — only the facts that differ between hotels. Lesson text refers to these with {{token}} and they are substituted at runtime. Adding a third property means writing one of these files and nothing else.",
+  "$comment": "Property variables. NO lesson content lives here — only the facts that differ between hotels. Lesson text refers to these with {{token}} and they are substituted at runtime. A value may be a plain string (same in both languages) or an { en, th } pair when the English word and its Thai rendering differ — e.g. the outlet 'Talay' is written 'ทะเล' in Thai. Adding a third property means writing one of these files and nothing else.",
 
   "id": "sands",
   "name": { "en": "The Sands Khao Lak", "th": "เดอะ แซนด์ส เขาหลัก" },
@@ -9,7 +9,7 @@
     "property.name":        "The Sands",
     "property.rooms":       "439",
 
-    "outlet.signature":     "Talay",
+    "outlet.signature":     { "en": "Talay", "th": "ทะเล" },
     "outlet.signature.pitch": "right on the beach, with live music and a fresh seafood display",
     "outlet.buffet":        "Floating Market",
     "outlet.poolBar":       "Coconut Pool Bar",
@@ -19,11 +19,11 @@
     "buffet.showNights":    "Tuesday, Thursday and Saturday",
     "buffet.showTime":      "7:30 p.m.",
     "bar.happyHour":        "4:30 to 6:00 p.m.",
-    "charge.corkage":       "300 baht",
+    "charge.corkage":       { "en": "300 baht", "th": "300 บาท" },
 
-    "local.market":         "Bang Niang market",
-    "local.marketDays":     "Monday, Wednesday, Thursday and Saturday",
-    "local.marketHours":    "2 to 9 p.m.",
-    "local.museum":         "the Tsunami Museum"
+    "local.market":         { "en": "Bang Niang market", "th": "ตลาดบางเนียง" },
+    "local.marketDays":     { "en": "Monday, Wednesday, Thursday and Saturday", "th": "วันจันทร์ พุธ พฤหัสบดี และเสาร์" },
+    "local.marketHours":    { "en": "2 to 9 p.m.", "th": "14:00 ถึง 21:00 น." },
+    "local.museum":         { "en": "the Tsunami Museum", "th": "พิพิธภัณฑ์สึนามิ" }
   }
 }
