@@ -18,6 +18,7 @@
   "$rolesComment": "Display names for every role, so the pickers can label a role even before its lessons exist. A built role also carries its own name in its role file; a per-assignment labelOverride (below) still wins over this registry.",
   "roles": {
     "fo-guest-service-agent":   { "en": "Guest Service Agent",       "th": "พนักงานบริการส่วนหน้า" },
+    "fo-resort-host":           { "en": "Resort Host",               "th": "รีสอร์ทโฮสต์" },
     "fo-airport-representative":{ "en": "Airport Representative",     "th": "พนักงานต้อนรับสนามบิน" },
     "fo-service-center":        { "en": "Service Center",            "th": "พนักงานศูนย์บริการ" },
     "fo-bellboy":               { "en": "Bellboy",                   "th": "พนักงานยกกระเป๋า" },
@@ -81,9 +82,8 @@
     {
       "id": "little-shore",
       "assignments": [
-        { "department": "front-office",  "role": "fo-guest-service-agent",
-          "labelOverride": { "en": "Resort Host", "th": "รีสอร์ทโฮสต์" },
-          "$comment": "Same job as the Sands GSA — different job title. Confirm this before we lock it." },
+        { "department": "front-office",  "role": "fo-resort-host",
+          "$comment": "Dedicated Resort Host role for The Little Shore (own manual, 'Welcome ashore'). The Sands' Guest Service Agent is a separate role." },
         { "department": "front-office",  "role": "fo-bellboy" },
 
         { "department": "food-beverage", "role": "fb-restaurant-service" },

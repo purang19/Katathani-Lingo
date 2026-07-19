@@ -187,6 +187,23 @@ const PRON = {
   spark: ["spark", "One beat. Ends -RK — say both sounds.", "พยางค์เดียว ท้ายออก -RK ให้ครบ"],
   fridge: ["frij", "One beat. Ends with a J sound.", "พยางค์เดียว ท้ายออกเสียง J"],
   insulin: ["IN-suh-lin", "Stress the first beat.", "เน้นพยางค์แรก"],
+  // Front Office / Resort Host vocabulary
+  welcome: ["WEL-kum", "W not V — round the lips. Two beats.", "ใช้เสียง W ไม่ใช่ V ห่อริมฝีปาก สองพยางค์"],
+  suite: ["sweet", "Say it like 'sweet' — never 'suit'.", "ออกเสียงเหมือน 'สวีท' ไม่ใช่ 'สูท'"],
+  receipt: ["ree-SEET", "The P is silent. Ends with a hard T.", "ตัว P ไม่ออกเสียง ท้ายคำออก T ชัด"],
+  towel: ["TOW-uhl", "Two beats. Finish the L — not 'tao'.", "สองพยางค์ ออกเสียง L ท้าย ไม่ใช่ 'ทาว'"],
+  passport: ["PASS-port", "Stress the first beat. Ends -RT, both sounds.", "เน้นพยางค์แรก ท้ายออก -RT ให้ครบ"],
+  passports: ["PASS-ports", "Ends -RTS. Say all of it, slowly if you must.", "ท้ายออก -RTS ให้ครบ ช้าได้แต่ต้องครบ"],
+  minibar: ["MIN-ee-bar", "Stress the first beat. Finish the -R.", "เน้นพยางค์แรก ออกเสียง R ท้าย"],
+  currency: ["KUR-un-see", "Stress the first beat. It is an R.", "เน้นพยางค์แรก เป็นเสียง R"],
+  guarantee: ["ga-run-TEE", "Stress the LAST beat.", "เน้นพยางค์สุดท้าย"],
+  availability: ["uh-vay-luh-BIL-uh-tee", "Five beats, stress the fourth (BIL). V not W.", "ห้าพยางค์ เน้นพยางค์ที่สี่ (BIL) ใช้เสียง V"],
+  reconfirm: ["ree-kun-FURM", "Stress the last beat. Ends -RM.", "เน้นพยางค์สุดท้าย ท้ายออก -RM"],
+  inconvenience: ["in-kun-VEEN-yuns", "Stress the third beat (VEEN).", "เน้นพยางค์ที่สาม (VEEN)"],
+  apologize: ["uh-POL-uh-jize", "Stress the second beat. Ends in a Z sound.", "เน้นพยางค์ที่สอง ท้ายคำเป็นเสียง Z"],
+  pleasure: ["PLEZH-er", "Soft ZH in the middle, R at the end.", "กลางคำเป็นเสียง ZH เบา ๆ ท้ายออก R"],
+  luggage: ["LUG-ij", "Two beats. Ends -ij, not -age.", "สองพยางค์ ท้ายออกเสียง -ij ไม่ใช่ -age"],
+  refrigerant: ["ree-FRIJ-er-unt", "Stress the second beat (FRIJ).", "เน้นพยางค์ที่สอง (FRIJ)"],
 };
 
 const findPron = (sentence) => {
@@ -289,19 +306,39 @@ const C =
    so the whole collection is visible from day one.
    ============================================================ */
 
-/* A role is playable once its file has at least one unit of questions. */
-const roleAvailable = (roleId) =>
-  !!(C.roles[roleId] && C.roles[roleId].units && C.roles[roleId].units.length);
+/* Which {{tokens}} a role's lesson text references (cached per role). We scan
+   the units only — $comments (which build.js strips anyway) never count. */
+const _roleTokens = {};
+const roleTokens = (roleId) => {
+  if (_roleTokens[roleId]) return _roleTokens[roleId];
+  const role = C.roles[roleId];
+  const out = new Set();
+  if (role && role.units) {
+    const s = JSON.stringify(role.units);
+    const re = /\{\{([^}]+)\}\}/g;
+    let m;
+    while ((m = re.exec(s))) out.add(m[1].trim());
+  }
+  return (_roleTokens[roleId] = [...out]);
+};
 
-/* A property whose facts still say "FILL ME" would render placeholders in
-   the lessons, so it is not ready even if it inherits a built role. */
-const propertyReady = (propertyId) => {
+/* A single property fact is ready when it exists and isn't a FILL ME placeholder. */
+const factReady = (propertyId, token) => {
   const facts = (C.properties[propertyId] && C.properties[propertyId].vars) || {};
-  return !Object.keys(facts).some((k) => {
-    const v = facts[k];
-    const s = typeof v === "object" && v ? [v.en, v.th].join(" ") : String(v);
-    return /FILL ME/i.test(s);
-  });
+  if (!(token in facts)) return false;
+  const v = facts[token];
+  const s = typeof v === "object" && v ? [v.en, v.th].join(" ") : String(v);
+  return !/FILL ME/i.test(s);
+};
+
+/* A role is playable at a property once it has lessons AND every token those
+   lessons use is a real fact for that property. Per-role, not per-property: a
+   token-light role (Resort Host) can go live at The Little Shore while an
+   outlet-heavy role there still waits for its facts to be filled in. */
+const roleAvailableAt = (propertyId, roleId) => {
+  const role = C.roles[roleId];
+  if (!role || !role.units || !role.units.length) return false;
+  return roleTokens(roleId).every((t) => factReady(propertyId, t));
 };
 
 const assignmentsOf = (propertyId) => {
@@ -310,7 +347,7 @@ const assignmentsOf = (propertyId) => {
 };
 
 const propertyAvailable = (propertyId) =>
-  propertyReady(propertyId) && assignmentsOf(propertyId).some((a) => roleAvailable(a.role));
+  assignmentsOf(propertyId).some((a) => roleAvailableAt(propertyId, a.role));
 
 const listProperties = () =>
   (C.catalogue.properties || []).map((p) => ({
@@ -334,7 +371,7 @@ const listDepartments = (propertyId) => {
       row = { id: a.department, name: deptName(a.department), available: false };
       rows.push(row);
     }
-    if (roleAvailable(a.role)) row.available = true;
+    if (roleAvailableAt(propertyId, a.role)) row.available = true;
   }
   return rows;
 };
@@ -353,7 +390,7 @@ const listRoles = (propertyId, departmentId) =>
     .map((a) => ({
       id: a.role,
       name: roleLabel(a.role, a.labelOverride),
-      available: roleAvailable(a.role),
+      available: roleAvailableAt(propertyId, a.role),
     }));
 
 /* ============================================================ */

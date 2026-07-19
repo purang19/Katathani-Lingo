@@ -102,15 +102,39 @@ for (const f of readTree(path.join(CONTENT_DIR, "roles"))) {
   roles[j.id] = j;
 }
 
-/* A property is ready to voice once its facts are filled (no "FILL ME"). */
-const propertyReady = (p) =>
-  p && p.vars && !JSON.stringify(p.vars).includes("FILL ME");
+/* Per-role availability — mirrors sands-english-fb.jsx. A role is voiced at a
+   property when it has lessons AND every {{token}} those lessons use is a real
+   (non-FILL ME) fact for that property. Token-light roles go live even where a
+   property's outlet facts are still blank. */
+const roleTokensOf = (roleId) => {
+  const role = roles[roleId];
+  const out = new Set();
+  if (role && role.units) {
+    const s = JSON.stringify(role.units);
+    const re = /\{\{([^}]+)\}\}/g;
+    let m;
+    while ((m = re.exec(s))) out.add(m[1].trim());
+  }
+  return [...out];
+};
+const factReady = (propId, token) => {
+  const facts = (properties[propId] && properties[propId].vars) || {};
+  if (!(token in facts)) return false;
+  const v = facts[token];
+  const str = typeof v === "object" && v ? [v.en, v.th].join(" ") : String(v);
+  return !/FILL ME/i.test(str);
+};
+const roleAvailableAt = (propId, roleId) => {
+  const role = roles[roleId];
+  if (!role || !Array.isArray(role.units) || !role.units.length) return false;
+  return roleTokensOf(roleId).every((t) => factReady(propId, t));
+};
 
-/* Roles assigned to a property, per the catalogue. */
-const rolesForProperty = (propId) => {
+/* Roles assigned to a property (unique), per the catalogue. */
+const assignedRoles = (propId) => {
   const prop = (catalogue.properties || []).find((p) => p.id === propId);
   const ids = new Set((prop && prop.assignments ? prop.assignments : []).map((a) => a.role));
-  return [...ids].filter((id) => roles[id] && Array.isArray(roles[id].units) && roles[id].units.length);
+  return [...ids];
 };
 
 /* Every English line the app will speak for one property + role. */
@@ -142,18 +166,21 @@ const addLine = (raw) => {
   if (!byHash.has(h)) byHash.set(h, clean);
 };
 
-const readyProps = Object.keys(properties).filter((id) => propertyReady(properties[id]));
-for (const propId of readyProps) {
+const voiced = [];
+for (const propId of Object.keys(properties)) {
+  const avail = assignedRoles(propId).filter((rid) => roleAvailableAt(propId, rid));
+  if (!avail.length) continue;
+  voiced.push(`${propId}:[${avail.join(",")}]`);
   // greeting spoken on the home screen
   const nameEn = (properties[propId].name && properties[propId].name.en) || "our hotel";
   addLine("Good evening. Welcome to " + nameEn + ".");
-  for (const roleId of rolesForProperty(propId)) {
+  for (const roleId of avail) {
     for (const line of linesForRole(propId, roleId)) addLine(line);
   }
 }
 
 console.log(
-  `voicing ${readyProps.length} property(ies) [${readyProps.join(", ")}], ` +
+  `voicing ${voiced.join(" ")}, ` +
   `${byHash.size} unique lines, voice ${VOICE}${DRY_RUN ? " (DRY RUN)" : ""}`
 );
 
