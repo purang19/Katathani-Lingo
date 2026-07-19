@@ -380,17 +380,22 @@ const shuffle = (a) => {
 const SPEECH = {
   engine: typeof window !== "undefined" ? window.speechSynthesis : null,
   voice: null,
+  audio: null,
   unlocked: false,
   ready: false,
 };
 
+/* Pick the phone's best American voice for the synthetic fallback: prefer an
+   en-US voice, and among those an enhanced / neural / Siri one if the phone
+   has it downloaded (iOS: Settings > Accessibility > Spoken Content > Voices). */
 const pickVoice = () => {
   if (!SPEECH.engine) return;
   const vs = SPEECH.engine.getVoices() || [];
   if (!vs.length) return;
+  const us = vs.filter((v) => /en[-_]US/i.test(v.lang));
   SPEECH.voice =
-    vs.find((v) => /en[-_]GB/i.test(v.lang)) ||
-    vs.find((v) => /en[-_]US/i.test(v.lang)) ||
+    us.find((v) => /(neural|natural|enhanced|premium|siri)/i.test(v.name)) ||
+    us[0] ||
     vs.find((v) => /^en/i.test(v.lang)) ||
     vs[0];
   SPEECH.ready = true;
@@ -415,21 +420,55 @@ const unlockSpeech = () => {
   }
 };
 
-const say = (text, slow) => {
+/* ============================================================
+   PRE-GENERATED VOICE-OVER
+   The robotic phone voice drops the final consonants staff most
+   need to hear, which is the whole reason the PRON coach exists.
+   So we bake a real American voice at build time (Azure Neural TTS,
+   scripts/generate-audio.js) into audio/<hash>.mp3, cache it in the
+   service worker, and play it when we have it — falling back to the
+   phone's own voice when we don't. build.js injects AUDIO_MANIFEST
+   from the audio/ folder; it is empty until the audio is generated.
+   ============================================================ */
+
+/* The exact normalisation applied before both speaking and hashing.
+   The audio generator applies the identical steps, so a line and its
+   clip agree on a filename with no lookup table shipped. */
+const cleanForSpeech = (text) =>
+  text
+    .replace(/\[.*?\]/g, "")
+    .replace(/[—–]/g, ",")
+    .replace(/[“”‘’]/g, "")
+    .trim();
+
+/* cyrb53 — a tiny, fast, deterministic string hash. generate-audio.js
+   uses this same function, byte for byte, to name each clip. */
+const hashText = (str) => {
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  const n = 4294967296 * (2097151 & h2) + (h1 >>> 0);
+  return n.toString(36);
+};
+
+const AUDIO_SET = new Set(typeof AUDIO_MANIFEST !== "undefined" ? AUDIO_MANIFEST : []);
+
+/* The phone's own synthetic voice — the fallback when we have no clip. */
+const saySynthetic = (clean, slow) => {
   const s = SPEECH.engine;
-  if (!s || !text) return false;
+  if (!s || !clean) return false;
   try {
     unlockSpeech();
     s.cancel();
     s.resume(); // Chrome sometimes parks the queue
-    const clean = text
-      .replace(/\[.*?\]/g, "")
-      .replace(/[—–]/g, ",")
-      .replace(/[“”‘’]/g, "")
-      .trim();
     const u = new SpeechSynthesisUtterance(clean);
     if (SPEECH.voice) u.voice = SPEECH.voice;
-    u.lang = SPEECH.voice ? SPEECH.voice.lang : "en-GB";
+    u.lang = SPEECH.voice ? SPEECH.voice.lang : "en-US";
     u.rate = slow ? 0.55 : 0.92;
     u.volume = 1;
     u.pitch = 1;
@@ -438,6 +477,27 @@ const say = (text, slow) => {
   } catch (e) {
     return false;
   }
+};
+
+const say = (text, slow) => {
+  if (!text) return false;
+  const clean = cleanForSpeech(text);
+
+  /* Prefer the real, pre-generated American voice when we have the clip. */
+  if (AUDIO_SET.has(hashText(clean)) && typeof Audio !== "undefined") {
+    try {
+      if (SPEECH.engine) SPEECH.engine.cancel(); // silence any synthetic speech
+      if (SPEECH.audio) { SPEECH.audio.pause(); SPEECH.audio.currentTime = 0; }
+      const a = new Audio("audio/" + hashText(clean) + ".mp3");
+      a.playbackRate = slow ? 0.7 : 1;
+      SPEECH.audio = a;
+      a.play().catch(() => saySynthetic(clean, slow)); // fall back if playback is blocked
+      return true;
+    } catch (e) {
+      /* fall through to the synthetic voice */
+    }
+  }
+  return saySynthetic(clean, slow);
 };
 
 const speechAvailable = () => !!SPEECH.engine;
