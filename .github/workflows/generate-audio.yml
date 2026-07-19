@@ -1,0 +1,59 @@
+name: Generate voice-over audio
+
+# Run this by hand from the Actions tab (Run workflow). It renders every
+# spoken line with Azure Neural TTS, rebuilds app.js, bumps the cache, and
+# commits the result — so the app speaks in a real American voice.
+#
+# One-time setup (repo Settings > Secrets and variables > Actions):
+#   AZURE_SPEECH_KEY     your Azure Speech resource key
+#   AZURE_SPEECH_REGION  its region, e.g. eastus
+# The key stays in GitHub Secrets and is never written into a shipped file.
+
+on:
+  workflow_dispatch:
+    inputs:
+      voice:
+        description: "Azure Neural voice"
+        default: "en-US-AvaMultilingualNeural"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install build dependencies
+        run: npm ci
+
+      - name: Generate audio (Azure Neural TTS)
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
+          VOICE: ${{ inputs.voice }}
+        run: node scripts/generate-audio.js
+
+      - name: Rebuild app.js
+        run: node build.js
+
+      - name: Bump service-worker cache
+        run: node scripts/bump-cache.js
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add audio app.js sw.js
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Generate Azure Neural voice-over audio (${{ inputs.voice }})"
+            git push
+          fi
