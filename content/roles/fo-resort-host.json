@@ -1,5 +1,5 @@
 {
-  "$comment": "Resort Host (The Little Shore). Guest-facing front-office role built from the FOTLKL English for Resort Host manual. Thai fields carry the meaning only — the manual's Thai-script English pronunciation is deliberately dropped (the app's #1 rule); pronunciation lives in the PRON coach. Same three-verdict engine as F&B. 'Welcome ashore' is the property's signature greeting — guests arrive by boat.",
+  "$comment": "Resort Host (The Little Shore). Guest-facing front-office role built from the FOTLKL English for Resort Host manual. Thai fields carry the meaning only — the manual's Thai-script English pronunciation is deliberately dropped (the app's #1 rule); pronunciation lives in the PRON coach. Same three-verdict engine as F&B. 'Welcome ashore' is the property's own signature greeting (a play on the resort's name) — guests arrive by road, not by sea.",
   "id": "fo-resort-host",
   "name": {
     "en": "Resort Host",
@@ -14,30 +14,30 @@
     {
       "id": "welcome",
       "name": {
-        "en": "Welcome Ashore",
-        "th": "ต้อนรับขึ้นฝั่ง"
+        "en": "Welcome & Greeting",
+        "th": "ต้อนรับและทักทาย"
       },
       "questions": [
         {
           "type": "choice",
-          "scene": "A guest steps off the boat onto the jetty at {{property.name}}. You greet them with a wai.",
-          "sceneTh": "แขกก้าวลงจากเรือขึ้นสู่ท่าเทียบเรือของ{{property.name}} คุณไหว้ทักทาย",
+          "scene": "A guest arrives at {{property.name}} and comes up to your desk. You greet them with a wai.",
+          "sceneTh": "แขกเดินทางมาถึง{{property.name}}และเดินมาที่เคาน์เตอร์ คุณไหว้ทักทาย",
           "ask": "What do you say?",
           "askTh": "คุณจะพูดอย่างไร",
           "options": [
             {
               "t": "\"Sawasdee kha, welcome ashore. Welcome to {{property.name}}.\"",
-              "th": "\"สวัสดีค่ะ ยินดีต้อนรับขึ้นฝั่ง ยินดีต้อนรับสู่{{property.name}}ค่ะ\"",
+              "th": "\"สวัสดีค่ะ ยินดีต้อนรับสู่{{property.name}}ค่ะ\"",
               "v": "best",
-              "n": "The wai, then our signature greeting. 'Welcome ashore' is what makes arriving here feel special.",
-              "nTh": "ไหว้ก่อน แล้วตามด้วยคำต้อนรับประจำรีสอร์ท 'ยินดีต้อนรับขึ้นฝั่ง' ทำให้การมาถึงรู้สึกพิเศษ"
+              "n": "The wai first, then a warm welcome with the resort's name. 'Welcome ashore' is the resort's own signature greeting.",
+              "nTh": "ไหว้ก่อน แล้วต้อนรับอย่างอบอุ่นพร้อมบอกชื่อรีสอร์ท 'Welcome ashore' คือคำต้อนรับประจำของรีสอร์ท"
             },
             {
               "t": "\"Hello. Check-in?\"",
               "th": "\"สวัสดีค่ะ เช็คอินไหมคะ\"",
               "v": "ok",
-              "n": "Correct, but cold. The guest just crossed the water to reach us — welcome them warmly first.",
-              "nTh": "ถูก แต่เย็นชา แขกเพิ่งข้ามน้ำมาถึงเรา ต้อนรับอย่างอบอุ่นก่อน"
+              "n": "Correct, but cold. The guest has travelled a long way to reach us — welcome them warmly first.",
+              "nTh": "ถูก แต่เย็นชา แขกเดินทางมาไกลกว่าจะถึงเรา ต้อนรับอย่างอบอุ่นก่อน"
             },
             {
               "t": "\"Wait there, someone will come.\"",
@@ -47,8 +47,8 @@
               "nTh": "ห้ามปล่อยแขกที่เพิ่งมาถึงยืนรอ คุณคือการต้อนรับ"
             },
             {
-              "t": "\"You are late, the boat was supposed to be earlier.\"",
-              "th": "\"มาสายนะคะ เรือน่าจะมาถึงเร็วกว่านี้\"",
+              "t": "\"You are late, we expected you earlier.\"",
+              "th": "\"มาสายนะคะ เรานึกว่าจะมาถึงเร็วกว่านี้\"",
               "v": "bad",
               "n": "Never comment on timing. The guest's arrival is a happy moment, not a problem.",
               "nTh": "ห้ามพูดเรื่องเวลา การมาถึงของแขกเป็นช่วงเวลาที่ดี ไม่ใช่ปัญหา"
